@@ -29,6 +29,12 @@
                     Records
                 </a>
             </li>
+
+            <li class="mb-2">
+                <a href="{{route('admin.treatments')}}" class="{{ request()->route()->getName() === 'admin.treatments' ? 'block p-2 bg-gray-700 text-white rounded' : 'block p-2 hover:bg-gray-700 hover:text-white rounded' }}">
+                    Treatments
+                </a>
+            </li>
             <li class="mb-2">
                 <a href="{{route('admin.profile')}}" class="{{ request()->route()->getName() === 'admin.profile' ? 'block p-2 bg-gray-700 text-white rounded' : 'block p-2 hover:bg-gray-700 hover:text-white rounded' }}">
                     Profile

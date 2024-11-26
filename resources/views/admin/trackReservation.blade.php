@@ -24,19 +24,15 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 ">
                             <div class="flex gap-4 justify-start items-center">
                                 <label for="">Name:</label>
-                                <input type="text" readonly value="{{$id->userProfile->firstname}} {{$id->userProfile->middlename}} {{$id->userProfile->lastname}} {{$id->userProfile->extensionname}}" class=" bg-transparent rounded-lg shadow lg:px-10 px-4 py-3 text-left text-md w-full">
+                                <input type="text" readonly value="{{$id->firstname}} {{$id->middlename}} {{$id->lastname}} {{$id->extensionname}}" class=" bg-transparent rounded-lg shadow lg:px-10 px-4 py-3 text-left text-md w-full">
                             </div>
                             <div class="flex gap-4 justify-start items-center">
                                 <label for="">Phone Number:</label>
-                                <input type="text" readonly value="{{$id->userProfile->phone_number}}" class="bg-transparent  rounded-lg shadow lg:px-10 px-4 py-3 text-left text-md w-full">
+                                <input type="text" readonly value="{{$id->phone_number}}" class="bg-transparent  rounded-lg shadow lg:px-10 px-4 py-3 text-left text-md w-full">
                             </div>
                             <div class="flex gap-4 justify-start items-center">
-                                <label for="">Age:</label>
-                                <input type="text" readonly value="{{$id->userProfile->age}}" class="bg-transparent  rounded-lg shadow lg:px-10 px-4 py-3 text-left text-md w-full">
-                            </div>
-                            <div class="flex gap-4 justify-start items-center">
-                                <label for="">Sex:</label>
-                                <input type="text" readonly value="{{$id->userProfile->sex}}" class="bg-transparent  rounded-lg shadow lg:px-10 px-4 py-3 text-left text-md w-full">
+                                <label for="">Email:</label>
+                                <input type="text" readonly value="{{$id->email}}" class="bg-transparent  rounded-lg shadow lg:px-10 px-4 py-3 text-left text-md w-full">
                             </div>
                         </div>  
                     </div>
@@ -65,29 +61,24 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 ">
                             <div class="flex gap-4 justify-start items-center">
                                 <label for="">Name:</label>
-                                <input type="text" readonly value="{{$id->userProfile->emergency_name}}" class=" bg-transparent rounded-lg shadow lg:px-10 px-4 py-3 text-left text-md w-full">
+                                <input type="text" readonly value="{{$id->emergency_name}}" class=" bg-transparent rounded-lg shadow lg:px-10 px-4 py-3 text-left text-md w-full">
                             </div>
                             <div class="flex gap-4 justify-start items-center">
                                 <label for="">Phone Number:</label>
-                                <input type="text" readonly value="{{$id->userProfile->emergency_contact}}" class="bg-transparent  rounded-lg shadow lg:px-10 px-4 py-3 text-left text-md w-full">
+                                <input type="text" readonly value="{{$id->emergency_contact}}" class="bg-transparent  rounded-lg shadow lg:px-10 px-4 py-3 text-left text-md w-full">
                             </div>
                             <div class="flex gap-4 justify-start items-center">
                                 <label for="">Relationship:</label>
-                                <input type="text" readonly value="{{$id->userProfile->emergency_relationship}}" class="bg-transparent  rounded-lg shadow lg:px-10 px-4 py-3 text-left text-md w-full">
+                                <input type="text" readonly value="{{$id->emergency_relationship}}" class="bg-transparent  rounded-lg shadow lg:px-10 px-4 py-3 text-left text-md w-full">
                             </div>
                            
                         </div>  
                     </div>
                     
-                    @if ($id->reservation_status === "approved")
+                    @if ($id->reservation_status === "ongoing")
                     <div class="mx-auto px-4 w-full max-[520px]:max-w-[600px]  max-sm:flex-col flex gap-4 items-center justify-center py-8">
-                        <a href="{{route('admin.approveReservation', $id->id)}}" class="px-10 py-3 rounded-md text-center border-none text-lg text-white shadow bg-[#624E88] hover:bg-[#58457b]">Complete Reservation</a>
+                        <a href="{{route('admin.completeReservation', $id->id)}}" class="px-10 py-3 rounded-md text-center border-none text-lg text-white shadow bg-[#624E88] hover:bg-[#58457b]">Complete Reservation</a>
                         <a href="{{route('admin.rejectReservation', $id->id)}}" class="px-10 py-3 rounded-md text-center border-none text-lg text-white shadow bg-red-700 hover:bg-red-800">No-show Reservation</a>
-                    </div>
-                    @else
-                    <div class="mx-auto px-4 w-full max-[520px]:max-w-[600px]  max-sm:flex-col flex gap-4 items-center justify-end py-8">
-                        <a href="{{route('admin.patientHistory')}}" class="px-10 py-3 rounded-md text-center border-none text-lg text-white shadow bg-[#624E88] hover:bg-[#58457b]">Back to Patient History</a>
-                       
                     </div>
                     @endif
 

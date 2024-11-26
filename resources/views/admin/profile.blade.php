@@ -36,7 +36,7 @@
 
                     <div class="mx-auto px-4 w-full max-[520px]:max-w-[600px]  max-sm:flex-col flex gap-4 items-center justify-center py-8">
                         <a href="{{route("admin.editProfile", auth()->user()->id)}}" class="px-10 py-3 rounded-md text-center border-none text-lg text-white shadow bg-[#624E88] hover:bg-[#58457b]">Edit Profile</a>
-                        <a href="" class="px-10 py-3 rounded-md text-center border-none text-lg text-white shadow bg-red-700 hover:bg-red-800">Change Passsword</a>
+                        <a href="{{route("admin.editPassword", auth()->user()->id)}}" class="px-10 py-3 rounded-md text-center border-none text-lg text-white shadow bg-red-700 hover:bg-red-800">Change Passsword</a>
                     </div>
                 
 

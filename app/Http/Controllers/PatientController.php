@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class PatientController extends Controller
 {
-        
+    
     public function createReservations(Request $request) {
         $today = Carbon::today()->format('Y-m-d');
 
@@ -44,8 +44,7 @@ class PatientController extends Controller
                 $dates[$dateFormatted] = 'available';
             }
         }
-
-    
+        
         // Fetch available time slots for the selected date if it exists in the request
         $timeSlots = [];
        // Check if the time slots are being populated correctly
@@ -62,8 +61,14 @@ class PatientController extends Controller
                 '3PM-4PM'  => ['is_occupied' => $appointmentsForDate->where('time_range', '3PM-4PM')->first()->is_occupied ?? false],
             ];
         }
-
-        return view('patient.createReservation', compact('dates', 'timeSlots', 'today', 'endDate'));
+        return view('reservation_page',
+        [
+            "dates" => $dates,
+            "timeSlots" => $timeSlots,
+            "today" => $today, 
+            "endDate" => $endDate
+        ]);
+        
     }
     
 }

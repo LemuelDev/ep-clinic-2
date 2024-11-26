@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('extensionname');
             $table->string('phone_number');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string("emergency_name");
             $table->string("emergency_contact");
             $table->string("emergency_relationship");

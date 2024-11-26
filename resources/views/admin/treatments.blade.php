@@ -16,31 +16,15 @@
             <div class="w-full ">
                 <!-- Your main content goes here -->
                 <div class="flex max-sm:flex-col justify-center max-sm:gap-5 sm:justify-between items-center">
-                    <h1 class="lg:text-3xl text-2xl font-bold ">Reservations</h1>
+                    <h1 class="lg:text-3xl text-2xl font-bold ">Treatments</h1>
                     {{-- route hereee --}}
-                    <div class="flex items-center justify-center gap-4 max-sm:flex-col max-sm:pt-3">
-                      <form action="{{request()->route()->getName() === 'admin.appointments' ? route('admin.appointments') : route('admin.ongoingAppointments')}}"
+                    <form action="{{route("admin.treatments")}}"
                         method="GET">
-                        <input type="text" placeholder="Search Name" name="search" class="px-4 py-2 rounded-lg shadow-md border border-gray-500 bg-transparent">
+                        <input type="text" placeholder="Search Treatment" name="search" class="px-4 py-2 rounded-lg shadow-md border border-gray-500 bg-transparent">
                         <button class="py-3 px-6 rounded-lg bg-blue-500 text-white">Search</button>
-                     </form>
-                     <select name="" id="filter-appointment" class="py-2 px-4 rounded-lg border border-slate-500">
-                          <option value="{{route('admin.appointments')}}" {{request()->route()->getName() === 'admin.appointments' ? 'selected' : ''}}>Pending</option>
-                          <option value="{{route('admin.ongoingAppointments')}}" {{request()->route()->getName() === 'admin.ongoingAppointments' ? 'selected' : ''}}>Ongoing</option>
-                     </select>
-                     <script>
-                      // Get the select element
-                      const filter = document.getElementById('filter-appointment');
-                  
-                      // Add an event listener for the change event
-                      filter.addEventListener('change', function () {
-                          // Redirect to the selected option's value (URL)
-                          window.location.href = this.value;
-                      });
-                  </script>
-                    </div>
+                    </form>
                 </div>
-                @include('admin.tableAppointments') 
+                @include('admin.tableTreatments') 
             </div>
                        
         </main>
