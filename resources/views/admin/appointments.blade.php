@@ -103,7 +103,7 @@
               <h5 class="text-lg font-medium" id="deleteConfirmationModalLabel">Confirm Deletion</h5>
           </div>
           <div class="modal-body my-4 text-red-500 py-4">
-              Are you sure you want to delete this document? 
+              Are you sure you want to delete this reservation? 
           </div>
           <div class="modal-footer flex justify-end gap-4">
               <button type="button" class="text-white py-2 px-6 bg-gray-500 hover:bg-gray-600 rounded-md" data-close-modal>Cancel</button>

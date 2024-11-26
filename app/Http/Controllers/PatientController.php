@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\TimeSlot;
+use App\Models\Treatment;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
@@ -17,11 +18,11 @@ class PatientController extends Controller
         // Get the end date (two months from today)
         $endDate = Carbon::today()->addMonths(2)->format('Y-m-d');
 
-    
+        
         // Fetch all appointments between today and two months from now
         $appointments = TimeSlot::whereBetween('date', [$today, $endDate])->get();
     
-        // Prepare dates with available and fully booked statuses
+        
         $dates = [];
         $period = CarbonPeriod::create($today, $endDate);
         $allTimeSlots = ['8AM-9AM', '9AM-10AM', '10AM-11AM', '11AM-12PM', '1PM-2PM', '2PM-3PM', '3PM-4PM'];
@@ -61,12 +62,16 @@ class PatientController extends Controller
                 '3PM-4PM'  => ['is_occupied' => $appointmentsForDate->where('time_range', '3PM-4PM')->first()->is_occupied ?? false],
             ];
         }
+
+        $treatments = Treatment::orderBy("created_at")->get();
+
         return view('reservation_page',
         [
             "dates" => $dates,
             "timeSlots" => $timeSlots,
             "today" => $today, 
-            "endDate" => $endDate
+            "endDate" => $endDate,
+            "treatments" => $treatments
         ]);
         
     }

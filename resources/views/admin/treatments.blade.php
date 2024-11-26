@@ -18,11 +18,16 @@
                 <div class="flex max-sm:flex-col justify-center max-sm:gap-5 sm:justify-between items-center">
                     <h1 class="lg:text-3xl text-2xl font-bold ">Treatments</h1>
                     {{-- route hereee --}}
-                    <form action="{{route("admin.treatments")}}"
+                    <div class="flex justify-center items-center gap-4 max-sm:flex-col">
+                        <form action="{{route("admin.treatments")}}"
                         method="GET">
                         <input type="text" placeholder="Search Treatment" name="search" class="px-4 py-2 rounded-lg shadow-md border border-gray-500 bg-transparent">
                         <button class="py-3 px-6 rounded-lg bg-blue-500 text-white">Search</button>
-                    </form>
+                        </form>
+                      @if(count($treatments) > 0) 
+                      <a href="{{route('treatment.add')}}" class="px-4 py-3 rounded-md outline-none text-md text-white bg-violet-600 hover:bg-violet-700">Add Treatment</a>
+                      @endif
+                    </div>
                 </div>
                 @include('admin.tableTreatments') 
             </div>
@@ -53,11 +58,11 @@
         @endif
 
         
-        @if (session()->has('failed'))
+        @if (session()->has('error'))
         <dialog id="my_modal_21" class="modal">
           <div class="modal-box">
             <h3 class="text-xl font-bold">Failed!</h3>
-            <p class="py-4 pt-8 text-center text-red-600">{{session('failed')}}</p>
+            <p class="py-4 pt-8 text-center text-red-600">{{session('error')}}</p>
             <div class="modal-action">
               <form method="dialog">
                 <!-- if there is a button in form, it will close the modal -->
@@ -87,7 +92,7 @@
               <h5 class="text-lg font-medium" id="deleteConfirmationModalLabel">Confirm Deletion</h5>
           </div>
           <div class="modal-body my-4 text-red-500 py-4">
-              Are you sure you want to delete this document? 
+              Are you sure you want to delete this treatment? 
           </div>
           <div class="modal-footer flex justify-end gap-4">
               <button type="button" class="text-white py-2 px-6 bg-gray-500 hover:bg-gray-600 rounded-md" data-close-modal>Cancel</button>
@@ -116,7 +121,7 @@
               const deleteForm = modal.querySelector('#deleteForm');
               
               // Construct the URL with the file ID parameter
-              const deleteUrl = `/admin/appointment/delete/${fileId}`;
+              const deleteUrl = `/admin/treatments/delete/${fileId}`;
               
               // Set the form action to the constructed URL
               deleteForm.setAttribute('action', deleteUrl);

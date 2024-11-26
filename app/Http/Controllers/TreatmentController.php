@@ -10,7 +10,8 @@ class TreatmentController extends Controller
     
 
     public function index() {
-        $query = Treatment::all()->orderBy('created_at');
+        $query = Treatment::orderBy('created_at');
+
 
         // Apply search filter if 'search' input is provided
         if (request()->has('search')) {
@@ -24,34 +25,50 @@ class TreatmentController extends Controller
         return view("admin.treatments", compact("treatments"));
     }
 
-    public function store() {
-        $validation = request()->validate([
-            "treatment" => "required|string",
-        ]);
-
-        Treatment::create([
-            "treatment_offer" => $validation["treatment"],
-        ]);
-        
-        return redirect()->route("admin.treatments")->with("success", "Treatment added successfully.");
-    }
-
+    
     public function edit(Treatment $id) {
         return view("admin.trackTreatment", compact("id"));
     }
 
-    public function update(Treatment $id) {
-        
-        $validation = request()->validate([
-            "treatment" => "required|string",
-        ]);
+    public function store()
+    {
+        try {
+            $validation = request()->validate([
+                "treatment" => "required|string",
+            ]);
 
-        $id->update([
-           "treatment_offer" => $validation["treatment"] 
-        ]);
-
-        return redirect()->route("admin.treatments")->with("success", "Treatment updated successfully.");
+            $existingTreatment = Treatment::where('treatment_offer', $validation['treatment'])->first();
+            if ($existingTreatment) {
+                return redirect()->route("treatment.add")->with("error", "The treatment already exists.");
+            }
+    
+            Treatment::create([
+                "treatment_offer" => $validation["treatment"],
+            ]);
+    
+            return redirect()->route("admin.treatments")->with("success", "Treatment added successfully.");
+        } catch (\Exception $e) {
+            return redirect()->route("treatment.add")->with("error", "Failed to add treatment. Please try again.");
+        }
     }
+    
+    public function update(Treatment $id)
+    {
+        try {
+            $validation = request()->validate([
+                "treatment" => "required|string",
+            ]);
+            
+            $id->update([
+                "treatment_offer" => $validation["treatment"],
+            ]);
+    
+            return redirect()->route("admin.treatments")->with("success", "Treatment updated successfully.");
+        } catch (\Exception $e) {
+            return redirect()->route("admin.treatments")->with("error", "Failed to update treatment. Please try again.");
+        }
+    }
+    
 
     public function delete(Treatment $id) {
 

@@ -26,7 +26,7 @@
 
 </head>
 <body>
-
+    
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
        AOS.init();
@@ -123,10 +123,13 @@
                     <div class="grid">
                         <label for="treatment">Select Treatment:</label>
                         <select name="treatment_choice" class="px-6 py-3 rounded-md shadow-md bg-transparent border border-gray-500">
-                            <option value="Cleaning">Cleaning</option>
-                            <option value="Pasta">Pasta</option>
-                            <option value="Root Canal">Root Canal</option>
-                            <option value="Tooth Extraction">Tooth Extraction</option>
+                           @if (count($treatments) > 0)
+                               @foreach ($treatments as $treatment)
+                                   <option value="{{$treatment->treatment_offer}}">{{$treatment->treatment_offer}}</option>
+                               @endforeach
+                           @else
+                           <option value="" disabled selected>No Treatment at the moment.</option>
+                           @endif
                         </select>
                     </div>
 
