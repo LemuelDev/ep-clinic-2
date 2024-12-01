@@ -26,7 +26,7 @@
             </li>
             <li class="mb-2">
                 <a href="{{route('admin.records')}}" class="{{ request()->route()->getName() === 'admin.records' ? 'block p-2 bg-gray-700 text-white rounded' : 'block p-2 hover:bg-gray-700 hover:text-white rounded' }}">
-                    Records
+                    History
                 </a>
             </li>
 

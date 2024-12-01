@@ -88,7 +88,7 @@ Route::post('/admin/profile/update/{id}', [AdminController::class, 'updateProfil
 
 Route::get('/admin/profile/editPassword/{id}', [AdminController::class, 'editPassword'])->name('admin.editPassword');
 
-Route::post('/admin/profile/update/{id}', [AdminController::class, 'updatePassword'])->name('admin.updatePassword');
+Route::post('/admin/profile/updatePassword/{id}', [AdminController::class, 'updatePassword'])->name('admin.updatePassword');
 
 Route::get("/admin/treatments", [TreatmentController::class, "index"])->name("admin.treatments");
 
