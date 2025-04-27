@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,11 +13,102 @@
     <style>
         *{
             font-family: "Poppins", sans-serif;
+            scroll-behavior: smooth;
         }
-        #hero {
-            background-color: #111111;
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.73-5.139-1.691-8.233-2.928C65.888 13.278 60.562 12 50 12c-10.626 0-16.855 1.397-26.66 5.063l-1.767.662c-2.475.923-4.66 1.674-6.724 2.275h6.335zm0-20C13.258 2.892 8.077 4 0 4V2c5.744 0 9.951-.574 14.85-2h6.334zM77.38 0C85.239 2.966 90.502 4 100 4V2c-6.842 0-11.386-.542-16.396-2h-6.225zM0 14c8.44 0 13.718-1.21 22.272-4.402l1.768-.661C33.64 5.347 39.647 4 50 4c10.271 0 15.362 1.222 24.629 4.928C84.112 12.722 89.438 14 100 14v-2c-10.271 0-15.362-1.222-24.629-4.928C65.888 3.278 60.562 2 50 2 39.374 2 33.145 3.397 23.34 7.063l-1.767.662C13.223 10.84 8.163 12 0 12v2z' fill='%23707070' fill-opacity='0.43' fill-rule='evenodd'/%3E%3C/svg%3E");
-        }
+        .image-wrapper {
+      display: flex;
+      justify-content: center;
+      padding-top: 5rem;
+      align-items: center;
+    }
+    .containerr{
+        max-width: 768px;
+        margin: auto;
+    }
+    
+
+    .image-wrapper::before {
+      content: "";
+      position: absolute;
+      background: rgba(80, 80, 80, 0.503);
+      width: 25rem;
+      height: 50px;
+      bottom: 100px;
+      filter: blur(20px);
+      border-radius: 50%;
+    }
+
+    @media(max-width:768px){
+      .image-wrapper::before {
+          content: none; /* This will effectively hide the pseudo-element */
+      }
+
+      .image-wrapper{
+        display: flex;
+        gap: 16px;
+      }
+
+      .image-wrapper img {
+        width: 28% !important;
+        height: 190px !important;
+        clip-path: none !important;
+        margin: 0 0 1rem 0 !important;
+        border-radius: 10px;
+    }
+
+          .image-wrapper .img1,
+          .image-wrapper .img2,
+          .image-wrapper .img3 {
+              height: auto; /* Ensure heights adjust automatically */
+              margin-right: 0; /* Remove any specific right margins */
+          }
+
+        
+          .containerr{
+              max-width: 100%;
+              margin: 0;
+              padding: 0; /* Adjust container padding as needed */
+          }
+
+    }
+
+    .image-wrapper img {
+      width: 270px;
+      clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+      transition: 0.5s ease-out 100ms;
+      cursor: pointer;
+    }
+    
+
+    .image-wrapper img:hover, .map:hover {
+      transform: scale(1.05);
+    }
+
+    .image-wrapper .img1 {
+      height: 20rem;
+      margin-right: -30px;
+    }
+
+    .image-wrapper .img2 {
+      height: 25rem;
+      margin-right: -30px;
+    }
+
+    .image-wrapper .img3 {
+      height: 20rem;
+    }
+
+    .service-card:hover{
+      background-color: #4158D0;
+      background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+      box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, 
+      rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, 
+      rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, 
+      rgba(0, 0, 0, 0.09) 0px 32px 16px;
+      color: white;
+      transition: 0.5s ease-in;
+      cursor: pointer;
+    }
     </style>
      <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
      <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -31,16 +122,54 @@
     <script>
        AOS.init();
      </script>
-    <section id="hero" class="w-full h-[50vh] bg-slate-400">
-        <div class="flex flex-col items-center justify-center pt-20 md:pt-28" data-aos="fade-up"
+
+    <div class="w-full flex items-center justify-around max-sm:justify-between px-4 py-6" data-theme="light" id="navbar">
+        <div class="flex items-center justify-start gap-2"  data-aos="fade-up"
         data-aos-duration="2000">
-            <h4 class="font-bold text-4xl py-4 text-white max-sm:text-center max-sm:px-4">Your Smile, Our Priority: Trusted Dental Care for a Healthier You</h4>
-            <a href="/" class="btn btn-secondary px-8 text-lg mt-4">Go to homepage</a>
+            <a href="#hero" class="md:text-2xl text-md text-[#0118D8] tracking-tighter font-bold">EP DENTAL-CLINIC</a>
+            <img src="{{ asset('images/logo-tooth.png') }}" alt="logo" class="h-[50px] w-[50px] p-2 rounded-full">
+        </div>
+        <div class="flex items-center gap-2 justify-center text-center" data-aos="fade-up"
+        data-aos-duration="2000"> 
+                <a href="/" class="md:text-xl text-md text-black transition-colors rounded-md  px-4 py-3 hover:bg-[#eddaa7]">Homepage</a>
+                
+            
+        </div>
+    </div>
+
+    <section id="hero" class="w-full min-h-[80vh] " data-theme="light">
+       
+        <div class="flex items-center justify-center gap-4 max-lg:flex-col max-md:gap-7  px-6  md:mx-20 md:m-auto">
+            <div class="flex flex-col items-center text-center pt-[5rem] justify-end   " data-aos="fade-up"
+                 data-aos-duration="2000">
+                <h4 class="font-bold text-[40px] py-2 text-[#0118D8] max-sm:text-center max-sm:px-4 ">Book Your Appointment in Minutes.</h4>
+                <p class="text-xl text-center py-2 text-black">Find the perfect time for your visit and secure your spot quickly online.</p>
+                <a href="#reserve" class="bg-[#E9DFC3] hover:bg-[#eddaa7] rounded-lg outline-none  text-black px-8 py-3 text-lg mt-4">Appoint Now</a>
+            </div>
+            <div class="containerr" >
+                <div class="image-wrapper">
+                  <img
+                    class="img1"
+                    src="/images/hero4.jpg"
+                    alt=""
+                  />
+                  <img
+                    class="img2"
+                    src="/images/hero2.jpg"
+                    alt=""
+                  />
+                  <img
+                    class="img3"
+                      src="/images/hero5.jpg"
+                    alt=""
+                  />
+                </div>
+              </div>
         </div>
     </section>
     
-    <section id="reserve" class="min-h-[60vh] w-full lg:py-20 py-14 pt-10">
-            <h4 class="text-black font-bold text-4xl py-4 text-center pt-8">Make your Reservations now!</h4>
+    <section id="reserve" class="min-h-[60vh] w-full lg:py-20 py-14 pt-10 bg-gray-100" data-theme="light">
+            <h4 class=" font-bold text-4xl py-4 text-center pt-8 text-[#0118D8]">Make your Appointment now!</h4>
             <div class="mx-auto max-w-[1500px] px-4 pt-10">
                 <form action="{{ route('patient.create') }}" method="GET" class="grid gap-4 px-4">
                     @csrf
@@ -148,7 +277,7 @@
 
                     <button type="submit" class="btn btn-primary max-w-[500px] mx-auto mt-4 lg:col-span-3 text-md text-white">Submit Reservation</button>
                 </form>
-                <p class="text-center italic text-lg text-slate-500">NOTE: After reservation, there will be an email confirmation to make sure you are reserving an appointment to our dental clinic.</p>
+                <p class="text-center italic text-lg text-slate-700">NOTE: After reservation, there will be an email confirmation to make sure you are making an appointment to our dental clinic.</p>
 
                 <script>
                     // Function to set the hidden time_slot input value
@@ -234,24 +363,30 @@
             </div>
     </section>
 
-     <section class="w-full min-h-[40vh] bg-violet-400" id="services">
-        <h4 class="py-8 text-center text-3xl font-bold"
-        data-aos="fade-up"
-        data-aos-duration="1500">Espineli-Paradeza Dental Clinic</h4>
-            <div class="flex gap-2 items-center justify-around text-center py-8"
-            data-aos="fade-up"
-            data-aos-duration="1500">
-                <p class="text-white text-lg">Located near the Kabuhayan natin store.</p>
-                <p class="text-lg text-white">Opening Hours:Monday to Sunday, 8AM-4PM</p>
-                
+    <section class="w-full min-h-[40vh]"  data-theme="light" id="services">
+
+        <div class="flex justify-center gap-12 items-center px-6 py-14 max-w-[1000x] mx-auto max-md:flex-col max-md:gap-5 ">
+            <div class="lg:text-start text-center grid gap-3">
+                <h4 class="text-4xl py-3 tracking-tighter font-bold text-[#0118D8]">GET IN TOUCH</h4>
+                <p class="text-lg">Feel free to message us with our provided contacts <br> for your inquiries regarding with our dental clinic!</p>
+                <a href="#navbar" tooltip="back to top" class="rounded-full p-3 cursor-pointer "><box-icon name='up-arrow-circle' type='solid' size='lg'></box-icon></a>
+            </div>
+            <div class="flex items-center gap-6 justify-center max-md:flex-col">
+                <div class="flex items-center gap-4 justify-center flex-col border-2 border-black rounded-lg px-10 py-16">
+                    <box-icon type='solid' name='phone-call' class="text-blue text-3xl"></box-icon>
+                    <h4 class="text-md">09475817672</h4>
+                </div>
+                <div class="flex items-center gap-4 justify-center flex-col border-2 border-black rounded-lg px-10 py-16">
+                  <box-icon type='solid' name='envelope' class="text-blue text-3xl"></box-icon>
+                  <h4 class="text-sm">johnlemuelencina30@gmail.com</h4>
+              </div>
             </div>
         </div>
-        <div class="flex justify-center items-center pt-4">
-            <p class="text-xl text-white font-bold">All rights reserved @2024.</p>
-        </div>
+  
+      </section>
+  
 
-    </section>
-
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
           const dates = @json($dates); // Ensure `$dates` is valid JSON
