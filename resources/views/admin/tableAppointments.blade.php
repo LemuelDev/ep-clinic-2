@@ -37,15 +37,15 @@
       @empty
           
       @endforelse
-     
+      
     </tbody>
   </table>
 </div>
-
+{{ $reservations->links() }}
 @else
 <div class="flex flex-col items-center justify-center pt-10">
-    <div class="text-3xl font-bold  mb-4">No Reservations</div>
-    <p class="text-xl mb-6">It looks like there are no reservations at the moment.</p>
+    <div class="text-3xl font-bold  mb-4">No Appointments</div>
+    <p class="text-xl mb-6">It looks like there are no Appointments at the moment.</p>
     {{-- <a href="{{route('patient.create')}}" class="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
         Book a Reservation
     </a> --}}

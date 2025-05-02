@@ -28,7 +28,7 @@
             </div>
             
             {{-- Login section --}}
-            <div data-theme="dark" class="flex justify-center items-center w-1/2 max-sm:w-full">
+            <div data-theme="synthwave" class="flex justify-center items-center w-1/2 max-sm:w-full">
                 <div class="text-center py-6">
                     <h4 class="text-3xl font-bold text-white mb-4 tracking-wide">FORGOT PASSWORD</h4>
                     <p class="text-md text-white py-2">An email will be sent to your account.</p>

@@ -55,16 +55,32 @@ Route::post('password/reset/', [PasswordResetController::class, 'reset'])
 
 
 // posting reservationsss
-Route::get('/reservation/create', [PatientController::class, 'createReservations'])->name('patient.create');
+Route::get('/appointment/create', [PatientController::class, 'createReservations'])->name('patient.create');
 
-Route::post('/reservation/post', [ReservationController::class, 'store'])->name('patient.store');
+Route::post('/appointment/post', [ReservationController::class, 'store'])->name('patient.store');
 
 Route::get('/reservation/{reservation}/confirm', [ReservationController::class, 'confirm'])->name('reservations.confirm');
 
 // admin
 Route::get('/admin/appointments/pending', [AdminController::class, 'appointments'])->name('admin.appointments');
 
+Route::get('/admin/appointments/create/{id}', [AdminController::class, 'createReservations'])->name('admin.create');
+
+Route::get('/admin/appointments/reschedule/{id}', [AdminController::class, 'createReservations'])->name('admin.reschedAppointment');
+
+Route::get('/admin/appointments/new-appointment/', [AdminController::class, 'newAppointment'])->name('admin.newAppointment');
+
+Route::get('/admin/appointments/new-appointment/create', [AdminController::class, 'newReservation'])->name('admin.newReservation');
+
+Route::post('/admin/appointments/post', [AdminController::class, 'storeAppointment'])->name('admin.store');
+
+Route::get('/admin/appointments/pending-and-confirmed', [AdminController::class, 'forApprovalAppointments'])->name('admin.forApprovalAppointments');
+
 Route::get('/admin/appointments/ongoing', [AdminController::class, 'ongoingAppointments'])->name('admin.ongoingAppointments');
+
+Route::get('/admin/appointments/approved/{id}', [AdminController::class, 'approveReservation'])->name('admin.approvedReservation');
+
+Route::post('/admin/appointments/rejected/{id}', [AdminController::class, 'rejectReservation'])->name('admin.rejectedReservation');
 
 Route::get('/admin/appointment/track/{id}', [AdminController::class, 'trackAppointment'])->name('admin.trackReservation');
 

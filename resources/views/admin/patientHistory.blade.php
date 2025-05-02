@@ -1,7 +1,7 @@
 @extends('layout.admin')
 
 @section('content')
-<div class="flex h-screen">
+<div class="flex h-screen" data-theme="light">
     <!-- Sidebar -->
     @include('admin.sidebar')
 
@@ -16,7 +16,7 @@
             <div class=" ">
                 <!-- Your main content goes here -->
                 <div class="flex max-sm:flex-col justify-center max-sm:gap-5 sm:justify-between items-center">
-                    <h1 class="lg:text-3xl text-2xl font-bold ">Reservation History</h1>
+                    <h1 class="lg:text-3xl text-2xl font-bold ">Appointment History</h1>
                           <!-- Status Filter -->
                           <div class="flex items-center justify-center gap-4 max-sm:flex-col max-sm:pt-3">
                             <form action="{{request()->route()->getName() === 'admin.records' ? route('admin.records') : route('admin.noshowRecords')}}"

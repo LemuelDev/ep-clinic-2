@@ -146,7 +146,7 @@
             </div>
             
             {{-- Login section --}}
-            <div data-theme="dark" class="flex justify-center items-center w-1/2 max-sm:w-full">
+            <div data-theme="synthwave" class="flex justify-center items-center w-1/2 max-sm:w-full">
                 <div class="text-center py-6">
                     <h4 class="text-3xl font-bold text-white mb-4 tracking-widest">LOGIN</h4>
                     <form action="{{route('user.auth')}}" method="POST"  class="grid gap-4 items-center text-left">

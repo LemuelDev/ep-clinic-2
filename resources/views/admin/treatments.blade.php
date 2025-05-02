@@ -1,7 +1,7 @@
 @extends('layout.admin')
 
 @section('content')
-<div class="flex h-screen">
+<div class="flex h-screen" data-theme="light">
     <!-- Sidebar -->
     @include('admin.sidebar')
 
@@ -35,7 +35,7 @@
         </main>
 
          @if (session()->has('success'))
-        <dialog id="my_modal_20" class="modal">
+        <dialog id="my_modal_20" class="modal" data-theme="light">
             <div class="modal-box">
               <h3 class="text-xl font-bold">Success!</h3>
               <p class="py-4 pt-8 text-center text-green-600">{{session('success')}}</p>
@@ -59,7 +59,7 @@
 
         
         @if (session()->has('error'))
-        <dialog id="my_modal_21" class="modal">
+        <dialog id="my_modal_21" class="modal" data-theme="light">
           <div class="modal-box">
             <h3 class="text-xl font-bold">Failed!</h3>
             <p class="py-4 pt-8 text-center text-red-600">{{session('error')}}</p>
@@ -85,7 +85,7 @@
 </div>
 
  <!-- Confirmation Modal -->
- <div class="fixed inset-0 z-50 overflow-y-auto hidden" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+ <div class="fixed inset-0 z-50 overflow-y-auto hidden" id="deleteConfirmationModal" data-theme="light" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
   <div class="flex items-center justify-center min-h-screen">
       <div class="bg-white rounded-lg shadow-xl max-w-lg mx-auto p-6">
           <div class="modal-header flex justify-start items-center py-1">

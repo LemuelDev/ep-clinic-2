@@ -31,10 +31,11 @@
      @empty
          
      @endforelse
-    
+  
     </tbody>
   </table>
 </div>
+{{ $treatments->links() }}
 @else
 <div class="flex flex-col mt-10 items-center justify-center">
   <div class="text-3xl font-bold  mb-4">No Treatments</div>

@@ -37,9 +37,10 @@ class ReservationConfirmed extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+                    ->subject('Appointment is finally Confirmed!')
                     ->greeting('Hello ' . $this->reservation->firstname)
-                    ->line('Your reservation at the dental clinic has been confirmed.')
-                    ->line('Reservation Details:')
+                    ->line('Your appointment at the dental clinic has been confirmed.')
+                    ->line('Appointment Details:')
                     ->line('Date: ' . $this->reservation->timeSlots->date)
                     ->line('Time: ' . $this->reservation->timeSlots->time_range)
                     ->line('Treatment: ' . $this->reservation->treatment_choice)

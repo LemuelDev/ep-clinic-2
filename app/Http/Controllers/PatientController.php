@@ -15,11 +15,11 @@ class PatientController extends Controller
     public function createReservations(Request $request) {
         $today = Carbon::today()->format('Y-m-d');
 
-        // Get the end date (two months from today)
-        $endDate = Carbon::today()->addMonths(2)->format('Y-m-d');
+        // Get the end date (one month from today)
+        $endDate = Carbon::today()->addMonths(1)->format('Y-m-d');
 
         
-        // Fetch all appointments between today and two months from now
+        // Fetch all appointments between today and a month from now
         $appointments = TimeSlot::whereBetween('date', [$today, $endDate])->get();
     
         

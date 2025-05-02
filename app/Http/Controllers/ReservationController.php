@@ -11,6 +11,7 @@ use App\Notifications\ReservationPending;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Validation\Rule;
 
 class ReservationController extends Controller
 {
@@ -31,7 +32,14 @@ class ReservationController extends Controller
                 'time_slot' => 'required|string|max:255',
                 'treatment_choice' => 'required|string|max:255',
                 'medical_history' => 'required|string|max:255',
-                'medical_description' => 'nullable|string|max:255', // Required if medical history is "Yes"
+                'medical_description' => [
+                    'nullable',
+                    'string',
+                    'max:255',
+                    Rule::requiredIf(function () {
+                        return request()->input('medical_history') === 'Yes';
+                    }),
+                ],
             ]);
            
 
@@ -61,7 +69,7 @@ class ReservationController extends Controller
             
             Notification::route('mail', $validation['email']) // the email entered by the user
             ->notify(new ReservationPending($reservation));
-            return redirect()->route("patient.create")->with("success", "Reservation created successfully.");
+            return redirect()->route("patient.create")->with("success", "Appointment created successfully.");
     
         } catch (\Illuminate\Validation\ValidationException $e) {
             // Capture validation errors
@@ -79,18 +87,18 @@ class ReservationController extends Controller
         // Check if the reservation is already confirmed or if it's pending
         if ($reservation->reservation_status == 'pending') {
             // Update the status to 'ongoing'
-            $reservation->reservation_status = 'ongoing';
+            $reservation->reservation_status = 'pending and confirmed';
             $reservation->save();
     
             // Send confirmation email to the patient
             Notification::route('mail', $reservation->email)  // Using the email from the reservation
                 ->notify(new ReservationConfirmed($reservation));
     
-            return redirect()->route('home')->with('success', 'Your reservation has been confirmed.');
+            return redirect()->route('home')->with('success', 'Your appointment has been confirmed.');
         }
     
         // If it's already confirmed, show a message
-        return redirect()->route('home')->with('error', 'This reservation has already been confirmed.');
+        return redirect()->route('home')->with('error', 'This appointment has already been confirmed.');
     }
     
 

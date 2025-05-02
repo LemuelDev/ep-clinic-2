@@ -1,7 +1,7 @@
 @extends('layout.admin')
 
 @section('content')
-<div class="flex h-screen">
+<div class="flex h-screen"  data-theme="light">
     <!-- Sidebar -->
     @include('admin.sidebar')
 
@@ -29,7 +29,7 @@
 </div>
 
 @if (session()->has('success'))
-<dialog id="my_modal_40" class="modal">
+<dialog id="my_modal_40" class="modal"  data-theme="light">
     <div class="modal-box">
       <h3 class="text-xl font-bold">Success!</h3>
       <p class="py-4 pt-8 text-center text-green-600">{{session('success')}}</p>
@@ -53,7 +53,7 @@
 
 
 @if (session()->has('failed'))
-<dialog id="my_modal_39" class="modal">
+<dialog id="my_modal_39" class="modal"  data-theme="light">
   <div class="modal-box">
     <h3 class="text-xl font-bold">Failed!</h3>
     <p class="py-4 pt-8 text-center text-red-600">{{session('failed')}}</p>

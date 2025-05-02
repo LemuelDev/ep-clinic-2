@@ -20,7 +20,7 @@ class TreatmentController extends Controller
         }
         
         // Execute the query to retrieve the filtered results
-        $treatments = $query->get();
+        $treatments = $query->paginate(5);
 
         return view("admin.treatments", compact("treatments"));
     }

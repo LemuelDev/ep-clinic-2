@@ -1,7 +1,9 @@
 <aside 
+    data-theme="light"
     id="sidebar" 
-    class="shadow-xl rounded-lg w-[17rem] transition-all duration-300 ease-in-out transform lg:translate-x-0 -translate-x-full lg:relative fixed h-full bottom-0 z-[1000]">
-    <div class="flex flex-col h-full p-4">
+    class="shadow-xl rounded-lg w-[17rem] transition-all duration-300 ease-in-out transform lg:translate-x-0 -translate-x-full lg:relative fixed min-h-full bottom-0 z-[1000]">
+    
+    <div class="flex flex-col h-full p-4" data-theme="light">
         <div class="flex justify-end">
             <button 
             id="sidebarToggle" 
@@ -14,14 +16,14 @@
         </div>
 
         <!-- Sidebar content -->
-        <ul class="mt-4 flex-grow">
+        <ul class="mt-4 flex-grow" data-theme="light">
             <li class="mb-2 text-center">
                 <a href="#" class="text-center font-bold text-lg flex justify-center items-center gap-2">ADMIN <span class="pt-2"><box-icon name='user' color="currentColor" ></box-icon></span> </a>
             </li>
 
             <li class="mb-2">
                 <a href="{{route('admin.appointments')}}" class="{{ request()->route()->getName() === 'admin.appointments' ? 'block p-2 bg-gray-700 text-white rounded' : 'block p-2 hover:bg-gray-700 hover:text-white rounded' }}">
-                    Reservations
+                    Appointments
                 </a>
             </li>
             <li class="mb-2">
@@ -55,7 +57,7 @@
         </ul>
         
         <!-- Footer -->
-        <footer class="mt-auto text-center p-2 text-sm border-2 border-gray-400 rounded-lg">
+        <footer class="mt-auto text-center p-2 text-sm border-2 border-gray-400 rounded-lg" data-theme="light">
             <p>Espineli-Paradeza</p>
             <p>Dental Clinic</p>
         </footer>

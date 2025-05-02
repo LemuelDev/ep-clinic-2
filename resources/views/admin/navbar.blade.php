@@ -1,4 +1,4 @@
-<nav class=" shadow p-4">
+<nav class=" shadow p-4" data-theme="light">
     <div class="container mx-auto flex justify-between px-4 items-center lg:justify-end gap-4">
 
       <button class="block lg:hidden" onclick="toggleSidebar()">
@@ -8,10 +8,11 @@
        </button>
 
        <div class="flex justify-end gap-4 items-center">
+        <a href="{{route("admin.newReservation")}}" class="btn btn-primary">New Appointment</a>
         <button class="btn btn-error" onclick="my_modal_1.showModal()">Logout</button>
         {{-- modal --}}
    
-            <dialog id="my_modal_1" class="modal">
+            <dialog id="my_modal_1" class="modal" data-theme="light">
               <div class="modal-box">
                 <h3 class="text-xl font-bold">Confirmation</h3>
                 <p class="pt-4 text-lg text-center">Are you sure you want to logout ?</p>

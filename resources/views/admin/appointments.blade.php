@@ -1,7 +1,7 @@
 @extends('layout.admin')
 
 @section('content')
-<div class="flex h-screen">
+<div class="flex h-screen"  data-theme="light">
     <!-- Sidebar -->
     @include('admin.sidebar')
 
@@ -16,7 +16,7 @@
             <div class="w-full ">
                 <!-- Your main content goes here -->
                 <div class="flex max-sm:flex-col justify-center max-sm:gap-5 sm:justify-between items-center">
-                    <h1 class="lg:text-3xl text-2xl font-bold ">Reservations</h1>
+                    <h1 class="lg:text-3xl text-2xl font-bold ">Appointments</h1>
                     {{-- route hereee --}}
                     <div class="flex items-center justify-center gap-4 max-sm:flex-col max-sm:pt-3">
                       <form action="{{request()->route()->getName() === 'admin.appointments' ? route('admin.appointments') : route('admin.ongoingAppointments')}}"
@@ -46,7 +46,7 @@
         </main>
 
          @if (session()->has('success'))
-        <dialog id="my_modal_20" class="modal">
+        <dialog id="my_modal_20" class="modal"  data-theme="light">
             <div class="modal-box">
               <h3 class="text-xl font-bold">Success!</h3>
               <p class="py-4 pt-8 text-center text-green-600">{{session('success')}}</p>
@@ -70,7 +70,7 @@
 
         
         @if (session()->has('failed'))
-        <dialog id="my_modal_21" class="modal">
+        <dialog id="my_modal_21" class="modal"  data-theme="light">
           <div class="modal-box">
             <h3 class="text-xl font-bold">Failed!</h3>
             <p class="py-4 pt-8 text-center text-red-600">{{session('failed')}}</p>
@@ -96,14 +96,14 @@
 </div>
 
  <!-- Confirmation Modal -->
- <div class="fixed inset-0 z-50 overflow-y-auto hidden" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+ <div class="fixed inset-0 z-50 overflow-y-auto hidden" id="deleteConfirmationModal"  data-theme="light" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
   <div class="flex items-center justify-center min-h-screen">
-      <div class="bg-white rounded-lg shadow-xl max-w-lg mx-auto p-6">
+      <div class=" rounded-lg shadow-xl max-w-lg mx-auto p-6">
           <div class="modal-header flex justify-start items-center py-1">
               <h5 class="text-lg font-medium" id="deleteConfirmationModalLabel">Confirm Deletion</h5>
           </div>
           <div class="modal-body my-4 text-red-500 py-4">
-              Are you sure you want to delete this reservation? 
+              Are you sure you want to delete this appointment? 
           </div>
           <div class="modal-footer flex justify-end gap-4">
               <button type="button" class="text-white py-2 px-6 bg-gray-500 hover:bg-gray-600 rounded-md" data-close-modal>Cancel</button>

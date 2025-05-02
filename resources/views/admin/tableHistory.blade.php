@@ -41,10 +41,11 @@
       @empty
           
       @endforelse
-     
+
     </tbody>
   </table>
 </div>
+{{ $reservations->links() }}
 
 @else
 <div class="flex flex-col items-center justify-center pt-16">

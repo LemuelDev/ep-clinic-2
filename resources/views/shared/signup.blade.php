@@ -41,7 +41,7 @@
             </div>
             
             {{-- Login section --}}
-            <div data-theme="dark" class="flex justify-center items-center w-1/2 max-lg:w-full">
+            <div data-theme="synthwave" class="flex justify-center items-center w-1/2 max-lg:w-full">
                 <div class="text-center py-4">
                     <h4 class="text-3xl font-bold text-white mb-4 tracking-widest">SIGNUP</h4>
                     <form action="{{route('users.store')}}" method="POST"  class="grid gap-4 items-center text-left">

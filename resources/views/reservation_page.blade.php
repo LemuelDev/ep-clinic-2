@@ -11,6 +11,32 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <style>
+        .glasscss{
+            /* From https://css.glass */
+                background: rgba(255, 255, 255, 0.19);
+                border-radius: 16px;
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+                backdrop-filter: blur(6.4px);
+                -webkit-backdrop-filter: blur(6.4px);
+                border: 1px solid rgba(255, 255, 255, 0.14);
+        }
+
+        .inputss {
+            border: none;
+            padding: 1rem;
+            border-radius: 1rem;
+            box-shadow: 20px 20px 60px #c5c5c5,
+                    -20px -20px 60px #ffffff;
+            transition: 0.3s;
+        
+            }
+
+            .inputss:focus {
+            outline-color: #e8e8e8;
+            box-shadow: inset 20px 20px 60px #c5c5c5,
+                    inset -20px -20px 60px #ffffff;
+            transition: 0.3s;
+            }
         *{
             font-family: "Poppins", sans-serif;
             scroll-behavior: smooth;
@@ -131,7 +157,7 @@
         </div>
         <div class="flex items-center gap-2 justify-center text-center" data-aos="fade-up"
         data-aos-duration="2000"> 
-                <a href="/" class="md:text-xl text-md text-black transition-colors rounded-md  px-4 py-3 hover:bg-[#eddaa7]">Homepage</a>
+                <a href="/" class="md:text-xl text-md text-black transition-colors rounded-md  px-4 py-3 hover:bg-[#404fd3] hover:text-white">Homepage</a>
                 
             
         </div>
@@ -144,7 +170,7 @@
                  data-aos-duration="2000">
                 <h4 class="font-bold text-[40px] py-2 text-[#0118D8] max-sm:text-center max-sm:px-4 ">Book Your Appointment in Minutes.</h4>
                 <p class="text-xl text-center py-2 text-black">Find the perfect time for your visit and secure your spot quickly online.</p>
-                <a href="#reserve" class="bg-[#E9DFC3] hover:bg-[#eddaa7] rounded-lg outline-none  text-black px-8 py-3 text-lg mt-4">Appoint Now</a>
+                {{-- <a href="#reserve" class="bg-[#E9DFC3] hover:bg-[#eddaa7] rounded-lg outline-none  text-black px-8 py-3 text-lg mt-4">Appoint Now</a> --}}
             </div>
             <div class="containerr" >
                 <div class="image-wrapper">
@@ -166,6 +192,26 @@
                 </div>
               </div>
         </div>
+    </section>
+
+    <section class="w-full min-h-[65vh] py-16" data-theme="light">
+        <div class="flex items-center justify-center flex-col  gap-6 max-w-[1050px] mx-auto py-20 max-sm:px-4">
+            <h4 class=" font-bold text-4xl py-4 text-center pt-8 text-[#0118D8]">Get Personalized Dental Insights from Our AI Assistant</h4>
+            <div class="grid gap-6 max-w-[700px] mx-auto items-center text-center p-5 rounded-lg outline-none glasscss">
+                <h4 class="py-4 text-3xl text-black">DISCLAIMER:</h4>
+               <p class="text-md">This AI assistant is designed to offer preliminary information and is not a substitute for professional dental consultation. 
+                The insights and suggestions provided are dependent on your input and may not be entirely accurate.
+                 For a comprehensive evaluation and personalized advice, always consult with a qualified dentist.</p>
+            </div>
+            <form action="" class="flex max-lg:flex-col items-around justify-center gap-4 p-4 max-w-[1000px] mx-auto" method="POST">
+                @csrf
+                <input type="text" placeholder="Enter your dental condition" class="inputss placeholder:text-slate-500 min-w-[600px] max-sm:w-full max-lg:min-w-[400px] bg-white ">
+                <button class="bg-blue-600 hover:bg-blue-700 transition-colors px-8 py-3 text-white text-lg  font-bold rounded-lg shadow-xl outline-none">Submit</button>
+            </form>
+            <div class=" rounded-lg shadow-xl mt-8" id="result">
+                
+            </div>
+        </div>      
     </section>
     
     <section id="reserve" class="min-h-[60vh] w-full lg:py-20 py-14 pt-10 bg-gray-100" data-theme="light">
@@ -275,9 +321,9 @@
                         <input type="text" name="medical_description" placeholder="Medical History" class="px-6 py-3 bg-transparent rounded-md shadow-md border border-gray-500">
                     </div>
 
-                    <button type="submit" class="btn btn-primary max-w-[500px] mx-auto mt-4 lg:col-span-3 text-md text-white">Submit Reservation</button>
+                    <button type="submit" class="btn btn-primary max-w-[500px] mx-auto mt-4 lg:col-span-3 text-md text-white">Submit Appointment</button>
                 </form>
-                <p class="text-center italic text-lg text-slate-700">NOTE: After reservation, there will be an email confirmation to make sure you are making an appointment to our dental clinic.</p>
+                <p class="text-center italic text-lg text-slate-700">NOTE: After appointment, there will be an email confirmation to make sure you are making an appointment to our dental clinic.</p>
 
                 <script>
                     // Function to set the hidden time_slot input value
@@ -363,15 +409,20 @@
             </div>
     </section>
 
+
     <section class="w-full min-h-[40vh]"  data-theme="light" id="services">
 
         <div class="flex justify-center gap-12 items-center px-6 py-14 max-w-[1000x] mx-auto max-md:flex-col max-md:gap-5 ">
-            <div class="lg:text-start text-center grid gap-3">
+            <div class="lg:text-start text-center grid gap-3"
+            data-aos="fade-up"
+                   data-aos-duration="2000">
                 <h4 class="text-4xl py-3 tracking-tighter font-bold text-[#0118D8]">GET IN TOUCH</h4>
                 <p class="text-lg">Feel free to message us with our provided contacts <br> for your inquiries regarding with our dental clinic!</p>
                 <a href="#navbar" tooltip="back to top" class="rounded-full p-3 cursor-pointer "><box-icon name='up-arrow-circle' type='solid' size='lg'></box-icon></a>
             </div>
-            <div class="flex items-center gap-6 justify-center max-md:flex-col">
+            <div class="flex items-center gap-6 justify-center max-md:flex-col"
+            data-aos="fade-up"
+                   data-aos-duration="2000">
                 <div class="flex items-center gap-4 justify-center flex-col border-2 border-black rounded-lg px-10 py-16">
                     <box-icon type='solid' name='phone-call' class="text-blue text-3xl"></box-icon>
                     <h4 class="text-md">09475817672</h4>

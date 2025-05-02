@@ -1,7 +1,7 @@
 @extends('layout.admin')
 
 @section('content')
-<div class="flex h-screen">
+<div class="flex h-screen" data-theme="light">
     <!-- Sidebar -->
     @include('admin.sidebar')
 
@@ -52,7 +52,7 @@
 
         
         @if (session()->has('failed'))
-        <dialog id="my_modal_24" class="modal">
+        <dialog id="my_modal_24" class="modal" data-theme="light">
           <div class="modal-box">
             <h3 class="text-xl font-bold">Failed!</h3>
             <p class="py-4 pt-8 text-center text-red-600">{{session('failed')}}</p>
@@ -75,7 +75,7 @@
         @endif
 
         @if ($errors->any())
-        <dialog id="my_modal_24" class="modal">
+        <dialog id="my_modal_24" class="modal" data-theme="light">
           <div class="modal-box">
             <h3 class="text-xl font-bold">Failed!</h3>
             <p class="py-4 pt-8 text-center text-red-600"> @foreach ($errors->all() as $error)
@@ -100,7 +100,7 @@
         @endif
 
         @if ($errors->has('email'))
-        <dialog id="my_modal_27" class="modal">
+        <dialog id="my_modal_27" class="modal" data-theme="light">
             <div class="modal-box">
             <h3 class="text-xl font-bold">Failed!</h3>
             <p class="py-4 pt-8 text-center text-red-600">{{$errors->first('email')}}</p>

@@ -9,13 +9,14 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class ApproveReservation extends Mailable
+class RejectAppointment extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
-     */ public $mailmessage;
+     */
+     public $mailmessage;
      public $maildate;
      public $mailtime;
      public $mailtreatment;
@@ -27,13 +28,14 @@ class ApproveReservation extends Mailable
         $this->mailtreatment = $treatment;
     }
 
+
     /**
      * Get the message envelope.
      */
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Your Appointment is Approved!',
+            subject: 'Your Appointment is Rejected!',
         );
     }
 
@@ -43,8 +45,7 @@ class ApproveReservation extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'shared.approve-reservation',
-            
+            view: 'shared.reject-reservation',
         );
     }
 

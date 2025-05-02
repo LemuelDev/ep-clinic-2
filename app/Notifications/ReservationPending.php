@@ -35,15 +35,16 @@ class ReservationPending extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+                    ->subject('Confirm your Appointment!')
                     ->greeting('Hello ' . $this->reservation->firstname)
-                    ->line('Thank you for booking your reservation at the dental clinic.')
-                    ->line('Reservation Details:')
+                    ->line('Thank you for booking your appointment at the dental clinic.')
+                    ->line('Appointment Details:')
                     ->line('Date: ' . $this->reservation->timeSlots->date)
                     ->line('Time: ' . $this->reservation->timeSlots->time_range)
                     ->line('Treatment: ' . $this->reservation->treatment_choice)
-                    ->line('Please confirm your reservation by clicking the link below:')
-                    ->action('Confirm Reservation', route('reservations.confirm', $this->reservation->id))
-                    ->line('If you did not make this reservation, please ignore this email.')
+                    ->line('Please confirm your appointment by clicking the link below:')
+                    ->action('Confirm Appointment', route('reservations.confirm', $this->reservation->id))
+                    ->line('If you did not make this appointment, please ignore this email.')
                     ->line('Thank you for using our service!');
     }
     /**

@@ -130,8 +130,8 @@
         </div>
         <div class="flex items-center gap-2 justify-center text-center" data-aos="fade-up"
         data-aos-duration="2000"> 
-                <a href="#about" class="md:text-xl text-md text-black transition-colors rounded-md  px-4 py-3 hover:bg-[#eddaa7]">About</a>
-                <a href="#services" class="md:text-xl text-md text-black rounded-md px-4 py-3 hover:bg-[#eddaa7] transition-colors ">Services</a>
+                <a href="#about" class="md:text-xl text-md text-black transition-colors rounded-md  px-4 py-3 hover:bg-[#404fd3] hover:text-white">About</a>
+                <a href="#services" class="md:text-xl text-md text-black rounded-md px-4 py-3 hover:bg-[#404fd3] hover:text-white transition-colors ">Services</a>
              
         </div>
     </div>
@@ -144,7 +144,7 @@
                  data-aos-duration="2000">
                 <h4 class="font-bold text-[40px] py-2 text-[#0118D8] max-sm:text-center max-sm:px-4 ">Your Smile, Our Expertise</h4>
                 <p class="text-xl text-center py-2 text-black">Bringing confidence, comfort and care <br>  to every visit.</p>
-                <a href="/reservation/create" class="bg-[#E9DFC3] hover:bg-[#eddaa7] rounded-lg outline-none  text-black px-8 py-3 text-lg mt-4">Appoint Now</a>
+                <a href="/appointment/create" class="bg-[#0118D8] hover:bg-[#404fd3] rounded-lg outline-none  text-white px-8 py-3 text-lg mt-4">Appoint Now</a>
             </div>
             <div class="containerr" >
                 <div class="image-wrapper">
@@ -275,7 +275,7 @@
             <div class="px-4 text-xl md:max-w-[45%] leading-7 text-justify"
             data-aos="fade-up"
             data-aos-duration="1500">
-                Locate us near the <span class="text-[#0118D8]">Trillana Cycle Parts Store</span class="text-[#0118D8]"> at the <span class="text-[#0118D8]">Rubi Street Poblacion, Candelaria, Zambales.</span > We are open from <span class="text-[#0118D8]">Monday to Sunday at 8am to 4pm</span>. Make your reservations now and we will give you the brightest smile you will ever have!
+                Locate us near the <span class="text-[#0118D8]">Trillana Cycle Parts Store</span class="text-[#0118D8]"> at the <span class="text-[#0118D8]">Rubi Street Poblacion, Candelaria, Zambales.</span > We are open from <span class="text-[#0118D8]">Monday to Sunday at 8am to 4pm</span>. Make your appointment now and we will give you the brightest smile you will ever have!
             </div>
         </div>
     </section>
@@ -283,12 +283,16 @@
     <section class="w-full min-h-[40vh]"  data-theme="light" id="services">
 
       <div class="flex justify-center gap-12 items-center px-6 py-14 max-w-[1000x] mx-auto max-md:flex-col max-md:gap-5 ">
-          <div class="lg:text-start text-center grid gap-3">
+          <div class="lg:text-start text-center grid gap-3"
+          data-aos="fade-up"
+                 data-aos-duration="2000">
               <h4 class="text-4xl py-3 tracking-tighter font-bold text-[#0118D8]">GET IN TOUCH</h4>
               <p class="text-lg">Feel free to message us with our provided contacts <br> for your inquiries regarding with our dental clinic!</p>
               <a href="#navbar" tooltip="back to top" class="rounded-full p-3 cursor-pointer "><box-icon name='up-arrow-circle' type='solid' size='lg'></box-icon></a>
           </div>
-          <div class="flex items-center gap-6 justify-center max-md:flex-col">
+          <div class="flex items-center gap-6 justify-center max-md:flex-col"
+          data-aos="fade-up"
+                 data-aos-duration="2000">
               <div class="flex items-center gap-4 justify-center flex-col border-2 border-black rounded-lg px-10 py-16">
                   <box-icon type='solid' name='phone-call' class="text-blue text-3xl"></box-icon>
                   <h4 class="text-md">09475817672</h4>
@@ -306,7 +310,7 @@
 
 
     @if (session()->has('error'))
-    <dialog id="my_modal_24" class="modal">
+    <dialog id="my_modal_24" class="modal" data-theme="light">
       <div class="modal-box">
         <h3 class="text-xl font-bold">Reservation!</h3>
         <p class="py-4 pt-8 text-center text-red-600">{{session('error')}}</p>
@@ -330,7 +334,7 @@
 
     
     @if (session()->has('success'))
-    <dialog id="my_modal_24" class="modal">
+    <dialog id="my_modal_24" class="modal" data-theme="light">
       <div class="modal-box">
         <h3 class="text-xl font-bold">Success!</h3>
         <p class="py-4 pt-8 text-center text-green-600">{{session('success')}}</p>

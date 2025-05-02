@@ -1,7 +1,7 @@
 @extends('layout.admin')
 
 @section('content')
-<div class="flex h-screen">
+<div class="flex h-screen" data-theme="light">
     <!-- Sidebar -->
     @include('admin.sidebar')
 
@@ -11,7 +11,7 @@
         @include('admin.navbar')
 
         <!-- Main content area -->
-        <main class="flex-1 p-6 " id="main-content">
+        <main class="flex-1 p-6 " id="main-content" data-theme="light">
             <div class="w-full">
                 <!-- Your main content goes here -->
                 <h1 class="text-3xl font-bold pb-4 py-2 tracking-wide max-lg:text-center">Edit Treatment</h1>
