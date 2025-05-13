@@ -8,7 +8,7 @@
        </button>
 
        <div class="flex justify-end gap-4 items-center">
-        <a href="{{route("admin.newReservation")}}" class="btn btn-primary">New Appointment</a>
+        <a href="{{route("admin.newReservation")}}" class="btn btn-primary text-white">Add Appointment</a>
         <button class="btn btn-error" onclick="my_modal_1.showModal()">Logout</button>
         {{-- modal --}}
    

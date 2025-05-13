@@ -4,7 +4,7 @@
     <!-- head -->
     <thead>
       <tr>
-        <th class="text-lg text-center">Treatment_ID</th>
+        <th class="text-lg text-center">Treatment_Number</th>
         <th class="text-lg text-center">Treatment_Name</th>
       
         <th class="text-center text-lg">Action</th>
@@ -18,12 +18,12 @@
     
       <td>
         <div class="flex items-center justify-center gap-2">
-          <a href="{{route('treatment.edit', $treatment->id)}}" class="text-white rounded-md px-4 py-3 bg-green-500 hover:bg-green-600 text-center whitespace-nowrap">View</a>
+          <a href="{{route('treatment.edit', $treatment->id)}}" class="btn btn-accent">View</a>
           
-            <button class="delete-btn text-white py-3 px-6 bg-red-500 hover:bg-red-600 rounded-md"
+            <button class="btn btn-error"
                   data-file-id="{{$treatment->id}}"
                   data-toggle-modal="#deleteConfirmationModal">
-              DELETE
+              Delete
           </button>
           </div>
       </td>

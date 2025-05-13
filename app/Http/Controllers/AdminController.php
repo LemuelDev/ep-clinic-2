@@ -205,7 +205,7 @@ class AdminController extends Controller
 
 
     public function appointments() {
-        $query = Reservation::where('reservation_status', 'pending and confirmed')->orderBy('firstname');
+        $query = Reservation::where('reservation_status', 'pending')->orderBy('firstname');
 
         // Apply search filter if 'search' input is provided
         if (request()->has('search')) {
@@ -219,7 +219,7 @@ class AdminController extends Controller
     }
 
     public function forApprovalAppointments(){
-        $query = Reservation::where('reservation_status', 'pending and confirmed')->orderBy('firstname');
+        $query = Reservation::where('reservation_status', 'pending')->orderBy('firstname');
 
         // Apply search filter if 'search' input is provided
         if (request()->has('search')) {

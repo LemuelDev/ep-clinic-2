@@ -22,10 +22,9 @@ use Illuminate\Support\Facades\Route;
 
 // login, signup, forgot-pass, reset-pass....
 
-Route::get('/', function() {
-    return view("homepage");
-})->name("home");
 
+
+Route::get('/', [AuthController::class, 'homepage'])->name("home");
 
 
 Route::get('/login', [AuthController::class, 'login'])->name("login");

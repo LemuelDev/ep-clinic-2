@@ -9,7 +9,7 @@
     <div class="flex-1 flex flex-col w-full" data-theme="light">
         <!-- Navbar -->
         @include('admin.navbar')
-
+        
         <!-- Main content area -->
         <main class="flex-1 p-6 " id="main-content" data-theme="light">
             <div class="w-full">
@@ -80,14 +80,14 @@
                         <a href="{{route('admin.completeReservation', $id->id)}}" class="px-10 py-3 rounded-md text-center border-none text-lg text-white shadow bg-[#624E88] hover:bg-[#58457b]">Complete Appointment</a>
                         <a href="{{route('admin.rejectReservation', $id->id)}}" class="px-10 py-3 rounded-md text-center border-none text-lg text-white shadow bg-red-700 hover:bg-red-800">No-show Appointment</a>
                     </div>
-                    @elseif ($id->reservation_status === "pending and confirmed")
+                    @elseif ($id->reservation_status === "pending")
                     <div class="mx-auto px-4 w-full max-[520px]:max-w-[600px]  max-sm:flex-col flex gap-4 items-center justify-center pb-4">
                         <a href="{{route('admin.approvedReservation', $id->id)}}" class="px-10 py-3 rounded-md text-center border-none text-lg text-white shadow bg-[#624E88] hover:bg-[#58457b]">Approve Appointment</a>
                         <button  onclick="my_modal_100.showModal()" class="px-10 py-3 rounded-md text-center border-none text-lg text-white shadow bg-red-700 hover:bg-red-800">Reject Appointment</button>
                     </div>
                     @else
                     <div class="mx-auto px-4 w-full max-[520px]:max-w-[600px]  max-sm:flex-col flex gap-4 items-center justify-center pb-4">
-                        <a href="{{route('admin.reschedAppointment', $id->id)}}" class="px-10 py-3 rounded-md text-center border-none text-lg text-white shadow bg-[#624E88] hover:bg-[#58457b]">Reschedule Patient</a>
+                        <a href="{{route('admin.reschedAppointment', $id->id)}}" class="px-10 py-3 rounded-md text-center border-none text-lg text-white shadow bg-[#624E88] hover:bg-[#58457b]">New Appointment</a>
                     </div>
                     @endif
 
@@ -106,7 +106,7 @@
                 <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
               </form>
           <h3 class="text-xl text-center font-bold">Reject Appointment</h3>
-          <p class="py-2 text-md text-center"> Kindly input the reason for ther rejection of the appointment.</p>
+          <p class="py-2 text-md text-center"> Kindly input the reason for the rejection of the appointment.</p>
             <form action="{{route('admin.rejectedReservation', $id->id)}}" class=" flex flex-col gap-4 items-center justify-center" method="POST">
                 @csrf
                 <input type="text" name="reason" class="input input-bordered w-full max-w-xs" id="reason" placeholder="Enter reason..">

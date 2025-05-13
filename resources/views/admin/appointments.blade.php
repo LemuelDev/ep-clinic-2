@@ -22,7 +22,7 @@
                       <form action="{{request()->route()->getName() === 'admin.appointments' ? route('admin.appointments') : route('admin.ongoingAppointments')}}"
                         method="GET">
                         <input type="text" placeholder="Search Name" name="search" class="px-4 py-2 rounded-lg shadow-md border border-gray-500 bg-transparent">
-                        <button class="py-3 px-6 rounded-lg bg-blue-500 text-white">Search</button>
+                        <button class="btn btn-primary text-white">Search</button>
                      </form>
                      <select name="" id="filter-appointment" class="py-2 px-4 rounded-lg border border-slate-500">
                           <option value="{{route('admin.appointments')}}" {{request()->route()->getName() === 'admin.appointments' ? 'selected' : ''}}>Pending</option>

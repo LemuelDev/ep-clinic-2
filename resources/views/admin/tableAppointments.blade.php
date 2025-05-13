@@ -25,11 +25,11 @@
         <td class="min-w-[130px]">{{$reservation->reservation_status}}</td>
         <td>
           <div class="flex items-center justify-center gap-2">
-              <a href="{{route('admin.trackReservation', $reservation->id)}}" class="text-white rounded-md px-4 py-3 bg-green-500 hover:bg-green-600 text-center whitespace-nowrap">View</a>
-              <button class="delete-btn text-white py-3 px-6 bg-red-500 hover:bg-red-600 rounded-md"
+              <a href="{{route('admin.trackReservation', $reservation->id)}}" class=" btn btn-accent">View</a>
+              <button class="btn btn-error"
                     data-file-id="{{$reservation->id}}"
                     data-toggle-modal="#deleteConfirmationModal">
-                DELETE
+                Delete
             </button>
             </div>
         </td>

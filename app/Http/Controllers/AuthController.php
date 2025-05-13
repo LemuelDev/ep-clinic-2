@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\WelcomeEmail;
+use App\Models\Treatment;
 use App\Models\User;
 use App\Models\UserProfiles;
 use Carbon\Carbon;
@@ -120,6 +121,12 @@ class AuthController extends Controller
         request()->session()->regenerateToken();
         
         return redirect()->route("login")->with("success","Logout Successfully");
+    }
+
+    public function homepage(){
+        $treatments = Treatment::all();
+
+        return view("homepage", compact('treatments'));
     }
 
 

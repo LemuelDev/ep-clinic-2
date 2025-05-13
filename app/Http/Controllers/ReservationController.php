@@ -86,8 +86,7 @@ class ReservationController extends Controller
     
         // Check if the reservation is already confirmed or if it's pending
         if ($reservation->reservation_status == 'pending') {
-            // Update the status to 'ongoing'
-            $reservation->reservation_status = 'pending and confirmed';
+            $reservation->reservation_status = 'pending';
             $reservation->save();
     
             // Send confirmation email to the patient

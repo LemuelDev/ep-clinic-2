@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="{{ asset('images/logo-tooth.png') }}" type="image/x-icon">
     <title>EP CLINIC (RESERVATION)</title>
     @vite('resources/css/app.css')
     @vite('resources/js/lightDark.js')
@@ -279,7 +280,7 @@
                     </div>
                     <div class="grid">
                         <label for="email" >Email:</label>
-                        <input type="text" name="email" id="email" value="{{old("email")}}" class="rounded-md px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500">
+                        <input type="email" name="email" id="email" value="{{old("email")}}" class="rounded-md px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500">
                     </div>
                     <div class="grid">
                         <label for="emergency_name" >Emergency Name:</label>
@@ -429,7 +430,7 @@
                 </div>
                 <div class="flex items-center gap-4 justify-center flex-col border-2 border-black rounded-lg px-10 py-16">
                   <box-icon type='solid' name='envelope' class="text-blue text-3xl"></box-icon>
-                  <h4 class="text-sm">johnlemuelencina30@gmail.com</h4>
+                  <h4 class="text-sm">kharz891@gmail.com</h4>
               </div>
             </div>
         </div>

@@ -14,7 +14,7 @@
         <main class="flex-1 p-6 " id="main-content">
             <div class="w-full">
                 <!-- Your main content goes here -->
-                <h1 class="text-3xl font-bold pb-4 py-2 tracking-wide max-lg:text-center">Reschedule Patient</h1>
+                <h1 class="text-3xl font-bold pb-4 py-2 tracking-wide max-lg:text-center">New Appointment</h1>
                
                 <form action="{{ route('admin.create', $id->id) }}" method="GET" class="grid gap-4 px-4">
                     @csrf
@@ -100,7 +100,7 @@
                     </div>
                     <div class="grid">
                         <label for="email" >Email:</label>
-                        <input type="text" name="email" id="email" value="{{$id->email}}" class="rounded-md px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500">
+                        <input type="email" name="email" id="email" value="{{$id->email}}" class="rounded-md px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500">
                     </div>
                     <div class="grid">
                         <label for="emergency_name" >Emergency Name:</label>

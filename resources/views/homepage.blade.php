@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="{{ asset('images/logo-tooth.png') }}" type="image/x-icon">
     <title>EP CLINIC</title>
     @vite('resources/css/app.css')
     @vite('resources/js/lightDark.js')
@@ -216,50 +217,15 @@
     <section class="w-full min-h-[60vh] py-16" id="services"  data-theme="light">
         <h4 class="py-8 text-center font-bold text-5xl text-[#0118D8] " >Services</h4>
         <div class="grid grid-cols-3 gap-7 max-w-[1000px] mx-auto px-4 py-10">
+            @forelse ($treatments as $item)
             <div class="text-center border-2 border-black rounded-md service-card" data-aos="fade-up"
             data-aos-duration="1500">
-                <h4 class=" text-3xl max-md:text-xl text-center font-bold py-3">Oral Prophylaxis</h4>
+                <h4 class=" text-3xl max-md:text-xl text-center font-bold py-3">{{$item->treatment_offer}}</h4>
             </div>
-            <div class="text-center border-2 border-black rounded-md service-card" data-aos="fade-up"
-            data-aos-duration="1500">
-                <h4 class=" text-3xl max-md:text-xl text-center font-bold py-3">Extraction</h4>
-               
-            </div>
-            <div class="text-center border-2 border-black rounded-md service-card" data-aos="fade-up"
-            data-aos-duration="1500">
-                <h4 class=" text-3xl max-md:text-xl text-center font-bold py-3">Shell Crown</h4>
-               
-            </div>
-            <div class="text-center border-2 border-black rounded-md service-card" data-aos="fade-up"
-            data-aos-duration="1500">
-                <h4 class=" text-3xl max-md:text-xl text-center font-bold py-3">Denture</h4>
-               
-            </div>
-            <div class="text-center border-2 border-black rounded-md service-card" data-aos="fade-up"
-            data-aos-duration="1500">
-                <h4 class=" text-3xl max-md:text-xl text-center font-bold py-3">Plastic Crown</h4>
-               
-            </div>
-            <div class="text-center border-2 border-black rounded-md service-card" data-aos="fade-up"
-            data-aos-duration="1500">
-                <h4 class=" text-3xl max-md:text-xl text-center font-bold py-3">Fix Bridge</h4>
-               
-            </div>
-            <div class="text-center border-2 border-black rounded-md service-card" data-aos="fade-up"
-            data-aos-duration="1500">
-                <h4 class=" text-3xl max-md:text-xl text-center font-bold py-3">Restoration</h4>
-               
-            </div>
-            <div class="text-center border-2 border-black rounded-md service-card" data-aos="fade-up"
-            data-aos-duration="1500">
-                <h4 class=" text-3xl max-md:text-xl text-center font-bold py-3">Orthodontics</h4>
-               
-            </div>
-            <div class="text-center border-2 border-black rounded-md service-card" data-aos="fade-up"
-            data-aos-duration="1500">
-                <h4 class=" text-3xl max-md:text-xl text-center font-bold py-3">Tooth Whitening</h4>
-
-            </div>
+            @empty
+                <h4 class="text-2xl pt-10 text-center col-span-3"> No services at the moment.</h4>
+            @endforelse
+           
         </div>
     </section>
 
@@ -299,7 +265,7 @@
               </div>
               <div class="flex items-center gap-4 justify-center flex-col border-2 border-black rounded-lg px-10 py-16">
                 <box-icon type='solid' name='envelope' class="text-blue text-3xl"></box-icon>
-                <h4 class="text-sm">johnlemuelencina30@gmail.com</h4>
+                <h4 class="text-sm">kharz891@gmail.com</h4>
             </div>
           </div>
       </div>

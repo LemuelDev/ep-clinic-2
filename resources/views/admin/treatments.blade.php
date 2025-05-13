@@ -22,7 +22,7 @@
                         <form action="{{route("admin.treatments")}}"
                         method="GET">
                         <input type="text" placeholder="Search Treatment" name="search" class="px-4 py-2 rounded-lg shadow-md border border-gray-500 bg-transparent">
-                        <button class="py-3 px-6 rounded-lg bg-blue-500 text-white">Search</button>
+                        <button class="btn btn-primary text-white">Search</button>
                         </form>
                       @if(count($treatments) > 0) 
                       <a href="{{route('treatment.add')}}" class="px-4 py-3 rounded-md outline-none text-md text-white bg-violet-600 hover:bg-violet-700">Add Treatment</a>
@@ -85,26 +85,27 @@
 </div>
 
  <!-- Confirmation Modal -->
- <div class="fixed inset-0 z-50 overflow-y-auto hidden" id="deleteConfirmationModal" data-theme="light" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
-  <div class="flex items-center justify-center min-h-screen">
-      <div class="bg-white rounded-lg shadow-xl max-w-lg mx-auto p-6">
-          <div class="modal-header flex justify-start items-center py-1">
-              <h5 class="text-lg font-medium" id="deleteConfirmationModalLabel">Confirm Deletion</h5>
-          </div>
-          <div class="modal-body my-4 text-red-500 py-4">
-              Are you sure you want to delete this treatment? 
-          </div>
-          <div class="modal-footer flex justify-end gap-4">
-              <button type="button" class="text-white py-2 px-6 bg-gray-500 hover:bg-gray-600 rounded-md" data-close-modal>Cancel</button>
-              <form id="deleteForm" method="POST" action="">
-                  @csrf
-                  @method('GET')
-                  <button type="submit" class="text-white py-2 px-6 bg-red-500 hover:bg-red-600 rounded-md">Delete</button>
-              </form>
-          </div>
-      </div>
+
+ <div class="fixed inset-0 z-50 overflow-y-auto hidden" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="bg-white rounded-lg shadow-xl max-w-lg mx-auto p-6">
+            <div class="modal-header flex justify-start items-center py-1">
+                <h5 class="text-lg font-medium" id="deleteConfirmationModalLabel">Confirm Deletion</h5>
+            </div>
+            <div class="modal-body my-4 text-red-500 py-4">
+                Are you sure you want to delete this treatment? 
+            </div>
+            <div class="modal-footer flex justify-end gap-4">
+                <button type="button" class="text-white py-2 px-6 bg-gray-500 hover:bg-gray-600 rounded-md" data-close-modal>Cancel</button>
+                <form id="deleteForm" method="POST" action="">
+                    @csrf
+                    @method('GET')
+                    <button type="submit" class="text-white py-2 px-6 bg-red-500 hover:bg-red-600 rounded-md">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
   </div>
-</div>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
