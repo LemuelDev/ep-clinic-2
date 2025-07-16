@@ -42,7 +42,7 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 ">
                             <div class="flex gap-4 justify-start items-center">
                                 <label for="">Treatment Choice:</label>
-                                <input type="text" readonly value="{{$id->treatment_choice}}" class=" bg-transparent rounded-lg shadow lg:px-10 px-4 py-3 text-left text-md w-full">
+                                <input type="text" readonly value="{{$id->timeSlots->treatment_choice}}" class=" bg-transparent rounded-lg shadow lg:px-10 px-4 py-3 text-left text-md w-full">
                             </div>
                             <div class="flex gap-4 justify-start items-center">
                                 <label for="">Date:</label>

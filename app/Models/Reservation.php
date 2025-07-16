@@ -11,20 +11,18 @@ class Reservation extends Model
 
        // Allow mass assignment for these fields
        protected $fillable = [
+        "patient_number",
         "firstname",
         "middlename",
         "lastname",
         "extensionname",
+        "age",
+        "address",
         "email",
         "phone_number",
         "emergency_name",
         "emergency_contact",
-        "emergency_relationship",
-        'medical_history',
-        'description',  
-        'time_slot_id',
-        'treatment_choice',
-        'reservation_status'
+        "emergency_relationship", 
     ];
 
     protected $table = "reservations";

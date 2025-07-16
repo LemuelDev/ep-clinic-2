@@ -16,15 +16,21 @@ class ApproveReservation extends Mailable
     /**
      * Create a new message instance.
      */ public $mailmessage;
+
+     public $mailappointment;
+
+       public $mailpatient;
      public $maildate;
      public $mailtime;
      public $mailtreatment;
-    public function __construct($message, $date, $time, $treatment)
+    public function __construct($message, $date, $time, $treatment, $appointment_number, $patient_number)
     {
         $this->mailmessage = $message;
         $this->maildate = $date;
         $this->mailtime = $time;
         $this->mailtreatment = $treatment;
+        $this->mailappointment = $appointment_number;
+        $this->mailpatient = $patient_number;
     }
 
     /**

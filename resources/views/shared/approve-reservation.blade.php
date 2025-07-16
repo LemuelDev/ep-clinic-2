@@ -10,11 +10,11 @@
     
     <h3>{{$mailmessage}}</h3>
     <br>
-    <h4>DATE: {{$maildate}}</h4>
-    <h4>TIME: {{$mailtime}}</h4>
-    <h4>TREATMENT: {{$mailtreatment}}</h4>
+    <p class="text-lg">DATE: <span class="font-bold">{{$maildate->format('F j, Y')}}</span></p>
+    <p class="text-lg">TIME: <span class="font-bold">{{$mailtime}}</span></p>
+    <p class="text-lg">TREATMENT: <span class="font-bold">{{$mailtreatment}}</span></p>
     <br>
-    <h3>Best Regards,</h3>
+    <p>Best Regards,</p>
     <h3>ESPINELI-PARADEZA DENTAL CLINIC</h3>
 </body>
 </html>

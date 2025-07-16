@@ -19,10 +19,10 @@
       <tr>
         <td class="max-lg:min-w-[230px] min-w-[160px]">{{$reservation->firstname}} {{$reservation->middlename}} {{$reservation->lastname}} {{$reservation->extensionname}}</td>
         <td>{{$reservation->phone_number}}</td>
-        <td>{{$reservation->treatment_choice}}</td>
+        <td>{{$reservation->timeSlots->treatment_choice}}</td>
         <td  class="min-w-[190px]">{{ \Carbon\Carbon::parse($reservation->timeSlots->date)->format('F j, Y') }}</td>
         <td class="min-w-[130px]">{{$reservation->timeSlots->time_range}}</td>
-        <td class="min-w-[130px]">{{$reservation->reservation_status}}</td>
+        <td class="min-w-[130px]">{{$reservation->timeSlots->reservation_status}}</td>
         <td>
           <div class="flex items-center justify-center gap-2">
               <a href="{{route('admin.trackReservation', $reservation->id)}}" class=" btn btn-accent">View</a>

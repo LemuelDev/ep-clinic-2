@@ -12,9 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('time_slots', function (Blueprint $table) {
-            $table->id();
+              $table->id();
+            $table->string('appointment_number')->unique();
+            $table->foreignId('reservation_id')->constrained('reservations');
             $table->date('date');
-            $table->string('time_range');  // e.g., "8-9"
+            $table->string('time_range');
+            $table->string('reservation_status')->default('pending');
+            $table->string('treatment_choice');
+            $table->string("medical_history");
+            $table->string("description"); 
+            $table->string('remarks')->nullable(); // e.g., "8-9"
             $table->boolean('is_occupied'); 
             $table->timestamps();
         });

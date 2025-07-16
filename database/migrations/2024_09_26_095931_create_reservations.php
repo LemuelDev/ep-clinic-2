@@ -13,20 +13,18 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
+            $table->string('patient_number')->unique();
             $table->string('firstname');
             $table->string('middlename');
             $table->string('lastname');
             $table->string('extensionname');
             $table->string('phone_number');
             $table->string('email');
+            $table->string('age');
+            $table->string('address');
             $table->string("emergency_name");
             $table->string("emergency_contact");
             $table->string("emergency_relationship");
-            $table->string('reservation_status')->default('pending');
-            $table->string('treatment_choice');
-            $table->string("medical_history");
-            $table->string("description");
-            $table->foreignId('time_slot_id')->constrained('time_slots')->cascadeOnDelete();
             $table->timestamps();
         });
     }

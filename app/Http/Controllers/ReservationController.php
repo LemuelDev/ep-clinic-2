@@ -19,6 +19,10 @@ class ReservationController extends Controller
     {
         try {
             $validation = request()->validate([
+                'patient_number' => 'required|string|max:255',
+                'appointment_number' => 'required|string|max:255',
+                "age" => 'required|string|max:255',
+                "address" => 'required|string|max:255',
                 'firstname' => 'required|string|max:255',
                 'lastname' => 'required|string|max:255',
                 'middlename' => 'nullable|string|max:255',
@@ -42,30 +46,33 @@ class ReservationController extends Controller
                 ],
             ]);
            
-
-
-            $timeslot = TimeSlot::create([
-                'date' => $validation["reservation_date"],
-                "time_range" => $validation["time_slot"],
-                "is_occupied" => 1,
-            ]);
-            
-            
-            $reservation = Reservation::create([
+             $reservation = Reservation::create([
+                "patient_number" => $validation["patient_number"],
                 "firstname" => $validation["firstname"],
                 "lastname" => $validation["lastname"],
                 "middlename" => $validation["middlename"] ?? '',
                 "extensionname" => $validation["extension_name"] ?? '',
                 "phone_number" => $validation["phone_number"],
                 "email" => $validation["email"],
+                "age" => $validation["age"],
+                "address" => $validation["address"],
                 "emergency_name" => $validation["emergency_name"],
                 "emergency_contact" => $validation["emergency_contact"],
                 "emergency_relationship" => $validation["emergency_relationship"],
-                "time_slot_id" => $timeslot->id,
+            ]);
+
+            TimeSlot::create([
+                'date' => $validation["reservation_date"],
+                "time_range" => $validation["time_slot"],
+                "is_occupied" => 1,
                 "treatment_choice" => $validation["treatment_choice"],
+                "appointment_number" => $validation["appointment_number"],
                 "description" => $validation["medical_description"] ?? '',
                 "medical_history" => $validation["medical_history"],
+                "reservation_id" => $reservation->id
             ]);
+            
+            
             
             Notification::route('mail', $validation['email']) // the email entered by the user
             ->notify(new ReservationPending($reservation));

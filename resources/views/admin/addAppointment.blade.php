@@ -132,14 +132,14 @@
                     <div class="grid">
                         <label for="medical_history">Do you have medical history?</label>
                         <select name="medical_history" class="px-6 py-3 rounded-md shadow-md bg-transparent border border-gray-500">
-                            <option value="Yes" {{$id->medical_history == "Yes" ? 'selected' : ''}}>Yes</option>
-                            <option value="No" {{$id->medical_history == "No" ? 'selected' : ''}}>No</option>
+                            <option value="Yes" {{$id->timeSlots->medical_history == "Yes" ? 'selected' : ''}}>Yes</option>
+                            <option value="No" {{$id->timeSlots->medical_history == "No" ? 'selected' : ''}}>No</option>
                         </select>
                     </div>
 
                     <div class="grid">
                         <label for="medical_description">If Yes, please fill this up:</label>
-                        <input type="text" name="medical_description" placeholder="Medical History" value="{{$id->description}}" class="px-6 py-3 bg-transparent rounded-md shadow-md border border-gray-500">
+                        <input type="text" name="medical_description" placeholder="Medical History" value="{{$id->timeSlots->description}}" class="px-6 py-3 bg-transparent rounded-md shadow-md border border-gray-500">
                     </div>
 
                     <button type="submit" class="btn btn-primary max-w-[500px] mx-auto mt-4 lg:col-span-3 text-md text-white">Submit Appointment</button>

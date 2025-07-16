@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Reservation;
 use App\Models\TimeSlot;
 use App\Models\Treatment;
 use Carbon\Carbon;
@@ -65,13 +65,30 @@ class PatientController extends Controller
 
         $treatments = Treatment::orderBy("created_at")->get();
 
+         // If new patient, generate a unique patient number
+         do {
+             $randomNumber = str_pad(mt_rand(0, 99999999), 8, '0', STR_PAD_LEFT);
+             $generatedPatientNumber = 'P-' . $randomNumber;
+         } while (Reservation::where('patient_number', $generatedPatientNumber)->exists());
+        
+
+            // Generate a unique Appointment Number
+         do {
+            $randomNumber = str_pad(mt_rand(0, 99999999), 8, '0', STR_PAD_LEFT);
+             $generatedAppointmentNumber = 'APP-' . $randomNumber;
+        } while (TimeSlot::where('appointment_number', $generatedAppointmentNumber)->exists());
+        
+
+
         return view('reservation_page',
         [
             "dates" => $dates,
             "timeSlots" => $timeSlots,
             "today" => $today, 
             "endDate" => $endDate,
-            "treatments" => $treatments
+            "treatments" => $treatments,
+            "patient_number" => $generatedPatientNumber,
+            "appointment_number" => $generatedAppointmentNumber,
         ]);
         
     }

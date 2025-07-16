@@ -14,7 +14,14 @@ class TimeSlot extends Model
     protected $fillable = [
         'date',
         'time_range',
-        'is_occupied'    
+        'is_occupied',
+        'treatment_choice',
+        'reservation_status',
+        'medical_history',
+        'description', 
+        'appointment_number',
+        'reservation_id',
+        'remarks'
     ];
 
     public function reservations()

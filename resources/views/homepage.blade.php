@@ -216,7 +216,7 @@
 
     <section class="w-full min-h-[60vh] py-16" id="services"  data-theme="light">
         <h4 class="py-8 text-center font-bold text-5xl text-[#0118D8] " >Services</h4>
-        <div class="grid grid-cols-3 gap-7 max-w-[1000px] mx-auto px-4 py-10">
+        <div class="grid lg:grid-cols-3 items-center md:grid-cols-2 grid-cols-1 gap-7 max-w-[1000px] mx-auto px-4 py-10">
             @forelse ($treatments as $item)
             <div class="text-center border-2 border-black rounded-md service-card" data-aos="fade-up"
             data-aos-duration="1500">
