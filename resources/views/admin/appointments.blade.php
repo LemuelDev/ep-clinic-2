@@ -40,7 +40,11 @@
                   </script>
                     </div>
                 </div>
-                @include('admin.tableAppointments') 
+                @if (request()->route()->getName() === "admin.appointments")
+                    @include('admin.tableAppointments')
+                @elseif (request()->route()->getName() === "admin.ongoingAppointments")
+                    @include('admin.ongoingAppointments')
+                @endif
             </div>
                        
         </main>

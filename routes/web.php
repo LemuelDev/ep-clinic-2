@@ -54,9 +54,11 @@ Route::post('password/reset/', [PasswordResetController::class, 'reset'])
 
 
 // posting reservationsss
-Route::get('/appointment/create', [PatientController::class, 'createReservations'])->name('patient.create');
+Route::get('/appointment/create/', [PatientController::class, 'createReservations'])->name('patient.create');
 
 Route::post('/appointment/post', [ReservationController::class, 'store'])->name('patient.store');
+
+Route::post('/appointment/post/existing', [ReservationController::class, 'existingPatient'])->name('patient.existing');
 
 Route::get('/reservation/{reservation}/confirm', [ReservationController::class, 'confirm'])->name('reservations.confirm');
 

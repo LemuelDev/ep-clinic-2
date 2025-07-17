@@ -29,9 +29,11 @@ class Reservation extends Model
 
     public $timestamps = false; // Disable timestamps
 
-    public function timeSlots()
-    {
-        return $this->hasOne(TimeSlot::class, 'id');
-    }
+public function timeSlots()
+{
+    return $this->hasMany(TimeSlot::class, 'reservation_id');
+}
+
+
 
 }

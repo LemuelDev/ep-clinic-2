@@ -41,7 +41,7 @@
                           </div>
                 </div>
             </div>
-                 @include('admin.tableAppointments') 
+                 @include('admin.tableHistory') 
             </div>
                        
         </main>

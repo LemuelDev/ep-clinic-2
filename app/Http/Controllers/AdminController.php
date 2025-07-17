@@ -13,6 +13,7 @@ use App\Notifications\ReservationPending;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
@@ -185,7 +186,7 @@ class AdminController extends Controller
                 "emergency_relationship" => $validation["emergency_relationship"],
             ]);
 
-            TimeSlot::create([
+            $timeslot = TimeSlot::create([
                 'date' => $validation["reservation_date"],
                 "time_range" => $validation["time_slot"],
                 "is_occupied" => 1,
@@ -200,7 +201,7 @@ class AdminController extends Controller
            
             
             Notification::route('mail', $validation['email']) // the email entered by the user
-            ->notify(new ReservationPending($reservation));
+            ->notify(new ReservationPending($reservation, $timeslot));
             return redirect()->route("admin.records")->with("success", "Appointment created successfully.");
     
         } catch (\Illuminate\Validation\ValidationException $e) {
@@ -213,13 +214,14 @@ class AdminController extends Controller
 
 
     public function appointments() {
-         $query = Reservation::with('timeSlot') // Eager load the related timeSlot
-            ->whereHas('timeSlot', function ($query) {
+         $query = Reservation::with('timeSlots') // Eager load the related timeSlot
+            ->whereHas('timeSlots', function ($query) {
                 // Filter reservations where the related timeSlot has 'pending' status
                 $query->where('reservation_status', 'pending');
             })
             ->orderBy('firstname');
 
+            
         // Apply search filter if 'search' input is provided
         if (request()->has('search')) {
             $search = request()->input('search');
@@ -231,96 +233,102 @@ class AdminController extends Controller
         return view("admin.appointments" , compact("reservations"));
     }
 
-    public function forApprovalAppointments(){
-         $query = Reservation::with('timeSlot') // Eager load the related timeSlot
-            ->whereHas('timeSlot', function ($query) {
-                // Filter reservations where the related timeSlot has 'pending' status
+    public function forApprovalAppointments() {
+       $query = Reservation::with(['timeSlots' => function ($query) {
+                $query->where('reservation_status', 'pending');
+            }])
+            ->whereHas('timeSlots', function ($query) {
                 $query->where('reservation_status', 'pending');
             })
             ->orderBy('firstname');
 
-        // Apply search filter if 'search' input is provided
-        if (request()->has('search')) {
-            $search = request()->input('search');
-            $query->where('firstname', 'like', "%{$search}%");
-        }
-        
-        // Execute the query to retrieve the filtered results
-        $reservations = $query->paginate(5);
-        return view("admin.appointments" , compact("reservations"));
+    if (request()->has('search')) {
+        $search = request()->input('search');
+        $query->where('firstname', 'like', "%{$search}%");
     }
 
-    public function ongoingAppointments() {
-        $query = Reservation::with('timeSlot') // Eager load the related timeSlot
-            ->whereHas('timeSlot', function ($query) {
-                // Filter reservations where the related timeSlot has 'ongoing' status
+    $reservations = $query->paginate(5);
+    return view("admin.appointments", compact("reservations"));
+
+    }
+
+
+   public function ongoingAppointments() {
+    $query = Reservation::with(['timeSlots' => function ($query) {
+                $query->where('reservation_status', 'ongoing');
+            }])
+            ->whereHas('timeSlots', function ($query) {
                 $query->where('reservation_status', 'ongoing');
             })
             ->orderBy('firstname');
 
-        // Apply search filter if 'search' input is provided
-        if (request()->has('search')) {
-            $search = request()->input('search');
-            $query->where('firstname', 'like', "%{$search}%");
-        }
-        
-        // Execute the query to retrieve the filtered results
-        $reservations = $query->paginate(5);
-        return view("admin.appointments" , compact("reservations"));
+    if (request()->has('search')) {
+        $search = request()->input('search');
+        $query->where('firstname', 'like', "%{$search}%");
     }
+
+    $reservations = $query->paginate(5);
+    return view("admin.appointments", compact("reservations"));
+}
+
     
-    public function trackAppointment(Reservation $id) {
-        return view("admin.trackReservation", compact("id"));
+    public function trackAppointment(TimeSlot $id) {
+          $reservation = $id->reservation; // get the related reservation
+
+    return view('admin.trackReservation', [
+        'slot' => $id,
+        'reservation' => $reservation
+    ]);
     }
 
-    public function approveReservation(Reservation $id) {
+    public function approveReservation(TimeSlot $id) {
 
-        $id->timeSlots->update([
+        $id->update([
         "reservation_status" => "ongoing"
         ]);
         $message = "Good day! Your Appointment is finally approved. Please be reminded with your upcoming appointment.";
-        $date = $id->timeSlots->date;
-        $time = $id->timeSlots->time_range;
-        $treatment = $id->timeSlots->treatment_choice;
-        $appointment_number = $id->timeSlots->appointment_number;
-        $patient_number = $id->patient_number;
+        $date = $id->date;
+        $time = $id->time_range;
+        $treatment = $id->treatment_choice;
+        $appointment_number = $id->appointment_number;
+        $patient_number = $id->reservation->patient_number;
 
-        Mail::to($id->email)->send(new ApproveReservation($message, $date, $time, $treatment, $appointment_number, $patient_number));
+        Mail::to($id->reservation->email)->send(new ApproveReservation($message, $date, $time, $treatment, $appointment_number, $patient_number));
 
         return redirect()->route("admin.appointments")->with("success", "The appointment is finally approved!");
     }
 
-    public function rejectReservation(Reservation $id) {
+    public function rejectReservation(TimeSlot $id) {
         
         $validate = request()->validate([
            "reason" => "required|string|" 
         ]);
 
         $message = $validate["reason"];
-        $date = $id->timeSlots->date;
-        $time = $id->timeSlots->time_range;
+        $date = $id->date;
+        $time = $id->time_range;
         $treatment = $id->treatment_choice;
-        $appointment_number = $id->timeSlots->appointment_number;
-        $patient_number = $id->patient_number;
+        $appointment_number = $id->appointment_number;
+        $patient_number = $id->reservation->patient_number;
 
-        $id->timeSlots()->delete();
+        $id->delete();
 
-        Mail::to($id->email)->send(new RejectAppointment($message, $date, $time, $treatment,$appointment_number, $patient_number));
+        Mail::to($id->reservation->email)->send(new RejectAppointment($message, $date, $time, $treatment,$appointment_number, $patient_number));
         return redirect()->route("admin.appointments")->with("success", "The appointment is rejected!");
     }
 
-    public function completeReservation(Reservation $id) {
+    public function completeReservation(TimeSlot $id) {
 
-            $id->timeSlots->update([
+            $id->update([
             "reservation_status" => "completed"
             ]);
 
             return redirect()->route("admin.appointments")->with("success", "The appointment is finally completed!");
     }
 
-    public function noshowReservation(Reservation $id) {
+    public function noshowReservation(TimeSlot $id) {
 
-        $id->timeSlots->update([
+        $id->update([
             "reservation_status" => "no-show"
             ]);
 
@@ -329,29 +337,16 @@ class AdminController extends Controller
     
     public function completedRecords() {
 
-        $query = Reservation::with('timeSlot') // Eager load the related timeSlot
-            ->whereHas('timeSlot', function ($query) {
-                // Filter reservations where the related timeSlot has 'completed' status
-                $query->where('reservation_status', 'completed');
-            })
-            ->orderBy('firstname');
+        $appointmentHistory = Reservation::withCount('timeSlots')->paginate(5);
 
-        // Apply search filter if 'search' input is provided
-        if (request()->has('search')) {
-            $search = request()->input('search');
-            $query->where('firstname', 'like', "%{$search}%");
-        }
-        
-        // Execute the query to retrieve the filtered results
-        $reservations = $query->paginate(5);
     
-        return view("admin.patientHistory", compact("reservations"));
+        return view("admin.patientHistory", compact("appointmentHistory"));
     }
 
     public function noshowRecords() {
 
-            $query = Reservation::with('timeSlot') // Eager load the related timeSlot
-            ->whereHas('timeSlot', function ($query) {
+            $query = Reservation::with('timeSlots') // Eager load the related timeSlot
+            ->whereHas('timeSlots', function ($query) {
                 // Filter reservations where the related timeSlot has 'no-show' status
                 $query->where('reservation_status', 'no-show');
             })
@@ -369,17 +364,12 @@ class AdminController extends Controller
         return view("admin.patientHistory", compact("reservations"));
     }
 
-    public function deleteReservationAppointment(Reservation $id) {
-        $id->timeSlots()->delete();
+    public function deleteReservationAppointment(TimeSlot $id) {
+        $id->delete();
 
          return redirect()->route("admin.appointments")->with("success", "The appointment is successfully deleted!");
     }
 
-    public function deleteRecordAppointment(Reservation $id) {
-        $id->delete();
-
-         return redirect()->route("admin.records")->with("success", "The record is successfully deleted!");
-    }
 
     public function profile(){
         return view("admin.profile");

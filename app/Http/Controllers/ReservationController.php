@@ -45,7 +45,60 @@ class ReservationController extends Controller
                     }),
                 ],
             ]);
-           
+
+
+            $app_number = TimeSlot::where('appointment_number', $validation["appointment_number"])->first();
+            $p_number = Reservation::where("patient_number", $validation["patient_number"])->first();
+
+            if ($app_number){
+                return redirect()->back()->with("failed", "The Appointment Number is already been taken");
+            }
+
+            if ($p_number){
+                return redirect()->back()->with("failed", "The Patient Number is already been taken");
+            }
+
+           // Check for existing patient by name, email, or phone number
+            $existing_patient = null;
+            $conflict_type = '';
+
+            // Check by name first
+            $p_name = Reservation::where("firstname", $validation["firstname"])
+                ->where("lastname", $validation["lastname"])
+                ->first();
+
+            if ($p_name) {
+                $existing_patient = $p_name;
+                $conflict_type = 'name';
+            }
+
+            // Check by email if no name conflict found
+            if (!$existing_patient) {
+                $email = Reservation::where("email", $validation["email"])->first();
+                if ($email) {
+                    $existing_patient = $email;
+                    $conflict_type = 'email';
+                }
+            }
+
+            // Check by phone number if no previous conflicts found
+            if (!$existing_patient) {
+                $phone_number = Reservation::where("phone_number", $validation["phone_number"])->first();
+                if ($phone_number) {
+                    $existing_patient = $phone_number;
+                    $conflict_type = 'phone number';
+                }
+            }
+
+            // If any existing patient found, return appropriate error message
+            if ($existing_patient) {
+                $patient_number = $existing_patient->patient_number;
+                $message = "We identified that you already have a record in our appointment system based on your {$conflict_type}. Your patient number is {$patient_number}. Please use the 'Existing Patient' option to make your appointment.";
+                
+                return redirect()->back()->with("failed", $message);
+            }
+            
+
              $reservation = Reservation::create([
                 "patient_number" => $validation["patient_number"],
                 "firstname" => $validation["firstname"],
@@ -61,7 +114,7 @@ class ReservationController extends Controller
                 "emergency_relationship" => $validation["emergency_relationship"],
             ]);
 
-            TimeSlot::create([
+            $timeslot = TimeSlot::create([
                 'date' => $validation["reservation_date"],
                 "time_range" => $validation["time_slot"],
                 "is_occupied" => 1,
@@ -75,7 +128,66 @@ class ReservationController extends Controller
             
             
             Notification::route('mail', $validation['email']) // the email entered by the user
-            ->notify(new ReservationPending($reservation));
+            ->notify(new ReservationPending($reservation, $timeslot));
+            return redirect()->route("patient.create")->with("success", "Appointment created successfully.");
+    
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Capture validation errors
+            return redirect()->back()
+            ->withErrors($e->errors())
+            ->with('failed', 'Please fill out all required fields correctly.');
+        }
+    }
+
+     public function existingPatient()
+    {
+        try {
+            $validation = request()->validate([
+                'patient_number' => 'required|string|max:255',
+                'appointment_number' => 'required|string|max:255',
+                'reservation_date' => 'required|date',
+                'time_slot' => 'required|string|max:255',
+                'treatment_choice' => 'required|string|max:255',
+                'medical_history' => 'required|string|max:255',
+                'medical_description' => [
+                    'nullable',
+                    'string',
+                    'max:255',
+                    Rule::requiredIf(function () {
+                        return request()->input('medical_history') === 'Yes';
+                    }),
+                ],
+            ]);
+
+
+            $app_number = TimeSlot::where('appointment_number', $validation["appointment_number"])->first();
+
+            if ($app_number){
+                return redirect()->back()->with("failed", "The Appointment Number is already been taken");
+            }
+
+            $reservation = Reservation::where('patient_number', $validation["patient_number"])->first();
+
+             if (!$reservation){
+                return redirect()->back()->with("failed", "There is no patient number exists like that.");
+            }
+
+
+            $timeslot = TimeSlot::create([
+                'date' => $validation["reservation_date"],
+                "time_range" => $validation["time_slot"],
+                "is_occupied" => 1,
+                "treatment_choice" => $validation["treatment_choice"],
+                "appointment_number" => $validation["appointment_number"],
+                "description" => $validation["medical_description"] ?? '',
+                "medical_history" => $validation["medical_history"],
+                "reservation_id" => $reservation->id
+            ]);
+            
+            
+            
+            Notification::route('mail', $reservation->email) // the email entered by the user
+            ->notify(new ReservationPending($reservation, $timeslot));
             return redirect()->route("patient.create")->with("success", "Appointment created successfully.");
     
         } catch (\Illuminate\Validation\ValidationException $e) {

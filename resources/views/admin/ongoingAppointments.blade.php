@@ -18,7 +18,7 @@
       <!-- row 1 -->
     @forelse ($reservations as $reservation)
     @foreach ($reservation->timeSlots as $slot)
-        @if ($slot->reservation_status === 'pending') {{-- Or 'ongoing' depending on usage --}}
+        @if ($slot->reservation_status === 'ongoing') {{-- Or 'ongoing' depending on usage --}}
         <tr>
             <td>{{$reservation->firstname}} {{$reservation->middlename}} {{$reservation->lastname}} {{$reservation->extensionname}}</td>
             <td class="font-bold text-center">{{$reservation->patient_number}}</td>

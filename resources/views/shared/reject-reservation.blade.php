@@ -10,7 +10,7 @@
     
     <h3>{{$mailmessage}}</h3>
     <br>
-    <p class="text-lg">DATE: <span class="font-bold">{{$maildate->format('F j, Y')}}</span></p>
+    <p class="text-lg">DATE: <span class="font-bold">{{\Carbon\Carbon::parse($maildate)->format('F j, Y')}}</span></p>
     <p class="text-lg">TIME: <span class="font-bold">{{$mailtime}}</span></p>
     <p class="text-lg">TREATMENT: <span class="font-bold">{{$mailtreatment}}</span></p>
     <br>

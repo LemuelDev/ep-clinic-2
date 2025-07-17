@@ -24,8 +24,8 @@ class TimeSlot extends Model
         'remarks'
     ];
 
-    public function reservations()
-    {
-        return $this->hasOne(Reservation::class, 'id');
-    }
+  public function reservation()
+{
+    return $this->belongsTo(Reservation::class, 'reservation_id');
+}
 }
