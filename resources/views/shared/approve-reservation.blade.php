@@ -10,9 +10,14 @@
     
     <h3>{{$mailmessage}}</h3>
     <br>
+    <p class="text-lg">APPOINTMENT NUMBER: <span class="font-bold">{{$mailappointment}}</span></p>
+    <p class="text-lg">PATIENT NUMBER: <span class="font-bold">{{$mailpatient}}</span></p>
     <p class="text-lg">DATE: <span class="font-bold">{{\Carbon\Carbon::parse($maildate)->format('F j, Y')}}</span></p>
     <p class="text-lg">TIME: <span class="font-bold">{{$mailtime}}</span></p>
     <p class="text-lg">TREATMENT: <span class="font-bold">{{$mailtreatment}}</span></p>
+    <br>
+    <p class="text-lg">If you want to cancel your appointment, please click the link provided under this text.</p>
+    <p>{{route('reservations.cancelAppointment', $mailappointment)}}</p>
     <br>
     <p>Best Regards,</p>
     <h3>ESPINELI-PARADEZA DENTAL CLINIC</h3>

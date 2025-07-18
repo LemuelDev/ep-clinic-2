@@ -62,6 +62,10 @@ Route::post('/appointment/post/existing', [ReservationController::class, 'existi
 
 Route::get('/reservation/{reservation}/confirm', [ReservationController::class, 'confirm'])->name('reservations.confirm');
 
+Route::get('/cancel-appointment/{id}', [ReservationController::class, 'cancelAppointment'])->name('reservations.cancelAppointment');
+
+Route::post('/cancel-appointment/post/', [ReservationController::class, 'cancelApp'])->name('reservations.cancel');
+
 // admin
 Route::get('/admin/appointments/pending', [AdminController::class, 'appointments'])->name('admin.appointments');
 
@@ -74,6 +78,8 @@ Route::get('/admin/appointments/new-appointment/', [AdminController::class, 'new
 Route::get('/admin/appointments/new-appointment/create', [AdminController::class, 'newReservation'])->name('admin.newReservation');
 
 Route::post('/admin/appointments/post', [AdminController::class, 'storeAppointment'])->name('admin.store');
+
+Route::post('/admin/appointments/post/existing', [AdminController::class, 'existingPatient'])->name('admin.existing');
 
 Route::get('/admin/appointments/pending-and-confirmed', [AdminController::class, 'forApprovalAppointments'])->name('admin.forApprovalAppointments');
 

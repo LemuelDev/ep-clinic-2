@@ -6,6 +6,7 @@ use App\Models\EmergencyContact;
 use App\Models\MedicalHistory;
 use App\Models\Reservation;
 use App\Models\TimeSlot;
+use App\Models\Treatment;
 use App\Notifications\ReservationConfirmed;
 use App\Notifications\ReservationPending;
 use Carbon\Carbon;
@@ -218,16 +219,53 @@ class ReservationController extends Controller
         // If it's already confirmed, show a message
         return redirect()->route('home')->with('error', 'This appointment has already been confirmed.');
     }
-    
 
-    public function delete() {
-        
+   public function cancelAppointment($appointmentNumber)
+{
+    $timeslot = TimeSlot::where('appointment_number', $appointmentNumber)->with('reservation')->firstOrFail();
+    $treatments = Treatment::all();
+    return view('homepage', [
+        'timeslot' => $timeslot,
+        'treatments' => $treatments,
+        'cancellation' => true,
+    ]);
+}
+    public function cancelApp(Request $request)
+{
+    $request->validate([
+        'reason' => 'required|string',
+        'appointment_number' => 'required|string',
+        'preferred_date' => 'nullable|date',
+    ]);
+
+    $reservation = TimeSlot::where("appointment_number", $request->appointment_number)->first();
+
+    if(!$reservation){
+        return redirect()->route('home')->with('error', 'Your appointment number is incorrect.');
+    }
+
+    if($reservation->reservation_status == 'cancelled'){
+        return redirect()->route('home')->with('error', 'The appointment is already cancelled.');
     }
 
 
-    public function update() {
-        
+    $reservation->reservation_status = 'cancelled';
+    $reservation->is_occupied = 0;
+
+    // Combine reason and preferred date into remarks
+    $remarks = $request->reason;
+    if ($request->preferred_date) {
+        $remarks .= ' | Preferred new date: ' . Carbon::parse($request->preferred_date)->format('F d, Y');
     }
+
+    $reservation->remarks = $remarks;
+    $reservation->save();
+
+    return redirect()->route('home')->with('success', 'Your appointment was cancelled with your remark.');
+}
+
+
+
 
 
 

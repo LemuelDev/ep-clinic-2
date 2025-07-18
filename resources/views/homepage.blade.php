@@ -298,6 +298,56 @@
     </script>
     @endif
 
+ @if (isset($cancellation) && $cancellation)
+        <dialog id="my_modal_100" class="modal">
+        <div class="modal-box">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+              </form>
+          <h3 class="text-xl text-center font-bold">Cancel Appointment</h3>
+          <h5 class="text-md text-blue-600 text-center py-4">Appointment #: {{ $timeslot->appointment_number }}</h5>
+           <form action="{{ route('reservations.cancel') }}" class="py-8 pt-4 grid gap-4 items-center" method="POST">
+              @csrf
+              <input type="hidden" name="appointment_number" value="{{ $timeslot->appointment_number }}">
+             <div class="grid">
+               <label for="reason">Reason for Cancellation:</label>
+              <textarea name="reason" required class="textarea textarea-bordered w-full " placeholder="e.g. I have a conflict at this time."></textarea>
+             </div>
+
+             <div class="grid">
+              <label for="preferred_date">Preferred New Date (optional):</label>
+              <input type="date" name="preferred_date"  class="input input-bordered w-full " />
+             </div>
+
+              <button type="submit" class="btn btn-error mt-4 ">Cancel Appointment</button>
+          </form>
+          
+        </div>
+      </dialog>
+      <script>
+          document.addEventListener('DOMContentLoaded', function () {
+              const dateInput = document.querySelector('input[name="preferred_date"]');
+
+              const today = new Date();
+              const maxDate = new Date();
+              maxDate.setDate(today.getDate() + 29); // 30-day window including today
+
+              const toDateString = (date) => date.toISOString().split('T')[0];
+
+              dateInput.min = toDateString(today);
+              dateInput.max = toDateString(maxDate);
+          });
+      </script>
+
+
+       <script>
+        // Automatically open modal on page load
+        window.addEventListener('DOMContentLoaded', (event) => {
+        document.getElementById('my_modal_100').showModal();
+        });
+     </script>
+    @endif
+
     
     @if (session()->has('success'))
     <dialog id="my_modal_24" class="modal" data-theme="light">
