@@ -22,7 +22,7 @@
         <td class="text-center font-bold text-md">{{ $patient->patient_number }}</td>
         <td class="text-center font-bold text-md">{{ $patient->time_slots_count }}</td>
         <td class="text-center">
-            <a href="{{ route('admin.trackReservation', $patient->id) }}" class="btn btn-accent">View</a>
+            <a href="{{ route('admin.showPatient', $patient->id) }}" class="btn btn-accent">View</a>
         </td>
       </tr>
     @empty

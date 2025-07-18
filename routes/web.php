@@ -103,6 +103,8 @@ Route::get('/admin/records/completed/', [AdminController::class, 'completedRecor
 
 Route::get('/admin/records/no-show/', [AdminController::class, 'noshowRecords'])->name('admin.noshowRecords');
 
+Route::get('/admin/records/all/patient/{id}', [AdminController::class, 'patientHistory'])->name('admin.showPatient');
+
 Route::get('/admin/profile/', [AdminController::class, 'profile'])->name('admin.profile');
 
 Route::get('/admin/profile/edit/{id}', [AdminController::class, 'editProfile'])->name('admin.editProfile');

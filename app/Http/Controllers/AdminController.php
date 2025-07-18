@@ -396,7 +396,6 @@ class AdminController extends Controller
     return view("admin.appointments", compact("reservations"));
 }
 
-    
     public function trackAppointment(TimeSlot $id) {
           $reservation = $id->reservation; // get the related reservation
 
@@ -405,6 +404,33 @@ class AdminController extends Controller
         'reservation' => $reservation
     ]);
     }
+
+    public function patientHistory(Reservation $id)
+{
+   $appointmentHistory = Reservation::with(['timeSlots' => function ($query) {
+        $query->whereIn('reservation_status', ['cancelled', 'completed', 'no-show'])
+              ->orderByDesc('date');
+    }])
+    ->where('id', $id->id)
+    ->whereHas('timeSlots', function ($query) {
+        $query->whereIn('reservation_status', ['cancelled', 'completed', 'no-show']);
+    })
+    ->orderByDesc(
+        TimeSlot::select('date')
+            ->whereColumn('reservation_id', 'reservations.id')
+            ->whereIn('reservation_status', ['cancelled', 'completed', 'no-show'])
+            ->latest('date')
+            ->limit(1)
+    )
+    ->paginate(5);
+
+
+    $name = $id->firstname . " " . $id->middlename .  " " . $id->lastname . " " .  $id->extensionname ;
+
+
+    return view("admin.patientHistory", compact("appointmentHistory", "name"));
+}
+
 
     public function approveReservation(TimeSlot $id) {
 
@@ -460,13 +486,24 @@ class AdminController extends Controller
         return redirect()->route("admin.appointments")->with("success", "The appointment changed to no show!");
     }
     
-    public function completedRecords() {
+   public function completedRecords()
+{
+    $query = Reservation::withCount([
+        'timeSlots as time_slots_count' => function ($query) {
+            $query->whereIn('reservation_status', ['cancelled', 'completed', 'no-show']);
+        }
+    ]);
 
-        $appointmentHistory = Reservation::withCount('timeSlots')->paginate(5);
-
-    
-        return view("admin.patientHistory", compact("appointmentHistory"));
+    if (request()->has('search')) {
+        $search = request()->input('search');
+        $query->where('firstname', 'like', "%{$search}%");
     }
+
+    $appointmentHistory = $query->paginate(5);
+
+    return view("admin.patientHistory", compact("appointmentHistory"));
+}
+
 
     public function noshowRecords() {
 

@@ -19,12 +19,20 @@
                     <h1 class="lg:text-3xl text-2xl font-bold ">Appointment History</h1>
                           <!-- Status Filter -->
                           <div class="flex items-center justify-center gap-4 max-sm:flex-col max-sm:pt-3">
-                            <form action="{{request()->route()->getName() === 'admin.records' ? route('admin.records') : route('admin.noshowRecords')}}"
-                              method="GET">
-                              <input type="text" placeholder="Search Name" name="search" class="px-4 py-2 rounded-lg shadow-md border border-gray-500 bg-transparent">
-                              <button class="btn btn-primary text-white">Search</button>
-                           </form>
-                           <select name="" id="filter-appointment" class="py-2 px-4 rounded-lg border border-slate-500">
+                             @if (request()->route()->getName() !== "admin.showPatient")
+                                <form action="{{request()->route()->getName() === 'admin.records' ? route('admin.records') : route('admin.noshowRecords')}}"
+                                    method="GET">
+                                    <input type="text" placeholder="Search Name" name="search" class="px-4 py-2 rounded-lg shadow-md border border-gray-500 bg-transparent">
+                                    <button class="btn btn-primary text-white">Search</button>
+                                </form>
+                            @else 
+                                    @if (isset($name) && $name)
+                                         <h1 class=" text-xl font-bold ">({{$name}})</h1>
+                                    @endif
+                                
+                            @endif
+                            
+                           {{-- <select name="" id="filter-appointment" class="py-2 px-4 rounded-lg border border-slate-500">
                                 <option value="{{route('admin.records')}}" {{request()->route()->getName() === 'admin.records' ? 'selected' : ''}}>Completed</option>
                                 <option value="{{route('admin.noshowRecords')}}" {{request()->route()->getName() === 'admin.noshowRecords' ? 'selected' : ''}}>No-show</option>
                            </select>
@@ -37,11 +45,15 @@
                                 // Redirect to the selected option's value (URL)
                                 window.location.href = this.value;
                             });
-                        </script>
+                        </script> --}}
                           </div>
                 </div>
             </div>
-                 @include('admin.tableHistory') 
+                 @if (request()->route()->getName() === "admin.showPatient")
+                    @include('admin.tablePatients') 
+                 @else
+                    @include('admin.tableHistory') 
+                 @endif
             </div>
                        
         </main>
