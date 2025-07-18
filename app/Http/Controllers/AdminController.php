@@ -143,6 +143,19 @@ class AdminController extends Controller
 
         $treatments = Treatment::orderBy("created_at")->get();
 
+           // If new patient, generate a unique patient number
+         do {
+             $randomNumber = str_pad(mt_rand(0, 99999999), 8, '0', STR_PAD_LEFT);
+             $generatedPatientNumber = 'P-' . $randomNumber;
+         } while (Reservation::where('patient_number', $generatedPatientNumber)->exists());
+        
+
+            // Generate a unique Appointment Number
+         do {
+            $randomNumber = str_pad(mt_rand(0, 99999999), 8, '0', STR_PAD_LEFT);
+             $generatedAppointmentNumber = 'APP-' . $randomNumber;
+        } while (TimeSlot::where('appointment_number', $generatedAppointmentNumber)->exists());
+
         return view('admin.addAppointment',
         [
             "dates" => $dates,
@@ -150,7 +163,9 @@ class AdminController extends Controller
             "today" => $today, 
             "endDate" => $endDate,
             "treatments" => $treatments,
-            "id" => $id
+            "id" => $id,
+              "patient_number" => $generatedPatientNumber,
+            "appointment_number" => $generatedAppointmentNumber,
         ]);
         
     }
