@@ -20,11 +20,11 @@
     @foreach ($reservation->timeSlots as $slot)
         @if ($slot->reservation_status === 'pending') {{-- Or 'ongoing' depending on usage --}}
         <tr>
-            <td>{{$reservation->firstname}} {{$reservation->middlename}} {{$reservation->lastname}} {{$reservation->extensionname}}</td>
+            <td class="min-w-[100px]">{{$reservation->firstname}} {{$reservation->middlename}} {{$reservation->lastname}} {{$reservation->extensionname}}</td>
             <td class="font-bold text-center">{{$reservation->patient_number}}</td>
             <td class="font-bold text-center">{{$slot->appointment_number}}</td>
             <td class="min-w-[120px]">{{$slot->treatment_choice}}</td>
-            <td class="min-w-[120px]">{{ \Carbon\Carbon::parse($slot->date)->format('F j, Y') }}</td>
+            <td class="min-w-[150px]">{{ \Carbon\Carbon::parse($slot->date)->format('F j, Y') }}</td>
             <td class="min-w-[110px]">{{$slot->time_range}}</td>
             <td>{{$slot->reservation_status}}</td>
             <td>

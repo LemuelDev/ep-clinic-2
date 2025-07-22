@@ -60,6 +60,15 @@
                                 <label for="">Appointment Number:</label>
                                 <input type="text" readonly value="{{$slot->appointment_number}}" class="bg-transparent font-bold  rounded-lg shadow lg:px-10 px-4 py-3 text-left text-md w-full">
                             </div>
+                              <div class="flex gap-4 justify-start items-center">
+                                 <label for="">Remarks:</label>
+                                <textarea readonly class="bg-transparent font-bold rounded-lg shadow lg:px-10 px-4 py-3 text-left text-md w-full resize-none overflow-y-auto">{{ $slot->remarks ?? 'N/A' }}</textarea>
+
+                            </div>
+                              <div class="flex gap-4 justify-start items-center">
+                                <label for="">Status:</label>
+                                <input type="text" readonly value="{{$slot->reservation_status}}" class="bg-transparent font-bold  rounded-lg shadow lg:px-10 px-4 py-3 text-left text-md w-full">
+                            </div>
                         </div>  
                     </div>
 

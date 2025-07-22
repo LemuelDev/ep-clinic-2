@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\Rule;
 
+
 class ReservationController extends Controller
 {
     public function store()
@@ -29,7 +30,7 @@ class ReservationController extends Controller
                 'middlename' => 'nullable|string|max:255',
                 'extension_name' => 'nullable|string|max:255',
                 'phone_number' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255',
+                'email' =>  'required|string|indisposable',
                 'emergency_name' => 'required|string|max:255',
                 'emergency_contact' => 'required|string|max:255',
                 'emergency_relationship' => 'required|string|max:255',
@@ -46,6 +47,7 @@ class ReservationController extends Controller
                     }),
                 ],
             ]);
+            
 
 
             $app_number = TimeSlot::where('appointment_number', $validation["appointment_number"])->first();
@@ -135,8 +137,7 @@ class ReservationController extends Controller
         } catch (\Illuminate\Validation\ValidationException $e) {
             // Capture validation errors
             return redirect()->back()
-            ->withErrors($e->errors())
-            ->with('failed', 'Please fill out all required fields correctly.');
+            ->withErrors($e->errors());
         }
     }
 
@@ -167,10 +168,21 @@ class ReservationController extends Controller
                 return redirect()->back()->with("failed", "The Appointment Number is already been taken");
             }
 
+            // Get the reservation (patient) by patient number
             $reservation = Reservation::where('patient_number', $validation["patient_number"])->first();
 
-             if (!$reservation){
-                return redirect()->back()->with("failed", "There is no patient number exists like that.");
+            if (!$reservation) {
+                return redirect()->back()->with("failed", "There is no patient number that exists like that.");
+            }
+
+            // ✅ Check if the patient (via reservation_id) has 3 or more appointments today
+            $appointmentsToday = TimeSlot::where('reservation_id', $reservation->id)
+                ->whereIn('reservation_status', ['pending', 'approved'])
+                ->whereDate('created_at', now()->toDateString())
+                ->count();
+
+            if ($appointmentsToday >= 3) {
+                return redirect()->back()->with("failed", "You have reached the maximum of 3 appointments today. Try again tomorrow.");
             }
 
 

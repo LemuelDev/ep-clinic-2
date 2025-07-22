@@ -422,22 +422,10 @@ class AdminController extends Controller
 
     public function patientHistory(Reservation $id)
 {
-   $appointmentHistory = Reservation::with(['timeSlots' => function ($query) {
-        $query->whereIn('reservation_status', ['cancelled', 'completed', 'no-show'])
-              ->orderByDesc('date');
-    }])
-    ->where('id', $id->id)
-    ->whereHas('timeSlots', function ($query) {
-        $query->whereIn('reservation_status', ['cancelled', 'completed', 'no-show']);
-    })
-    ->orderByDesc(
-        TimeSlot::select('date')
-            ->whereColumn('reservation_id', 'reservations.id')
-            ->whereIn('reservation_status', ['cancelled', 'completed', 'no-show'])
-            ->latest('date')
-            ->limit(1)
-    )
-    ->paginate(5);
+    $appointmentHistory = $id->timeSlots()
+        ->whereIn('reservation_status', ['cancelled', 'completed', 'no-show'])
+        ->orderByDesc('date')
+        ->paginate(5);
 
 
     $name = $id->firstname . " " . $id->middlename .  " " . $id->lastname . " " .  $id->extensionname ;

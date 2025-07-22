@@ -509,7 +509,7 @@
                         <div class="modal-box">
                           <h3 class="text-xl font-bold">Failed!</h3>
                           <p class="py-4 pt-8 text-center text-red-600"> @foreach ($errors->all() as $error)
-                              {{ $error }}
+                              {{ $error }} <span> <br></span>
                           @endforeach</p>
                           <div class="modal-action">
                             <form method="dialog">

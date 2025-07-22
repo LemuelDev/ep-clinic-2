@@ -13,7 +13,7 @@
     <tbody>
             @forelse ($appointmentHistory as $patient)
       <tr>
-        <td class="text-md text-center">
+        <td class="text-md text-center min-w-[100px]">
           {{ $patient->firstname }}
           {{ $patient->middlename }}
           {{ $patient->lastname }}
