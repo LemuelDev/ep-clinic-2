@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string("description"); 
             $table->string('remarks')->nullable(); // e.g., "8-9"
             $table->boolean('is_occupied'); 
+            $table->boolean('reminder_sent_48hr')->default(false);
+            $table->boolean('reminder_sent_24hr')->default(false);
             $table->timestamps();
         });
     }

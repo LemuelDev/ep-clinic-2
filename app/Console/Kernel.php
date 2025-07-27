@@ -12,7 +12,16 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+         // --- FOR LOCAL TESTING ONLY ---
+        // This will make your reminder command eligible to run every minute
+        $schedule->command('appointments:send-reminders')
+                 ->everyMinute() // <--- CHANGE THIS LINE FOR TESTING
+                 ->timezone('Asia/Manila');
+
+        // --- FOR PRODUCTION, IT SHOULD BE LIKE THIS: ---
+        // $schedule->command('appointments:send-reminders')
+        //          ->dailyAt('08:00')
+        //          ->timezone('Asia/Manila');
     }
 
     /**

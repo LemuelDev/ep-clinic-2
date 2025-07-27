@@ -273,7 +273,7 @@ class ReservationController extends Controller
     $reservation->remarks = $remarks;
     $reservation->save();
 
-    return redirect()->route('home')->with('success', 'Your appointment was cancelled with your remark.');
+    return redirect()->route('patient.create')->with('success', 'Your appointment was cancelled with your remark. If you want to reschedule, please make another appointment in the existing patient with your desired date.');
 }
 
 

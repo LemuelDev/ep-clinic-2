@@ -13,6 +13,7 @@ class ReservationPending extends Notification
 {
     use Queueable;
 
+    
     protected $reservation;
     protected $timeslot;
 
