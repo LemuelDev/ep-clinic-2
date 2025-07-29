@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{ asset('images/logo-tooth.png') }}" type="image/x-icon">
     <title>EP CLINIC (RESERVATION)</title>
     @vite('resources/css/app.css')
@@ -204,15 +205,80 @@
                 The insights and suggestions provided are dependent on your input and may not be entirely accurate.
                  For a comprehensive evaluation and personalized advice, always consult with a qualified dentist.</p>
             </div>
-            <form action="" class="flex max-lg:flex-col items-around justify-center gap-4 p-4 max-w-[1000px] mx-auto" method="POST">
+            <form action="{{route('patient.assess')}}" id="dentalForm" class="flex max-lg:flex-col items-around justify-center gap-4 p-4 max-w-[1000px] mx-auto" method="POST">
                 @csrf
-                <input type="text" placeholder="Enter your dental condition" class="inputss placeholder:text-slate-500 min-w-[600px] max-sm:w-full max-lg:min-w-[400px] bg-white ">
+                @method('POST')
+                <input type="text" name="dental_condition" placeholder="Enter your dental condition" class="inputss placeholder:text-slate-500 min-w-[600px] max-sm:w-full max-lg:min-w-[400px] bg-white ">
                 <button class="bg-blue-600 hover:bg-blue-700 transition-colors px-8 py-3 text-white text-lg  font-bold rounded-lg shadow-xl outline-none">Submit</button>
             </form>
-            <div class=" rounded-lg shadow-xl mt-8" id="result">
-                
+            <div class="rounded-xl shadow-xl mt-8 w-full lg:max-w-[1000px] mx-auto bg-white p-6" id="result">
+                <p class="text-gray-500 text-center">Your personalized dental insights will appear here after submission.</p>
             </div>
-        </div>      
+        </div>   
+        
+        <script>
+        const form = document.getElementById('dentalForm');
+        const dentalInput = form.querySelector('input[name="dental_condition"]');
+        const resultDiv = document.getElementById('result');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Prevent default form submission (page reload)
+
+            const dentalCondition = dentalInput.value.trim();
+
+            if (!dentalCondition) {
+                resultDiv.innerHTML = '<div class="p-4 text-red-600 font-semibold text-center">Please enter your dental condition before submitting.</div>';
+                return;
+            }
+
+            // Show a loading message
+            resultDiv.innerHTML = '<div class="p-4 text-blue-600 text-center font-semibold">Analyzing your symptoms...</div>';
+
+            try {
+                // Get the CSRF token from the meta tag
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken // Laravel CSRF protection
+                    },
+                    body: JSON.stringify({ dental_condition: dentalCondition }) // Send as JSON
+                });
+
+                if (!response.ok) {
+                    // If response is not OK (e.g., 4xx or 5xx), parse error details
+                    const errorResponse = await response.json(); // Try to parse as JSON
+                    const errorMessage = errorResponse.message || 'An unexpected error occurred.';
+                    throw new Error(`HTTP error! Status: ${response.status}. Details: ${errorMessage}`);
+                }
+
+                const data = await response.json(); // Parse the successful JSON response
+
+                if (data.error) {
+                    resultDiv.innerHTML = `<div class="p-5 text-red-600 font-semibold">${data.error}</div>`;
+                } else {
+                    // Display the recommendation from Gemini
+                    resultDiv.innerHTML = `
+                        <div class="p-5 bg-white rounded-lg text-left border border-gray-200">
+                            <h5 class="font-bold text-2xl mb-3 text-[#0118D8]">AI Assistant's Insights:</h5>
+                            <p class="text-gray-800 whitespace-pre-wrap leading-relaxed">${data.recommendation}</p>
+                        </div>
+                    `;
+                }
+
+            } catch (error) {
+                console.error('Fetch error:', error);
+                resultDiv.innerHTML = `<div class="p-5 text-red-600 font-semibold">
+                                            Sorry, we could not get recommendations right now. Please try again later.
+                                            <br><small>Error: ${error.message}</small>
+                                       </div>`;
+            } finally {
+                // You can add a visual cue here to indicate loading is done, if not already handled by content replacement
+            }
+        });
+    </script>
     </section>
 
     

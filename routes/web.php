@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DentalAIController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ReservationController;
@@ -54,6 +55,8 @@ Route::post('password/reset/', [PasswordResetController::class, 'reset'])
 
 
 // posting reservationsss
+Route::post('/assess_dental_symptoms', [DentalAIController::class, 'assessSymptoms'])->name('patient.assess');
+
 Route::get('/appointment/create/', [PatientController::class, 'createReservations'])->name('patient.create');
 
 Route::post('/appointment/post', [ReservationController::class, 'store'])->name('patient.store');
