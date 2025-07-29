@@ -354,23 +354,23 @@ class AdminController extends Controller
 
 
     public function appointments() {
-         $query = Reservation::with('timeSlots') // Eager load the related timeSlot
-            ->whereHas('timeSlots', function ($query) {
-                // Filter reservations where the related timeSlot has 'pending' status
-                $query->where('reservation_status', 'pending');
-            })
-            ->orderBy('firstname');
+         
+        $query = TimeSlot::with('reservation')
+            ->join('reservations', 'time_slots.reservation_id', '=', 'reservations.id')
+            ->where('time_slots.reservation_status', 'pending');
 
-            
-        // Apply search filter if 'search' input is provided
         if (request()->has('search')) {
             $search = request()->input('search');
-            $query->where('firstname', 'like', "%{$search}%");
+            $query->where('reservations.firstname', 'like', "%{$search}%");
         }
-        
-        // Execute the query to retrieve the filtered results
-        $reservations = $query->paginate(5);
-        return view("admin.appointments" , compact("reservations"));
+
+        $reservations = $query->orderBy('reservations.firstname', 'asc')
+                           ->select('time_slots.*')
+                           ->paginate(6)
+                           // THIS IS THE FIX: Use appends(request()->query())
+                           ->appends(request()->query()); // <-- This will work universally
+
+        return view("admin.appointments", compact("reservations"));
     }
 
     public function forApprovalAppointments() {
@@ -394,21 +394,22 @@ class AdminController extends Controller
 
 
    public function ongoingAppointments() {
-    $query = Reservation::with(['timeSlots' => function ($query) {
-                $query->where('reservation_status', 'ongoing');
-            }])
-            ->whereHas('timeSlots', function ($query) {
-                $query->where('reservation_status', 'ongoing');
-            })
-            ->orderBy('firstname');
+       $query = TimeSlot::with('reservation')
+            ->join('reservations', 'time_slots.reservation_id', '=', 'reservations.id')
+            ->where('time_slots.reservation_status', 'ongoing');
 
-    if (request()->has('search')) {
-        $search = request()->input('search');
-        $query->where('firstname', 'like', "%{$search}%");
-    }
+        if (request()->has('search')) {
+            $search = request()->input('search');
+            $query->where('reservations.firstname', 'like', "%{$search}%");
+        }
 
-    $reservations = $query->paginate(5);
-    return view("admin.appointments", compact("reservations"));
+        $reservations = $query->orderBy('reservations.firstname', 'asc')
+                           ->select('time_slots.*')
+                           ->paginate(6)
+                           // THIS IS THE FIX: Use appends(request()->query())
+                           ->appends(request()->query()); // <-- This will work universally
+
+        return view("admin.appointments", compact("reservations"));
 }
 
     public function trackAppointment(TimeSlot $id) {

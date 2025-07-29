@@ -17,21 +17,19 @@
     <tbody>
       <!-- row 1 -->
     @forelse ($reservations as $reservation)
-    @foreach ($reservation->timeSlots as $slot)
-        @if ($slot->reservation_status === 'pending') {{-- Or 'ongoing' depending on usage --}}
-        <tr>
-            <td class="min-w-[100px]">{{$reservation->firstname}} {{$reservation->middlename}} {{$reservation->lastname}} {{$reservation->extensionname}}</td>
-            <td class="font-bold text-center">{{$reservation->patient_number}}</td>
-            <td class="font-bold text-center">{{$slot->appointment_number}}</td>
-            <td class="min-w-[120px]">{{$slot->treatment_choice}}</td>
-            <td class="min-w-[150px]">{{ \Carbon\Carbon::parse($slot->date)->format('F j, Y') }}</td>
-            <td class="min-w-[110px]">{{$slot->time_range}}</td>
-            <td>{{$slot->reservation_status}}</td>
+         <tr>
+            <td class="min-w-[150px]">{{$reservation->reservation->firstname}} {{$reservation->reservation->middlename}} {{$reservation->reservation->lastname}} {{$reservation->reservation->extensionname}}</td>
+            <td class="font-bold text-center">{{$reservation->reservation->patient_number}}</td>
+            <td class="font-bold text-center">{{$reservation->appointment_number}}</td>
+            <td class="min-w-[120px]">{{$reservation->treatment_choice}}</td>
+            <td class="min-w-[150px]">{{ \Carbon\Carbon::parse($reservation->date)->format('F j, Y') }}</td>
+            <td class="min-w-[110px]">{{$reservation->time_range}}</td>
+            <td>{{$reservation->reservation_status}}</td>
             <td>
                 <div class="flex items-center justify-center gap-2">
-                    <a href="{{ route('admin.trackReservation', $slot->id) }}" class="btn btn-accent">View</a>
+                    <a href="{{ route('admin.trackReservation', $reservation->id) }}" class="btn btn-accent">View</a>
                     <button class="btn btn-error"
-                            data-file-id="{{ $slot->id }}"
+                            data-file-id="{{ $reservation->id }}"
                             data-toggle-modal="#deleteConfirmationModal">
                         Delete
                     </button>
@@ -39,8 +37,6 @@
             </td>
         </tr>
         
-        @endif
-    @endforeach
 @empty
     <tr>
         <td colspan="8" class="text-center py-4 text-gray-500">No reservations found.</td>
