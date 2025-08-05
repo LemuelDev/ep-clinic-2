@@ -7,6 +7,7 @@ use App\Models\MedicalHistory;
 use App\Models\Reservation;
 use App\Models\TimeSlot;
 use App\Models\Treatment;
+use App\Notifications\PatientNumberNotif;
 use App\Notifications\ReservationConfirmed;
 use App\Notifications\ReservationPending;
 use Carbon\Carbon;
@@ -96,7 +97,9 @@ class ReservationController extends Controller
             // If any existing patient found, return appropriate error message
             if ($existing_patient) {
                 $patient_number = $existing_patient->patient_number;
-                $message = "We identified that you already have a record in our appointment system based on your {$conflict_type}. Your patient number is {$patient_number}. Please use the 'Existing Patient' option to make your appointment.";
+
+                Notification::route('mail', $existing_patient->email)->notify(new PatientNumberNotif($existing_patient));
+                $message = "We identified that you already have a record in our appointment system based on your {$conflict_type}. Please check your registered email for your Patient Number and use the 'Existing Patient' option to make your appointment.";
                 
                 return redirect()->back()->with("failed", $message);
             }

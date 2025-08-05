@@ -3,24 +3,23 @@
 namespace App\Notifications;
 
 use App\Models\Reservation;
-use App\Models\TimeSlot;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ReservationPending extends Notification
+class PatientNumberNotif extends Notification
 {
     use Queueable;
 
-    
-    protected $reservation;
+    /**
+     * Create a new notification instance.
+     */ protected $reservation;
     protected $timeslot;
 
-    public function __construct(Reservation $reservation, TimeSlot $timeslot)
+    public function __construct(Reservation $reservation)
     {
         $this->reservation = $reservation;
-        $this->timeslot = $timeslot;
     }
 
     /**
@@ -36,21 +35,19 @@ class ReservationPending extends Notification
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail($notifiable)
+    public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->subject('Your Appointment is subject for Approval!')
+                    ->subject('Patient Number Notification')
                     ->greeting('Hello ' . $this->reservation->firstname)
-                    ->line('Your request for a dental appointment has been successfully submitted. We\'re reviewing your request and will send you an email as soon as it\'s approved by the dental clinic.')
-                    ->line('Appointment Details:')
-                    // ->line('Patient Number: ' . $this->reservation->patient_number)
-                    // ->line('Appointment Number: ' . $this->timeslot->appointment_number)
-                    ->line('Date: ' . \Carbon\Carbon::parse($this->timeslot->date)->format('F j, Y'))
-                    ->line('Time: ' . $this->timeslot->time_range)
-                    ->line('Treatment: ' . $this->timeslot->treatment_choice)
+                    ->line('It looks like you\'re already in our system. To schedule your appointment, please use the existing patient during appointment process.')
+                    ->line('Your Patient Number: ' . $this->reservation->patient_number)
                     ->line('If you did not make this appointment, please ignore this email.')
                     ->line('Thank you for using our service!');
-    }
+
+
+    }            
+
     /**
      * Get the array representation of the notification.
      *

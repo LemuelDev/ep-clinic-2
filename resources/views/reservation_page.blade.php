@@ -345,10 +345,10 @@
                     </div>
                 </div>
 
-                <div class="flex justify-center max-sm:flex-col items-center gap-6 mb-6 py-6">
+                {{-- <div class="flex justify-center max-sm:flex-col items-center gap-6 mb-6 py-6">
                       <label class="text-lg" id="p-number" for="">Patient Number: <span class="text-xl font-bold text-blue-600">{{$patient_number}}</span> </label>
                       <label  class="text-lg"for="">Appointment Number: <span class="text-xl font-bold text-blue-600">{{$appointment_number}}</span> </label>
-                </div>
+                </div> --}}
 
                 <!-- Form for submitting the reservation -->
                 <form action="{{ route('patient.store') }}" id="new-patient-form" method="POST" class="grid justify-center items-start lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 max-w-[900px] mx-auto py-7">
@@ -490,13 +490,13 @@
                       const existingPatientRadio = document.getElementById('existing-patient');
                       const newPatientForm = document.getElementById('new-patient-form');
                       const existingPatientForm = document.getElementById('existing-patient-form');
-                      const pNumber = document.getElementById('p-number');
+                    //   const pNumber = document.getElementById('p-number');
                       if (newPatientRadio.checked) {
                           newPatientForm.style.display = 'grid';
                           existingPatientForm.style.display = 'none';
-                          pNumber.style.display = 'flex';
+                        //   pNumber.style.display = 'flex';
                       } else if (existingPatientRadio.checked) {
-                          pNumber.style.display = 'none';
+                        //   pNumber.style.display = 'none';
                           newPatientForm.style.display = 'none';
                           existingPatientForm.style.display = 'grid';
                       }
