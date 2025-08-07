@@ -4,8 +4,7 @@
     <!-- head -->
     <thead>
       <tr>
-        <th class="text-lg">Name</th>
-        <th class="text-lg">Patient Number</th>
+     
         <th class="text-lg">Appointment Number</th>
         <th class="text-lg">Treatment</th>
         <th class="text-lg">Date</th>
@@ -17,8 +16,6 @@
     <tbody>
           @forelse ($appointmentHistory as $reservation)
              <tr>
-                    <td class="min-w-[120px]">{{$reservation->reservation->firstname}} {{$reservation->reservation->middlename}} {{$reservation->reservation->lastname}} {{$reservation->reservation->extensionname}}</td>
-                    <td class="font-bold text-center">{{$reservation->reservation->patient_number}}</td>
                     <td class="font-bold text-center">{{$reservation->appointment_number}}</td>
                     <td class="min-w-[120px]">{{$reservation->treatment_choice}}</td>
                     <td class="min-w-[120px]">{{ \Carbon\Carbon::parse($reservation->date)->format('F j, Y') }}</td>

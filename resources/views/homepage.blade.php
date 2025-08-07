@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{ asset('images/logo-tooth.png') }}" type="image/x-icon">
     <title>EP CLINIC</title>
     @vite('resources/css/app.css')
     @vite('resources/js/lightDark.js')
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <style>
         *{
             font-family: "Poppins", sans-serif;
@@ -27,6 +25,22 @@
         margin: auto;
     }
     
+    .inputss {
+            border: none;
+            padding: 1rem;
+            border-radius: 1rem;
+            box-shadow: 20px 20px 60px #c5c5c5,
+                    -20px -20px 60px #ffffff;
+            transition: 0.3s;
+        
+            }
+
+            .inputss:focus {
+            outline-color: #e8e8e8;
+            box-shadow: inset 20px 20px 60px #c5c5c5,
+                    inset -20px -20px 60px #ffffff;
+            transition: 0.3s;
+            }
 
     .image-wrapper::before {
       content: "";
@@ -111,10 +125,14 @@
       cursor: pointer;
     }
     </style>
-
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    
      <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
      <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     
 </head>
 <body>
@@ -145,7 +163,7 @@
                  data-aos-duration="2000">
                 <h4 class="font-bold text-[40px] py-2 text-[#0118D8] max-sm:text-center max-sm:px-4 ">Your Smile, Our Expertise</h4>
                 <p class="text-xl text-center py-2 text-black">Bringing confidence, comfort and care <br>  to every visit.</p>
-                <a href="/appointment/create" class="bg-[#0118D8] hover:bg-[#404fd3] rounded-lg outline-none  text-white px-8 py-3 text-lg mt-4">Appoint Now</a>
+                <a href="/appointment/create" class="bg-[#0118D8] hover:bg-[#404fd3] rounded-lg outline-none  text-white px-8 py-3 text-lg mt-4">Schedule an Appointment</a>
             </div>
             <div class="containerr" >
                 <div class="image-wrapper">
@@ -173,21 +191,16 @@
         <div class="flex md:items-start items-center justify-center flex-col gap-6 max-w-[700px] mx-auto pt-40 max-sm:px-4">
             <div class="flex items-start justify-center md:text-start text-center  gap-4" data-aos="fade-left"
             data-aos-duration="2000">
-                <span class="text-5xl pb-4 flex items-start">
-                    <box-icon type='solid' name='quote-alt-left'></box-icon>
-                </span>
+                
                 <h4 class="font-bold md:text-[45px] text-4xl text-black">Your Journey to a <span class="text-[#0118D8]">Brighter</span></h4>
             </div>
             <div class="flex items-start justify-center text-centrer md:justify-end gap-4 w-full"
             data-aos="fade-right"
             data-aos-duration="2000">
                 <h4 class="font-bold md:text-5xl text-4xl text-black"> and <span class="text-[#0118D8]">Healthier</span> Smile</h4>
-                <span class="text-5xl pb-4 flex items-start ">
-                    <box-icon type='solid' name='quote-alt-right'></box-icon>
-                </span>
+                
             </div>
-            <h4 class="flex justify-center items-center text-center w-full pt-8 italic text-xl text-slate-700"
-            >Let us help you achieve the smile you’ve always wanted.</h4>
+            <h4 class="flex justify-center items-center text-center w-full pt-8 italic text-xl text-slate-700">Let us help you achieve the smile you’ve always wanted.</h4>
         </div>      
     </section>
 
@@ -244,6 +257,91 @@
                 Locate us near the <span class="text-[#0118D8]">Trillana Cycle Parts Store</span class="text-[#0118D8]"> at the <span class="text-[#0118D8]">Rubi Street Poblacion, Candelaria, Zambales.</span > We are open from <span class="text-[#0118D8]">Monday to Sunday at 8am to 4pm</span>. Make your appointment now and we will give you the brightest smile you will ever have!
             </div>
         </div>
+    </section>
+
+     <section class="w-full min-h-[65vh] py-16" data-theme="light">
+        <div class="flex items-center justify-center flex-col  gap-6 max-w-[1050px] mx-auto py-20 max-sm:px-4">
+            <h4 class=" font-bold text-4xl py-4 text-center pt-8 text-[#0118D8]">Get Personalized Dental Insights from Our AI Assistant</h4>
+            <div class="grid gap-6 max-w-[700px] mx-auto items-center text-center p-5 rounded-lg outline-none glasscss">
+                <h4 class="py-4 text-3xl text-black">DISCLAIMER:</h4>
+               <p class="text-md">This AI assistant is designed to offer preliminary information and is not a substitute for professional dental consultation. 
+                The insights and suggestions provided are dependent on your input and may not be entirely accurate.
+                 For a comprehensive evaluation and personalized advice, always consult with a qualified dentist.</p>
+            </div>
+            <form action="{{route('patient.assess')}}" id="dentalForm" class="flex max-lg:flex-col items-around justify-center gap-4 p-4 max-w-[1000px] mx-auto" method="POST">
+                @csrf
+                @method('POST')
+                <input type="text" name="dental_condition" placeholder="Enter your dental condition" class="inputss placeholder:text-slate-500 min-w-[600px] max-sm:w-full max-lg:min-w-[400px] bg-white ">
+                <button class="bg-blue-600 hover:bg-blue-700 transition-colors px-8 py-3 text-white text-lg  font-bold rounded-lg shadow-xl outline-none">Submit</button>
+            </form>
+            <div class="rounded-xl shadow-xl mt-8 w-full lg:max-w-[1000px] mx-auto bg-white p-6" id="result">
+                <p class="text-gray-500 text-center">Your personalized dental insights will appear here after submission.</p>
+            </div>
+        </div>   
+        
+        <script>
+        const form = document.getElementById('dentalForm');
+        const dentalInput = form.querySelector('input[name="dental_condition"]');
+        const resultDiv = document.getElementById('result');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Prevent default form submission (page reload)
+
+            const dentalCondition = dentalInput.value.trim();
+
+            if (!dentalCondition) {
+                resultDiv.innerHTML = '<div class="p-4 text-red-600 font-semibold text-center">Please enter your dental condition before submitting.</div>';
+                return;
+            }
+
+            // Show a loading message
+            resultDiv.innerHTML = '<div class="p-4 text-blue-600 text-center font-semibold">Analyzing your symptoms...</div>';
+
+            try {
+                // Get the CSRF token from the meta tag
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken // Laravel CSRF protection
+                    },
+                    body: JSON.stringify({ dental_condition: dentalCondition }) // Send as JSON
+                });
+
+                if (!response.ok) {
+                    // If response is not OK (e.g., 4xx or 5xx), parse error details
+                    const errorResponse = await response.json(); // Try to parse as JSON
+                    const errorMessage = errorResponse.message || 'An unexpected error occurred.';
+                    throw new Error(`HTTP error! Status: ${response.status}. Details: ${errorMessage}`);
+                }
+
+                const data = await response.json(); // Parse the successful JSON response
+
+                if (data.error) {
+                    resultDiv.innerHTML = `<div class="p-5 text-red-600 font-semibold">${data.error}</div>`;
+                } else {
+                    // Display the recommendation from Gemini
+                    resultDiv.innerHTML = `
+                        <div class="p-5 bg-white rounded-lg text-left border border-gray-200">
+                            <h5 class="font-bold text-2xl mb-3 text-[#0118D8]">AI Assistant's Insights:</h5>
+                            <p class="text-gray-800 whitespace-pre-wrap leading-relaxed">${data.recommendation}</p>
+                        </div>
+                    `;
+                }
+
+            } catch (error) {
+                console.error('Fetch error:', error);
+                resultDiv.innerHTML = `<div class="p-5 text-red-600 font-semibold">
+                                            Sorry, we could not get recommendations right now. Please try again later.
+                                            <br><small>Error: ${error.message}</small>
+                                       </div>`;
+            } finally {
+                // You can add a visual cue here to indicate loading is done, if not already handled by content replacement
+            }
+        });
+    </script>
     </section>
 
     <section class="w-full min-h-[40vh]"  data-theme="light" id="services">

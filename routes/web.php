@@ -120,6 +120,18 @@ Route::post('/admin/profile/updatePassword/{id}', [AdminController::class, 'upda
 
 Route::get("/admin/treatments", [TreatmentController::class, "index"])->name("admin.treatments");
 
+Route::get("/admin/time_slots", [AdminController::class, "viewTime"])->name("admin.timeSlots");
+
+Route::get("/admin/time_slots/delete/{id}", [AdminController::class, "deleteTime"])->name("admin.deleteTime");
+
+Route::post("/admin/time_slots/store", [AdminController::class, "storeClinicHours"])->name("admin.storeClinicHours");
+
+Route::patch("/admin/time_slots/update/{id}", [AdminController::class, "updateTime"])->name("admin.updateTime");
+
+Route::get("/admin/time_slots/edit/{id}", [AdminController::class, "editTime"])->name("admin.editTime");
+
+Route::get("/admin/time_slots/add/", [AdminController::class, "addTime"])->name("admin.addTime");
+
 Route::get("/admin/treatments/new", [TreatmentController::class, "add"])->name("treatment.add");
 
 Route::post("/admin/treatments/store", [TreatmentController::class, "store"])->name("treatment.store");

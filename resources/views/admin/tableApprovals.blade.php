@@ -10,7 +10,7 @@
         <th class="text-lg">Age</th>
         <th class="text-lg">Sex</th>
         <th class="text-lg">Status</th>
-        <th class="text-center text-lg">Action</th>
+        <th class="text-center text-lg">Action Taken</th>
       </tr>
     </thead>
     <tbody>

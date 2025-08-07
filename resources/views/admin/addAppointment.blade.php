@@ -50,18 +50,26 @@
 
                         <!-- Time slots (displayed if a date is selected) -->
                         @if(request('reservation_date') && !empty($timeSlots))
-                        <div id="time-slots" class="grid gap-7 px-4">
-                            <div>
-                                <label>Select a Time Slot:</label>
-                                @foreach($timeSlots as $timeSlot => $details)
-                                <div class="flex gap-3">
-                                    <input type="radio" name="time_slot" value="{{ $timeSlot }}"
-                                    {{ $details['is_occupied'] ? 'disabled' : '' }}
-                                    onclick="setTimeSlot('{{ $timeSlot }}')">                                    
-                                    <label >{{ $timeSlot }} <span class="{{ !$details['is_occupied'] ? 'text-green-500' : 'text-red-500' }}" >{{ !$details['is_occupied'] ? 'Available' : '(Booked)' }}</span></label>
-                                </div>
-                                @endforeach
+                        <div id="time-slots" class="grid gap-4 px-4">
+                            <div class="grid grid-cols-[1fr_auto] gap-x-6 text-sm font-semibold text-gray-500 uppercase">
+                                <span>Time Slot</span>
+                                <span>Status</span>
                             </div>
+
+                            @foreach($timeSlots as $timeSlot => $details)
+                            <div class="grid grid-cols-[1fr_auto] gap-x-6 items-center">
+                                <label class="flex items-center space-x-2">
+                                    <input type="radio" name="time_slot" value="{{ $timeSlot }}"
+                                        {{ $details['is_occupied'] ? 'disabled' : '' }}
+                                        onclick="setTimeSlot('{{ $timeSlot }}')"
+                                        class="form-radio h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300">
+                                    <span>{{ $timeSlot }}</span>
+                                </label>
+                                <span class="{{ !$details['is_occupied'] ? 'text-green-500' : 'text-red-500' }} font-medium">
+                                    {{ !$details['is_occupied'] ? 'Available' : 'Booked' }}
+                                </span>
+                            </div>
+                            @endforeach
                         </div>
                         @endif
                     </div>

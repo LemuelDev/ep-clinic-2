@@ -7,7 +7,7 @@
         <th class="text-lg text-center">Treatment_Number</th>
         <th class="text-lg text-center">Treatment_Name</th>
       
-        <th class="text-center text-lg">Action</th>
+        <th class="text-center text-lg">Action Taken</th>
       </tr>
     </thead>
     <tbody>

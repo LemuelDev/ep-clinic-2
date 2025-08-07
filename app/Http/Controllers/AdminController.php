@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\ApproveEmail;
 use App\Mail\ApproveReservation;
 use App\Mail\RejectAppointment;
+use App\Models\ClinicHours;
 use App\Models\Reservation;
 use App\Models\TimeSlot;
 use App\Models\Treatment;
@@ -15,12 +16,99 @@ use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\Rule;
 
 class AdminController extends Controller
 {
+
+    public function storeClinicHours(Request $request){
+         $request->validate([
+        'start_time' => 'required|date_format:H:i',
+        'end_time'   => 'required|date_format:H:i|after:start_time',
+    ]);
+
+    $slot = ClinicHours::where("start_time", $request->input('start_time'))
+    ->where("end_time", $request->input('end_time'));
+
+    if($slot){
+        redirect()->back()->with('failed', 'Time slot is already set!');
+    }
+
+    // Convert the submitted times to Carbon objects
+    $startTime = Carbon::createFromFormat('H:i', $request->input('start_time'));
+    $endTime = Carbon::createFromFormat('H:i', $request->input('end_time'));
+
+    // Automatically generate the time_range string
+    $timeRange = $startTime->format('gA') . '-' . $endTime->format('gA');
+    // For example, '08:00' to '09:00' becomes '8AM-9AM'
+
+    ClinicHours::create([
+        'start_time' => $startTime,
+        'end_time'   => $endTime,
+        'time_range' => $timeRange,
+    ]);
+
+    return redirect()->route("admin.timeSlots")->with('success', 'Time slot created successfully!');
+    }
+
+    public function viewTime() {
+         $query = ClinicHours::orderBy('created_at');
+
+         $clinicHours = $query->paginate(5);
+
+        return view("admin.timeSlots", compact("clinicHours"));
+    }
+
+    public function editTime(ClinicHours $id) {
+        return view("admin.trackTime", compact("id"));
+    }
+
+    public function addTime(){
+        return view("admin.addTime");
+    }
+
+    public function deleteTime(ClinicHours $id){
+        $id->delete();
+
+        return redirect()->route("admin.timeSlots")->with('success', 'Time slot deleted successfully!');
+    }
+
+    public function updateTime(Request $request, ClinicHours $id)
+{
+    // The validation should remain outside the try-catch block
+    // as it handles common input errors and Laravel manages the redirection.
+    $request->validate([
+        'start_time' => 'required|date_format:H:i',
+        'end_time'   => 'required|date_format:H:i|after:start_time',
+    ]);
+
+    try {
+        // Convert the submitted times to Carbon objects
+        $startTime = Carbon::createFromFormat('H:i', $request->input('start_time'));
+        $endTime = Carbon::createFromFormat('H:i', $request->input('end_time'));
+
+        // Automatically generate the time_range string
+        $timeRange = $startTime->format('gA') . '-' . $endTime->format('gA');
+
+        $id->update([
+            'start_time' => $startTime,
+            'end_time'   => $endTime,
+            'time_range' => $timeRange,
+        ]);
+
+        return redirect()->route("admin.timeSlots")->with('success', 'Time slot updated successfully!');
+
+    } catch (\Throwable $th) {
+        // Log the exception for detailed server-side debugging
+        Log::error("Error updating time slot: " . $th->getMessage());
+        
+        // Return to the previous page with a failure message and the error details
+        return redirect()->back()->with('failed', 'Time slot update failed: ' . $th->getMessage());
+    }
+}
 
     public function reschedAppointment(Reservation $id){
         return view("admin.addAppointment", compact("id"));
@@ -31,66 +119,61 @@ class AdminController extends Controller
     }
 
     public function newReservation(Request $request) {
-        $today = Carbon::today()->format('Y-m-d');
-        $endDate = Carbon::today()->addMonths(2)->format('Y-m-d');
-    
+         $today = Carbon::today()->format('Y-m-d');
+        $endDate = Carbon::today()->addMonths(1)->format('Y-m-d');
+
+        // Fetch all clinic time slots, sorted by start_time
+        $allClinicTimeSlots = ClinicHours::orderBy('start_time')->pluck('time_range');
+
+        // Fetch all appointments for the next month
         $appointments = TimeSlot::whereBetween('date', [$today, $endDate])->get();
-    
+
         $dates = [];
         $period = CarbonPeriod::create($today, $endDate);
-        $allTimeSlots = ['8AM-9AM', '9AM-10AM', '10AM-11AM', '11AM-12PM', '1PM-2PM', '2PM-3PM', '3PM-4PM'];
-        
+
         foreach ($period as $date) {
             $dateFormatted = $date->format('Y-m-d');
             $appointmentsForDate = $appointments->where('date', $dateFormatted);
-    
+            
             if ($appointmentsForDate->isNotEmpty()) {
                 $bookedTimeSlots = $appointmentsForDate->pluck('time_range')->toArray();
-                $isFullyBooked = collect($allTimeSlots)->diff($bookedTimeSlots)->isEmpty();
+                $isFullyBooked = collect($allClinicTimeSlots)->diff($bookedTimeSlots)->isEmpty();
                 $dates[$dateFormatted] = $isFullyBooked ? 'fully-booked' : 'available';
             } else {
                 $dates[$dateFormatted] = 'available';
             }
         }
-    
         
-        // Fetch available time slots for the selected date if it exists in the request
         $timeSlots = [];
-       // Check if the time slots are being populated correctly
         if ($request->has('reservation_date')) {
             $selectedDate = $request->input('reservation_date');
             $appointmentsForDate = TimeSlot::where('date', $selectedDate)->get();
-            $timeSlots = [
-                '8AM-9AM'  => ['is_occupied' => $appointmentsForDate->where('time_range', '8AM-9AM')->first()->is_occupied ?? false],
-                '9AM-10AM' => ['is_occupied' => $appointmentsForDate->where('time_range', '9AM-10AM')->first()->is_occupied ?? false],
-                '10AM-11AM'=> ['is_occupied' => $appointmentsForDate->where('time_range', '10AM-11AM')->first()->is_occupied ?? false],
-                '11AM-12PM'=> ['is_occupied' => $appointmentsForDate->where('time_range', '11AM-12PM')->first()->is_occupied ?? false],
-                '1PM-2PM'  => ['is_occupied' => $appointmentsForDate->where('time_range', '1PM-2PM')->first()->is_occupied ?? false],
-                '2PM-3PM'  => ['is_occupied' => $appointmentsForDate->where('time_range', '2PM-3PM')->first()->is_occupied ?? false],
-                '3PM-4PM'  => ['is_occupied' => $appointmentsForDate->where('time_range', '3PM-4PM')->first()->is_occupied ?? false],
-            ];
+
+            // Fetch and sort clinic time slots by start_time for the selected day
+            $clinicTimeSlots = ClinicHours::orderBy('start_time')->get();
+
+            foreach ($clinicTimeSlots as $slot) {
+                $isOccupied = $appointmentsForDate->where('time_range', $slot->time_range)->isNotEmpty();
+                $timeSlots[$slot->time_range] = ['is_occupied' => $isOccupied];
+            }
         }
 
         $treatments = Treatment::orderBy("created_at")->get();
 
-          // If new patient, generate a unique patient number
-         do {
-             $randomNumber = str_pad(mt_rand(0, 99999999), 8, '0', STR_PAD_LEFT);
-             $generatedPatientNumber = 'P-' . $randomNumber;
-         } while (Reservation::where('patient_number', $generatedPatientNumber)->exists());
-        
-
-            // Generate a unique Appointment Number
-         do {
+        do {
             $randomNumber = str_pad(mt_rand(0, 99999999), 8, '0', STR_PAD_LEFT);
-             $generatedAppointmentNumber = 'APP-' . $randomNumber;
+            $generatedPatientNumber = 'P-' . $randomNumber;
+        } while (Reservation::where('patient_number', $generatedPatientNumber)->exists());
+        
+        do {
+            $randomNumber = str_pad(mt_rand(0, 99999999), 8, '0', STR_PAD_LEFT);
+            $generatedAppointmentNumber = 'APP-' . $randomNumber;
         } while (TimeSlot::where('appointment_number', $generatedAppointmentNumber)->exists());
-
-        return view('admin.newAppointment',
-        [
+        
+        return view('admin.newAppointment', [
             "dates" => $dates,
             "timeSlots" => $timeSlots,
-            "today" => $today, 
+            "today" => $today,
             "endDate" => $endDate,
             "treatments" => $treatments,
             "patient_number" => $generatedPatientNumber,
@@ -102,58 +185,54 @@ class AdminController extends Controller
 
     public function createReservations(Request $request, Reservation $id) {
         $today = Carbon::today()->format('Y-m-d');
-        $endDate = Carbon::today()->addMonths(2)->format('Y-m-d');
-    
+        $endDate = Carbon::today()->addMonths(1)->format('Y-m-d');
+
+        // Fetch all clinic time slots, sorted by start_time
+        $allClinicTimeSlots = ClinicHours::orderBy('start_time')->pluck('time_range');
+
+        // Fetch all appointments for the next month
         $appointments = TimeSlot::whereBetween('date', [$today, $endDate])->get();
-    
+
         $dates = [];
         $period = CarbonPeriod::create($today, $endDate);
-        $allTimeSlots = ['8AM-9AM', '9AM-10AM', '10AM-11AM', '11AM-12PM', '1PM-2PM', '2PM-3PM', '3PM-4PM'];
-        
+
         foreach ($period as $date) {
             $dateFormatted = $date->format('Y-m-d');
             $appointmentsForDate = $appointments->where('date', $dateFormatted);
-    
+            
             if ($appointmentsForDate->isNotEmpty()) {
                 $bookedTimeSlots = $appointmentsForDate->pluck('time_range')->toArray();
-                $isFullyBooked = collect($allTimeSlots)->diff($bookedTimeSlots)->isEmpty();
+                $isFullyBooked = collect($allClinicTimeSlots)->diff($bookedTimeSlots)->isEmpty();
                 $dates[$dateFormatted] = $isFullyBooked ? 'fully-booked' : 'available';
             } else {
                 $dates[$dateFormatted] = 'available';
             }
         }
-    
         
-        // Fetch available time slots for the selected date if it exists in the request
         $timeSlots = [];
-       // Check if the time slots are being populated correctly
         if ($request->has('reservation_date')) {
             $selectedDate = $request->input('reservation_date');
             $appointmentsForDate = TimeSlot::where('date', $selectedDate)->get();
-            $timeSlots = [
-                '8AM-9AM'  => ['is_occupied' => $appointmentsForDate->where('time_range', '8AM-9AM')->first()->is_occupied ?? false],
-                '9AM-10AM' => ['is_occupied' => $appointmentsForDate->where('time_range', '9AM-10AM')->first()->is_occupied ?? false],
-                '10AM-11AM'=> ['is_occupied' => $appointmentsForDate->where('time_range', '10AM-11AM')->first()->is_occupied ?? false],
-                '11AM-12PM'=> ['is_occupied' => $appointmentsForDate->where('time_range', '11AM-12PM')->first()->is_occupied ?? false],
-                '1PM-2PM'  => ['is_occupied' => $appointmentsForDate->where('time_range', '1PM-2PM')->first()->is_occupied ?? false],
-                '2PM-3PM'  => ['is_occupied' => $appointmentsForDate->where('time_range', '2PM-3PM')->first()->is_occupied ?? false],
-                '3PM-4PM'  => ['is_occupied' => $appointmentsForDate->where('time_range', '3PM-4PM')->first()->is_occupied ?? false],
-            ];
+
+            // Fetch and sort clinic time slots by start_time for the selected day
+            $clinicTimeSlots = ClinicHours::orderBy('start_time')->get();
+
+            foreach ($clinicTimeSlots as $slot) {
+                $isOccupied = $appointmentsForDate->where('time_range', $slot->time_range)->isNotEmpty();
+                $timeSlots[$slot->time_range] = ['is_occupied' => $isOccupied];
+            }
         }
 
         $treatments = Treatment::orderBy("created_at")->get();
 
-           // If new patient, generate a unique patient number
-         do {
-             $randomNumber = str_pad(mt_rand(0, 99999999), 8, '0', STR_PAD_LEFT);
-             $generatedPatientNumber = 'P-' . $randomNumber;
-         } while (Reservation::where('patient_number', $generatedPatientNumber)->exists());
-        
-
-            // Generate a unique Appointment Number
-         do {
+        do {
             $randomNumber = str_pad(mt_rand(0, 99999999), 8, '0', STR_PAD_LEFT);
-             $generatedAppointmentNumber = 'APP-' . $randomNumber;
+            $generatedPatientNumber = 'P-' . $randomNumber;
+        } while (Reservation::where('patient_number', $generatedPatientNumber)->exists());
+        
+        do {
+            $randomNumber = str_pad(mt_rand(0, 99999999), 8, '0', STR_PAD_LEFT);
+            $generatedAppointmentNumber = 'APP-' . $randomNumber;
         } while (TimeSlot::where('appointment_number', $generatedAppointmentNumber)->exists());
 
         return view('admin.addAppointment',

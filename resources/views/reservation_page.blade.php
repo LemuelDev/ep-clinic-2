@@ -12,6 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    
+     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <style>
         .glasscss{
             /* From https://css.glass */
@@ -138,11 +143,6 @@
       cursor: pointer;
     }
     </style>
-     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
 </head>
 <body>
     
@@ -152,27 +152,23 @@
      </script>
 
     <div class="w-full flex items-center justify-around max-sm:justify-between px-4 py-6" data-theme="light" id="navbar">
-        <div class="flex items-center justify-start gap-2"  data-aos="fade-up"
-        data-aos-duration="2000">
+        <div class="flex items-center justify-start gap-2"  >
             <a href="#hero" class="md:text-2xl text-md text-[#0118D8] tracking-tighter font-bold">EP DENTAL-CLINIC</a>
             <img src="{{ asset('images/logo-tooth.png') }}" alt="logo" class="h-[50px] w-[50px] p-2 rounded-full">
         </div>
-        <div class="flex items-center gap-2 justify-center text-center" data-aos="fade-up"
-        data-aos-duration="2000"> 
+        <div class="flex items-center gap-2 justify-center text-center" > 
                 <a href="/" class="md:text-xl text-md text-black transition-colors rounded-md  px-4 py-3 hover:bg-[#404fd3] hover:text-white">Homepage</a>
-                
-            
         </div>
     </div>
 
-    <section id="hero" class="w-full min-h-[80vh] " data-theme="light">
+    {{-- <section id="hero" class="w-full min-h-[80vh] " data-theme="light">
        
         <div class="flex items-center justify-center gap-4 max-lg:flex-col max-md:gap-7  px-6  md:mx-20 md:m-auto">
             <div class="flex flex-col items-center text-center pt-[5rem] justify-end   " data-aos="fade-up"
                  data-aos-duration="2000">
                 <h4 class="font-bold text-[40px] py-2 text-[#0118D8] max-sm:text-center max-sm:px-4 ">Book Your Appointment in Minutes.</h4>
                 <p class="text-xl text-center py-2 text-black">Find the perfect time for your visit and secure your spot quickly online.</p>
-                {{-- <a href="#reserve" class="bg-[#E9DFC3] hover:bg-[#eddaa7] rounded-lg outline-none  text-black px-8 py-3 text-lg mt-4">Appoint Now</a> --}}
+              
             </div>
             <div class="containerr" >
                 <div class="image-wrapper">
@@ -194,93 +190,7 @@
                 </div>
               </div>
         </div>
-    </section>
-
-    <section class="w-full min-h-[65vh] py-16" data-theme="light">
-        <div class="flex items-center justify-center flex-col  gap-6 max-w-[1050px] mx-auto py-20 max-sm:px-4">
-            <h4 class=" font-bold text-4xl py-4 text-center pt-8 text-[#0118D8]">Get Personalized Dental Insights from Our AI Assistant</h4>
-            <div class="grid gap-6 max-w-[700px] mx-auto items-center text-center p-5 rounded-lg outline-none glasscss">
-                <h4 class="py-4 text-3xl text-black">DISCLAIMER:</h4>
-               <p class="text-md">This AI assistant is designed to offer preliminary information and is not a substitute for professional dental consultation. 
-                The insights and suggestions provided are dependent on your input and may not be entirely accurate.
-                 For a comprehensive evaluation and personalized advice, always consult with a qualified dentist.</p>
-            </div>
-            <form action="{{route('patient.assess')}}" id="dentalForm" class="flex max-lg:flex-col items-around justify-center gap-4 p-4 max-w-[1000px] mx-auto" method="POST">
-                @csrf
-                @method('POST')
-                <input type="text" name="dental_condition" placeholder="Enter your dental condition" class="inputss placeholder:text-slate-500 min-w-[600px] max-sm:w-full max-lg:min-w-[400px] bg-white ">
-                <button class="bg-blue-600 hover:bg-blue-700 transition-colors px-8 py-3 text-white text-lg  font-bold rounded-lg shadow-xl outline-none">Submit</button>
-            </form>
-            <div class="rounded-xl shadow-xl mt-8 w-full lg:max-w-[1000px] mx-auto bg-white p-6" id="result">
-                <p class="text-gray-500 text-center">Your personalized dental insights will appear here after submission.</p>
-            </div>
-        </div>   
-        
-        <script>
-        const form = document.getElementById('dentalForm');
-        const dentalInput = form.querySelector('input[name="dental_condition"]');
-        const resultDiv = document.getElementById('result');
-
-        form.addEventListener('submit', async (event) => {
-            event.preventDefault(); // Prevent default form submission (page reload)
-
-            const dentalCondition = dentalInput.value.trim();
-
-            if (!dentalCondition) {
-                resultDiv.innerHTML = '<div class="p-4 text-red-600 font-semibold text-center">Please enter your dental condition before submitting.</div>';
-                return;
-            }
-
-            // Show a loading message
-            resultDiv.innerHTML = '<div class="p-4 text-blue-600 text-center font-semibold">Analyzing your symptoms...</div>';
-
-            try {
-                // Get the CSRF token from the meta tag
-                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-                const response = await fetch(form.action, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken // Laravel CSRF protection
-                    },
-                    body: JSON.stringify({ dental_condition: dentalCondition }) // Send as JSON
-                });
-
-                if (!response.ok) {
-                    // If response is not OK (e.g., 4xx or 5xx), parse error details
-                    const errorResponse = await response.json(); // Try to parse as JSON
-                    const errorMessage = errorResponse.message || 'An unexpected error occurred.';
-                    throw new Error(`HTTP error! Status: ${response.status}. Details: ${errorMessage}`);
-                }
-
-                const data = await response.json(); // Parse the successful JSON response
-
-                if (data.error) {
-                    resultDiv.innerHTML = `<div class="p-5 text-red-600 font-semibold">${data.error}</div>`;
-                } else {
-                    // Display the recommendation from Gemini
-                    resultDiv.innerHTML = `
-                        <div class="p-5 bg-white rounded-lg text-left border border-gray-200">
-                            <h5 class="font-bold text-2xl mb-3 text-[#0118D8]">AI Assistant's Insights:</h5>
-                            <p class="text-gray-800 whitespace-pre-wrap leading-relaxed">${data.recommendation}</p>
-                        </div>
-                    `;
-                }
-
-            } catch (error) {
-                console.error('Fetch error:', error);
-                resultDiv.innerHTML = `<div class="p-5 text-red-600 font-semibold">
-                                            Sorry, we could not get recommendations right now. Please try again later.
-                                            <br><small>Error: ${error.message}</small>
-                                       </div>`;
-            } finally {
-                // You can add a visual cue here to indicate loading is done, if not already handled by content replacement
-            }
-        });
-    </script>
-    </section>
-
+    </section> --}}
     
     <section id="reserve" class="min-h-[60vh] w-full lg:py-20 py-14 pt-10 bg-gray-100" data-theme="light">
             <h4 class=" font-bold text-4xl py-4 text-center pt-8 text-[#0118D8]">Make your Appointment now!</h4>
@@ -297,40 +207,33 @@
 
                         <!-- Time slots (displayed if a date is selected) -->
                         @if(request('reservation_date') && !empty($timeSlots))
-                        <div id="time-slots" class="grid gap-7 px-4">
-                            <div>
-                                <label>Select a Time Slot:</label>
-                                @foreach($timeSlots as $timeSlot => $details)
-                                <div class="flex gap-3">
-                                    <input type="radio" name="time_slot" value="{{ $timeSlot }}"
-                                    {{ $details['is_occupied'] ? 'disabled' : '' }}
-                                    onclick="setTimeSlot('{{ $timeSlot }}')">                                    
-                                    <label >{{ $timeSlot }} <span class="{{ !$details['is_occupied'] ? 'text-green-500' : 'text-red-500' }}" >{{ !$details['is_occupied'] ? 'Available' : '(Booked)' }}</span></label>
-                                </div>
-                                @endforeach
+                       <div id="time-slots" class="grid gap-4 px-4">
+                            <div class="grid grid-cols-[1fr_auto] gap-x-6 text-sm font-semibold text-gray-500 uppercase">
+                                <span>Time Slot</span>
+                                <span>Status</span>
                             </div>
+
+                            @foreach($timeSlots as $timeSlot => $details)
+                            <div class="grid grid-cols-[1fr_auto] gap-x-6 items-center">
+                                <label class="flex items-center space-x-2">
+                                    <input type="radio" name="time_slot" value="{{ $timeSlot }}"
+                                        {{ $details['is_occupied'] ? 'disabled' : '' }}
+                                        onclick="setTimeSlot('{{ $timeSlot }}')"
+                                        class="form-radio h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300">
+                                    <span>{{ $timeSlot }}</span>
+                                </label>
+                                <span class="{{ !$details['is_occupied'] ? 'text-green-500' : 'text-red-500' }} font-medium">
+                                    {{ !$details['is_occupied'] ? 'Available' : 'Booked' }}
+                                </span>
+                            </div>
+                            @endforeach
                         </div>
                         @endif
                     </div>
                 </form>
 
                 
-                <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    // Check if date is selected and form should be visible
-                    const hasDate = '{{ request("reservation_date") }}';
-                    const hasTimeSlots = {{ !empty($timeSlots) ? 'true' : 'false' }};
-                    
-                    if (hasDate && hasTimeSlots) {
-                        setTimeout(function() {
-                            document.getElementById('patient-form-section').scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'start'
-                            });
-                        }, 100);
-                    }
-                });
-            </script>
+              
 
                 @if(request('reservation_date') && !empty($timeSlots))
 
@@ -351,7 +254,7 @@
                 </div> --}}
 
                 <!-- Form for submitting the reservation -->
-                <form action="{{ route('patient.store') }}" id="new-patient-form" method="POST" class="grid justify-center items-start lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 max-w-[900px] mx-auto py-7">
+                <form action="{{ route('patient.store') }}" id="new-patient-form" method="POST" class="grid justify-center shadow-xl rounded-lg lg:px-8 px-4 items-start lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 max-w-[1000px] mx-auto py-7">
                     @csrf
                     @method('POST')
                     <!-- Hidden inputs to carry over selected date and time slot -->
@@ -439,7 +342,7 @@
 
 
                 <!-- Existing Patient Form -->
-                <form id="existing-patient-form" action="{{ route('patient.existing') }}" method="POST" class="grid justify-center items-start grid-cols-2 gap-4 max-w-[600px] mx-auto py-7" style="display: none;">
+                <form id="existing-patient-form" action="{{ route('patient.existing') }}" method="POST" class="grid justify-center shadow-xl rounded-lg lg:px-8 px-4 items-start grid-cols-2 gap-4 max-w-[700px] mx-auto py-7" style="display: none;">
                     @csrf
                     @method('POST')
                     <!-- Hidden inputs to carry over selected date and time slot -->
@@ -482,7 +385,7 @@
                 </form>
 
 
-                <p class="text-center italic text-lg text-slate-700">NOTE: After appointment, you will receive the email notification for making an appointment to our dental clinic.</p>
+                <p class="text-center italic text-lg text-slate-700 pt-7">NOTE: After appointment, you will receive the email notification for making an appointment to our dental clinic.</p>
 
                 <script>
                   function togglePatientForm() {

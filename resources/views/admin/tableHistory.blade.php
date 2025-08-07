@@ -7,7 +7,7 @@
       <th class="text-lg text-center">Patient Name</th>
       <th class="text-lg text-center">Patient Number</th>
       <th class="text-lg text-center">Total Appointments</th>
-      <th class="text-lg text-center">Action</th>
+      <th class="text-lg text-center">Action Taken</th>
     </tr>
     </thead>
     <tbody>
