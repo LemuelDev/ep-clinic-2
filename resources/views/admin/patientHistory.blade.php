@@ -5,7 +5,6 @@
     <!-- Sidebar -->
     @include('admin.sidebar')
 
-
     <!-- Main content -->
     <div class="flex-1 flex flex-col w-full">
         <!-- Navbar -->
@@ -28,6 +27,7 @@
                             @else 
                                     @if (isset($name) && $name)
                                          <h1 class=" text-xl font-bold ">({{$name}})</h1>
+                                         <a href="{{route('admin.patientDownload', $patientID)}}" class="btn btn-accent text-black">Print Patient Record</a>
                                     @endif
                                 
                             @endif

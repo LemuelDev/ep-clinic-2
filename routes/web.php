@@ -70,6 +70,9 @@ Route::get('/cancel-appointment/{id}', [ReservationController::class, 'cancelApp
 Route::post('/cancel-appointment/post/', [ReservationController::class, 'cancelApp'])->name('reservations.cancel');
 
 // admin
+
+Route::get('/admin/appointments_history/download/{id}', [AdminController::class, 'generateReport'])->name('admin.patientDownload');
+
 Route::get('/admin/appointments/pending', [AdminController::class, 'appointments'])->name('admin.appointments');
 
 Route::get('/admin/appointments/create/{id}', [AdminController::class, 'createReservations'])->name('admin.create');

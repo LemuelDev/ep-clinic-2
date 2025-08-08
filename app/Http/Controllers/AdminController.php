@@ -11,6 +11,7 @@ use App\Models\TimeSlot;
 use App\Models\Treatment;
 use App\Models\User;
 use App\Notifications\ReservationPending;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
@@ -510,8 +511,22 @@ class AdminController extends Controller
 
     $name = $id->firstname . " " . $id->middlename .  " " . $id->lastname . " " .  $id->extensionname ;
 
+    $patientID = $id->id;
 
-    return view("admin.patientHistory", compact("appointmentHistory", "name"));
+    return view("admin.patientHistory", compact("appointmentHistory", "name", "patientID"));
+}
+
+    public function generateReport(Reservation $id)
+{
+    $appointments = $id->timeSlots()
+        ->whereIn('reservation_status', ['cancelled', 'completed', 'no-show'])
+        ->orderByDesc('date')
+        ->get();
+    
+    $pdf = Pdf::loadView('reports.appointment_history', compact('appointments'));
+    
+    // Download the PDF with a specific filename
+    return $pdf->download('appointment_history_report.pdf');
 }
 
 
