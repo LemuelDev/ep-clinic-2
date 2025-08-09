@@ -1,11 +1,16 @@
 <nav class=" shadow p-4" data-theme="light">
     <div class="container mx-auto flex justify-between px-4 items-center lg:justify-end gap-4">
 
-      <button class="block lg:hidden" onclick="toggleSidebar()">
+      <div class="flex items-center gap-4">
+        <button class="block lg:hidden" onclick="toggleSidebar()">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
         </svg>
        </button>
+       <button class="btn btn-info" onclick="window.history.back()"><box-icon name='left-arrow-alt'></box-icon></button>
+      </div>
+
+       
 
        <div class="flex justify-end gap-4 items-center">
         <a href="{{route("admin.newReservation")}}" class="btn btn-primary text-white">Add Appointment</a>

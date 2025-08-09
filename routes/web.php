@@ -73,6 +73,8 @@ Route::post('/cancel-appointment/post/', [ReservationController::class, 'cancelA
 
 Route::get('/admin/appointments_history/download/{id}', [AdminController::class, 'generateReport'])->name('admin.patientDownload');
 
+Route::post('/admin/appointments_history/download/all/', [AdminController::class, 'generateClinicReport'])->name('admin.generateClinicReport');
+
 Route::get('/admin/appointments/pending', [AdminController::class, 'appointments'])->name('admin.appointments');
 
 Route::get('/admin/appointments/create/{id}', [AdminController::class, 'createReservations'])->name('admin.create');

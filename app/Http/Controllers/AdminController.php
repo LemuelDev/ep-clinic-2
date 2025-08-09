@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class AdminController extends Controller
@@ -522,11 +523,43 @@ class AdminController extends Controller
         ->whereIn('reservation_status', ['cancelled', 'completed', 'no-show'])
         ->orderByDesc('date')
         ->get();
+
+    $name = $id->firstname . " " . $id->middlename .  " " . $id->lastname . " " .  $id->extensionname;
+
+    $currentDate = Carbon::now()->format('F j, Y'); 
     
-    $pdf = Pdf::loadView('reports.appointment_history', compact('appointments'));
+    $pdf = Pdf::loadView('reports.appointment_history', compact('appointments', 'name', 'id', 'currentDate'));
+     // Generate a clean filename from the patient's name
+    $filename = Str::slug($name, '-') . '_appointment_history.pdf';
+
+    // Download the PDF with the new filename
+    return $pdf->download($filename);
+}
+
+   public function generateClinicReport(Request $request)
+{
+    // 1. Get the start and end dates from the request.
+    // If no dates are provided, default to a sensible range (e.g., last 30 days).
+    $startDate = Carbon::parse($request->input('start_date'))->startOfDay();
+    $endDate = Carbon::parse($request->input('end_date'))->endOfDay();
+
+    // 2. Query the appointments table using the whereBetween method.
+    // Make sure to query the main Appointment model, not a single patient's relationship.
+    $appointments = TimeSlot::whereBetween('date', [$startDate, $endDate])
+                               ->whereIn('reservation_status', ['cancelled', 'completed', 'no-show'])
+                               ->orderByDesc('date')
+                               ->get();
+
+    // 3. Pass the appointments and date range to the view.
+    $currentDate = Carbon::now()->format('F j, Y');
+
+    $pdf = Pdf::loadView('reports.clinic_appointment_history', compact('appointments', 'currentDate', 'startDate', 'endDate'));
     
-    // Download the PDF with a specific filename
-    return $pdf->download('appointment_history_report.pdf');
+    // 4. Create a dynamic filename for the PDF.
+    $filename = 'clinic_report_from_' . $startDate->format('Y-m-d') . '_to_' . $endDate->format('Y-m-d') . '.pdf';
+
+    // 5. Download the PDF.
+    return $pdf->download($filename);
 }
 
 

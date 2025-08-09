@@ -24,6 +24,71 @@
                                     <input type="text" placeholder="Search Name" name="search" class="px-4 py-2 rounded-lg shadow-md border border-gray-500 bg-transparent">
                                     <button class="btn btn-primary text-white">Search</button>
                                 </form>
+<button class="btn btn-accent text-black" onclick="my_modal_100.showModal()">Generate Report</button>
+
+<dialog id="my_modal_100" class="modal">
+    <div class="modal-box">
+        <form method="dialog" id="close-form">
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+        <h3 class="text-lg font-bold">Generate Clinic Report</h3>
+        <p class="py-4">Please select the date range for the report.</p>
+
+        <form action="{{route('admin.generateClinicReport')}}" method="POST">
+            @csrf
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text font-bold">Start Date</span>
+                </label>
+                <input type="date" id="start_date" name="start_date" class="input input-bordered" required>
+            </div>
+            <div class="form-control mt-4">
+                <label class="label">
+                    <span class="label-text font-bold">End Date</span>
+                </label>
+                <input type="date" id="end_date" name="end_date" class="input input-bordered" required>
+            </div>
+
+            <div class="mt-6 flex flex-wrap gap-2">
+                <button type="button" onclick="setLastWeek()" class="btn btn-outline btn-sm">Last Week</button>
+                <button type="button" onclick="setLastMonth()" class="btn btn-outline btn-sm">Last Month</button>
+                <button type="button" onclick="setLastTwoMonths()" class="btn btn-outline btn-sm">Last 2 Months</button>
+            </div>
+
+            <div class="modal-action">
+                <button type="submit" class="btn btn-primary text-white">Generate Report</button>
+            </div>
+                </form>
+            </div>
+        </dialog>
+
+            <script>
+                function setDates(startDate, endDate) {
+                    document.getElementById('start_date').value = startDate;
+                    document.getElementById('end_date').value = endDate;
+                }
+
+                function setLastWeek() {
+                    const today = new Date();
+                    const lastWeek = new Date(today);
+                    lastWeek.setDate(today.getDate() - 7);
+                    setDates(lastWeek.toISOString().split('T')[0], today.toISOString().split('T')[0]);
+                }
+
+                function setLastMonth() {
+                    const today = new Date();
+                    const lastMonth = new Date(today);
+                    lastMonth.setMonth(today.getMonth() - 1);
+                    setDates(lastMonth.toISOString().split('T')[0], today.toISOString().split('T')[0]);
+                }
+                
+                function setLastTwoMonths() {
+                    const today = new Date();
+                    const lastTwoMonths = new Date(today);
+                    lastTwoMonths.setMonth(today.getMonth() - 2);
+                    setDates(lastTwoMonths.toISOString().split('T')[0], today.toISOString().split('T')[0]);
+                }
+            </script>
                             @else 
                                     @if (isset($name) && $name)
                                          <h1 class=" text-xl font-bold ">({{$name}})</h1>
