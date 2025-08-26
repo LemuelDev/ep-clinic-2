@@ -663,6 +663,12 @@ class AdminController extends Controller
          return redirect()->route("admin.appointments")->with("success", "The appointment is successfully deleted!");
     }
 
+    public function deleteRecordAppointment (TimeSlot $id){
+        $id->delete();
+
+         return redirect()->route("admin.records")->with("success", "The appointment is successfully deleted!");
+    }
+
 
     public function profile(){
         return view("admin.profile");

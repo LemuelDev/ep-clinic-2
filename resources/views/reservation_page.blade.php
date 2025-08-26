@@ -517,7 +517,7 @@
                    data-aos-duration="2000">
                 <div class="flex items-center gap-4 justify-center flex-col border-2 border-black rounded-lg px-10 py-16">
                     <box-icon type='solid' name='phone-call' class="text-blue text-3xl"></box-icon>
-                    <h4 class="text-md">09475817672</h4>
+                    <h4 class="text-md">09455373243</h4>
                 </div>
                 <div class="flex items-center gap-4 justify-center flex-col border-2 border-black rounded-lg px-10 py-16">
                   <box-icon type='solid' name='envelope' class="text-blue text-3xl"></box-icon>
