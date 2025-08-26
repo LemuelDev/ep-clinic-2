@@ -8,7 +8,7 @@
     <link rel="icon" href="{{ asset('images/logo-tooth.png') }}" type="image/x-icon">
     <title>EP CLINIC</title>
     @vite('resources/css/app.css')
-    @vite('resources/js/lightDark.js')
+    {{-- @vite('resources/js/lightDark.js') --}}
     <style>
         *{
             font-family: "Poppins", sans-serif;
