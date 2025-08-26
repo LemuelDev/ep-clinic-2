@@ -14,6 +14,9 @@
             font-family: "Poppins", sans-serif;
             scroll-behavior: smooth;
         }
+        body {
+  overflow-x: hidden;
+}
         .image-wrapper {
       display: flex;
       justify-content: center;
@@ -141,10 +144,10 @@
        AOS.init();
      </script>
 
-    <div class="w-full flex items-center justify-around max-sm:justify-between px-4 py-6" data-theme="light" id="navbar">
+    <div class="w-full flex items-center justify-around max-sm:justify-center px-4 py-6" data-theme="light" id="navbar">
         <div class="flex items-center justify-start gap-2"  data-aos="fade-up"
         data-aos-duration="2000">
-            <a href="#hero" class="md:text-2xl text-md text-[#0118D8] tracking-tighter font-bold">EP DENTAL-CLINIC</a>
+            <a href="#hero" class="md:text-2xl  text-sm sm:text-md text-[#0118D8] tracking-tighter font-bold"><span class="max-sm:text-center">EP</span> <br class="max-sm:block hidden"> DENTAL-CLINIC</a>
             <img src="{{ asset('images/logo-tooth.png') }}" alt="logo" class="h-[50px] w-[50px] p-2 rounded-full">
         </div>
         <div class="flex items-center gap-2 justify-center text-center" data-aos="fade-up"
@@ -194,7 +197,7 @@
                 
                 <h4 class="font-bold md:text-[45px] text-4xl text-black">Your Journey to a <span class="text-[#0118D8]">Brighter</span></h4>
             </div>
-            <div class="flex items-start justify-center text-centrer md:justify-end gap-4 w-full"
+            <div class="flex items-start justify-center text-center md:justify-end gap-4 w-full"
             data-aos="fade-right"
             data-aos-duration="2000">
                 <h4 class="font-bold md:text-5xl text-4xl text-black"> and <span class="text-[#0118D8]">Healthier</span> Smile</h4>
@@ -204,15 +207,15 @@
         </div>      
     </section>
 
-    <section class="w-full min-h-[80vh] bg-gray-100" id="about"  data-theme="light">
+    <section class="w-full md:min-h-[80vh] min-h-screen max-sm:pt-10 bg-gray-100" id="about"  data-theme="light">
         <h4 class="py-8 text-center font-bold text-5xl text-[#0118D8]"
         data-aos="fade-up"
             data-aos-duration="1500">About</h4>
-        <div class="flex max-md:flex-col items-center justify-center gap-6 pt-12 lg:py-12 max-w-[1000px] mx-auto">
+        <div class="flex max-md:flex-col items-center justify-center gap-6 pt-8 lg:py-12 max-w-[1000px] mx-auto">
             <div class="md:text-start text-center px-3 md:max-w-[60%]"
             data-aos="fade-right"
             data-aos-duration="2000">
-                <h4 class="text-4xl font-bold py-4 text-[#0118D8]">Dr. Espineli-Paradeza 👋</h4>
+                <h4 class="lg:text-4xl  text-2xl font-bold py-4 text-[#0118D8]">Dr. Espineli-Paradeza 👋</h4>
                 <p class="text-lg max-md:px-4 italic text-black text-justify">"Welcome to EP-Clinic, led by Dr. Espineli-Paradeza, a dedicated dentist committed to
                  providing exceptional dental care with a gentle touch. With a passion for helping patients 
                  achieve a healthy, beautiful smile, Dr. Espineli-Paradeza combines expertise and a patient-centered 
@@ -222,7 +225,7 @@
             <div
             data-aos="fade-left"
             data-aos-duration="2000">
-                <img src="{{ asset('images/dentist.jpg') }}" alt="logo" class="h-[50%] lg:max-w-[70%] max-w-[40%] mx-auto rounded-full">
+                <img src="{{ asset('images/dentist.jpg') }}" alt="logo" class="h-[50%] lg:max-w-[70%] max-w-[40%] mx-auto py-4 rounded-full">
             </div>
         </div>  
     </section>
@@ -268,10 +271,29 @@
                 The insights and suggestions provided are dependent on your input and may not be entirely accurate.
                  For a comprehensive evaluation and personalized advice, always consult with a qualified dentist.</p>
             </div>
-            <form action="{{route('patient.assess')}}" id="dentalForm" class="flex max-lg:flex-col items-around justify-center gap-4 p-4 max-w-[1000px] mx-auto" method="POST">
+            <form action="{{route('patient.assess')}}" id="dentalForm" class="flex max-lg:flex-col items-around justify-center gap-4 p-4 max-w-[1000px] max-sm:w-full mx-auto" method="POST">
                 @csrf
                 @method('POST')
-                <input type="text" name="dental_condition" placeholder="Enter your dental condition" class="inputss placeholder:text-slate-500 min-w-[600px] max-sm:w-full max-lg:min-w-[400px] bg-white ">
+                <input
+                  type="text"
+                  name="dental_condition"
+                  placeholder="Enter your dental condition"
+                  class="
+                    w-full                 
+                    max-w-xl             
+                    lg:max-w-2xl          
+                    xl:max-w-3xl           
+                    sm:w-3/4               
+                    md:w-1/2               
+                    bg-white
+                    placeholder:text-slate-500
+                    p-2                    
+                    rounded-md             
+                    focus:outline-none     
+                    focus:ring-2          
+                    focus:ring-blue-500
+                  "
+                />
                 <button class="bg-blue-600 hover:bg-blue-700 transition-colors px-8 py-3 text-white text-lg  font-bold rounded-lg shadow-xl outline-none">Submit</button>
             </form>
             <div class="rounded-xl shadow-xl mt-8 w-full lg:max-w-[1000px] mx-auto bg-white p-6" id="result">
@@ -357,7 +379,7 @@
           <div class="flex items-center gap-6 justify-center max-md:flex-col"
           data-aos="fade-up"
                  data-aos-duration="2000">
-              <div class="flex items-center gap-4 justify-center flex-col border-2 border-black rounded-lg px-10 py-16">
+              <div class="flex items-center gap-4 justify-center flex-col border-2 border-black rounded-lg px-10 max-sm:px-16 py-16">
                   <box-icon type='solid' name='phone-call' class="text-blue text-3xl"></box-icon>
                   <h4 class="text-md">09455373243</h4>
               </div>
