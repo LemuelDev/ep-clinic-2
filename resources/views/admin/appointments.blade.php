@@ -15,16 +15,16 @@
         <main class="flex-1 p-6 " id="main-content">
             <div class="w-full ">
                 <!-- Your main content goes here -->
-                <div class="flex max-sm:flex-col justify-center max-sm:gap-5 sm:justify-between items-center">
-                    <h1 class="lg:text-3xl text-2xl font-bold ">Appointments</h1>
+                <div class="flex max-md:flex-col justify-center max-sm:gap-5 sm:justify-between items-center">
+                    <h1 class="lg:text-3xl text-2xl font-bold max-md:pb-3 ">Appointments</h1>
                     {{-- route hereee --}}
-                    <div class="flex items-center justify-center gap-4 max-sm:flex-col max-sm:pt-3">
+                    <div class="flex items-center justify-center gap-4 max-sm:flex-col max-sm:w-full max-sm:pt-3">
                       <form action="{{request()->route()->getName() === 'admin.appointments' ? route('admin.appointments') : route('admin.ongoingAppointments')}}"
                         method="GET">
-                        <input type="text" placeholder="Search Name" name="search" class="px-4 py-2 rounded-lg shadow-md border border-gray-500 bg-transparent">
-                        <button class="btn btn-primary text-white">Search</button>
+                        <input type="text" placeholder="Search Name" name="search" class="px-4 py-2 max-sm:w-full rounded-lg shadow-md border border-gray-500 bg-transparent">
+                        <button class="btn btn-primary text-white max-sm:w-full max-sm:mt-3">Search</button>
                      </form>
-                     <select name="" id="filter-appointment" class="py-2 px-4 rounded-lg border border-slate-500">
+                     <select name="" id="filter-appointment" class="py-2 px-4 rounded-lg border border-slate-500 max-sm:w-1/2">
                           <option value="{{route('admin.appointments')}}" {{request()->route()->getName() === 'admin.appointments' ? 'selected' : ''}}>Pending</option>
                           <option value="{{route('admin.ongoingAppointments')}}" {{request()->route()->getName() === 'admin.ongoingAppointments' ? 'selected' : ''}}>Ongoing</option>
                      </select>

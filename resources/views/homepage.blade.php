@@ -271,7 +271,7 @@
                 The insights and suggestions provided are dependent on your input and may not be entirely accurate.
                  For a comprehensive evaluation and personalized advice, always consult with a qualified dentist.</p>
             </div>
-            <form action="{{route('patient.assess')}}" id="dentalForm" class="flex max-lg:flex-col items-around justify-center gap-4 p-4 max-w-[1000px] max-sm:w-full mx-auto" method="POST">
+            <form action="{{route('patient.assess')}}" id="dentalForm" class="flex max-lg:flex-col items-around justify-center gap-4 p-4 w-1/2 max-sm:w-full mx-auto" method="POST">
                 @csrf
                 @method('POST')
                 <input
@@ -279,19 +279,14 @@
                   name="dental_condition"
                   placeholder="Enter your dental condition"
                   class="
-                    w-full                 
-                    max-w-xl             
-                    lg:max-w-2xl          
-                    xl:max-w-3xl           
-                    sm:w-3/4               
-                    md:w-1/2               
+                    w-full                             
                     bg-white
                     placeholder:text-slate-500
                     p-2                    
                     rounded-md             
-                    focus:outline-none     
-                    focus:ring-2          
-                    focus:ring-blue-500
+
+                    ring-2          
+                    ring-blue-500
                   "
                 />
                 <button class="bg-blue-600 hover:bg-blue-700 transition-colors px-8 py-3 text-white text-lg  font-bold rounded-lg shadow-xl outline-none">Submit</button>

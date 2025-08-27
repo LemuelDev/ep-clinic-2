@@ -553,16 +553,12 @@
     <section class="w-full min-h-[40vh]"  data-theme="light" id="services">
 
         <div class="flex justify-center gap-12 items-center px-6 py-14 max-w-[1000x] mx-auto max-md:flex-col max-md:gap-5 ">
-            <div class="lg:text-start text-center grid gap-3"
-            data-aos="fade-up"
-                   data-aos-duration="2000">
+            <div class="lg:text-start text-center grid gap-3">
                 <h4 class="text-4xl py-3 tracking-tighter font-bold text-[#0118D8]">GET IN TOUCH</h4>
                 <p class="text-lg">Feel free to message us with our provided contacts <br> for your inquiries regarding with our dental clinic!</p>
                 <a href="#navbar" tooltip="back to top" class="rounded-full p-3 cursor-pointer "><box-icon name='up-arrow-circle' type='solid' size='lg'></box-icon></a>
             </div>
-            <div class="flex items-center gap-6 justify-center max-md:flex-col"
-            data-aos="fade-up"
-                   data-aos-duration="2000">
+            <div class="flex items-center gap-6 justify-center max-md:flex-col">
                 <div class="flex items-center gap-4 justify-center flex-col border-2 border-black rounded-lg px-10 max-sm:px-16 py-16">
                     <box-icon type='solid' name='phone-call' class="text-blue text-3xl"></box-icon>
                     <h4 class="text-md">09455373243</h4>

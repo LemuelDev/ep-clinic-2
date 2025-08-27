@@ -29,7 +29,7 @@
             </div>
             
             {{-- Login section --}}
-            <div data-theme="synthwave" class="flex justify-center items-center w-1/2 max-sm:w-full">
+            <div  class="flex justify-center items-center w-1/2 max-sm:w-full bg-slate-900">
                 <div class="text-center py-6">
                     <h4 class="text-3xl font-bold text-white mb-4 tracking-wide">NEW PASSWORD</h4>
                     <p class="text-sm text-white py-2">Enter your new password.</p>

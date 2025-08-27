@@ -15,14 +15,14 @@
         <main class="flex-1 p-6 " id="main-content">
             <div class="w-full ">
                 <!-- Your main content goes here -->
-                <div class="flex max-sm:flex-col justify-center max-sm:gap-5 sm:justify-between items-center">
-                    <h1 class="lg:text-3xl text-2xl font-bold ">Treatments</h1>
+                <div class="flex max-md:flex-col justify-center max-sm:gap-5 sm:justify-between items-center">
+                    <h1 class="lg:text-3xl text-2xl font-bold max-md:pb-3 ">Treatments</h1>
                     {{-- route hereee --}}
                     <div class="flex justify-center items-center gap-4 max-sm:flex-col">
                         <form action="{{route("admin.treatments")}}"
                         method="GET">
-                        <input type="text" placeholder="Search Treatment" name="search" class="px-4 py-2 rounded-lg shadow-md border border-gray-500 bg-transparent">
-                        <button class="btn btn-primary text-white">Search</button>
+                        <input type="text" placeholder="Search Treatment" name="search" class="px-4 max-sm:w-full py-2 rounded-lg shadow-md border border-gray-500 bg-transparent">
+                        <button class="btn btn-primary text-white max-sm:w-full max-sm:mt-3">Search</button>
                         </form>
                       @if(count($treatments) > 0) 
                       <a href="{{route('treatment.add')}}" class="px-4 py-3 rounded-md outline-none text-md text-white bg-violet-600 hover:bg-violet-700">Add Treatment</a>
