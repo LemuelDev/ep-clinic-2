@@ -41,10 +41,10 @@
                         @method('POST')
                         <div class="grid">
                             <label for="email" class="text-md text-white tracking-wider">Email:</label>
-                            <input type="text" name="email" id="email" placeholder="Email" class="rounded-md px-10 py-3 bg-white hover:bg-gray-200 text-black placeholder:text-black">
+                            <input type="text" name="email" id="email" placeholder="Email" class="rounded-md px-10 py-3 w-full bg-white hover:bg-gray-200 text-black placeholder:text-black">
                         </div>
                        
-                        <button class="btn btn-primary mt-2 text-md tracking-wide  text-md">SEND</button>
+                        <button class="btn btn-primary mt-2 text-md tracking-wide  text-md w-full">SEND</button>
 
                         <div class="text-center grid pt-2">
                             <a href="{{route('login')}}" class="text-lg text-white tracking-wide hover:text-blue-500 py-1">Already have an account? Login</a>

@@ -52,17 +52,17 @@
                         @csrf
                         <div class="grid">
                             <label for="username" class="text-lg text-white tracking-wider">Username:</label>
-                            <input type="text" name="username" id="username" placeholder="Username here" class="rounded-md px-10 py-3 bg-white hover:bg-gray-200 text-black placeholder:text-slate-500">
+                            <input type="text" name="username" id="username" placeholder="Username here" class="rounded-md w-full px-10 py-3 bg-white hover:bg-gray-200 text-black placeholder:text-slate-500">
                         </div>
                         <div class="grid">
                             <label for="email" class="text-lg text-white tracking-wider">Email:</label>
-                            <input type="text" name="email" id="email" placeholder="Email here" class="rounded-md px-10 py-3 bg-white hover:bg-gray-200 text-black placeholder:text-slate-500">
+                            <input type="text" name="email" id="email" placeholder="Email here" class="rounded-md w-full px-10 py-3 bg-white hover:bg-gray-200 text-black placeholder:text-slate-500">
                         </div>
                         <div class="grid">
                             <label for="password" class="text-lg text-white tracking-wider">Password:</label>
-                            <input type="password" name="password" id="password" placeholder="Password here" class="rounded-md px-10 py-3 bg-white text-black placeholder:text-slate-500">
+                            <input type="password" name="password" id="password" placeholder="Password here" class="rounded-md w-full px-10 py-3 bg-white text-black placeholder:text-slate-500">
                         </div>
-                        <button class="btn btn-primary mt-4 text-lg tracking-wide ">SIGNUP</button>
+                        <button class="btn btn-primary mt-4 text-lg tracking-wide w-full">SIGNUP</button>
 
                         <div class="text-center grid">
                             <a href="{{route('login')}}" class="text-lg text-white tracking-wide hover:text-blue-500 py-1">Already have an account? Login</a>

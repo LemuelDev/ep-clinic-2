@@ -41,17 +41,17 @@
                         <input type="hidden" name="token_user" value="{{ $token }}">
                         <div class="grid">
                             <label for="email" class="text-md text-white tracking-wider">Email:</label>
-                            <input type="text" name="email" id="email" placeholder="Email" class="rounded-md px-10 py-3 bg-white hover:bg-gray-200 text-black placeholder:text-black">
+                            <input type="text" name="email" id="email" placeholder="Email" class="rounded-md w-full px-10 py-3 bg-white hover:bg-gray-200 text-black placeholder:text-black">
                         </div>
                         <div class="grid">
                             <label for="new-password" class="text-md text-white tracking-wider">New password:</label>
-                            <input type="password" name="new-password" id="new-password" placeholder="New password" class="rounded-md px-10 py-3 bg-white hover:bg-gray-200 text-black placeholder:text-black">
+                            <input type="password" name="new-password" id="new-password" placeholder="New password" class="rounded-md w-full px-10 py-3 bg-white hover:bg-gray-200 text-black placeholder:text-black">
                         </div>
                         <div class="grid">
-                            <label for="new-password_confirmation" class="text-md text-white tracking-wider">Confirm:</label>
+                            <label for="new-password_confirmation" class="text-md text-white tracking-wider w-full">Confirm:</label>
                             <input type="password" placeholder="Confirm new password" name="new-password_confirmation" id="new-password_confirmation" class="rounded-md px-10 py-3 bg-white  text-black hover:bg-gray-200 placeholder:text-black">
                         </div>
-                        <button class="btn btn-primary mt-4 text-md tracking-wide ">Update Password</button>
+                        <button class="btn btn-primary mt-4 text-md tracking-wide w-full ">Update Password</button>
 
                     </form>
                 </div>

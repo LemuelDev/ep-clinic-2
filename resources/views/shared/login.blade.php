@@ -157,13 +157,13 @@
                         @csrf
                         <div class="grid">
                             <label for="username" class="text-lg text-white tracking-wider">Username:</label>
-                            <input type="text" name="username" id="username" placeholder="Username" class="rounded-md px-10 py-3 bg-white hover:bg-gray-200 text-black placeholder:text-black">
+                            <input type="text" name="username" id="username" placeholder="Username" class="rounded-md px-10 py-3 w-full bg-white hover:bg-gray-200 text-black placeholder:text-black">
                         </div>
                         <div class="grid">
                             <label for="password" class="text-lg text-white tracking-wider">Password:</label>
-                            <input type="password" placeholder="Password" name="password" id="password" class="rounded-md px-10 py-3 bg-white text-black placeholder:text-black">
+                            <input type="password" placeholder="Password" name="password" id="password" class="rounded-md px-10 py-3 bg-white w-full text-black placeholder:text-black">
                         </div>
-                        <button class="btn btn-primary mt-4 text-lg tracking-wide ">LOGIN</button>
+                        <button class="btn btn-primary mt-4 text-lg tracking-wide w-full ">LOGIN</button>
 
                         <div class="text-center grid">
                             <a href="{{route('password.request')}}" class="text-lg text-white tracking-wide hover:text-blue-500 py-3">Forgot Password?</a>
