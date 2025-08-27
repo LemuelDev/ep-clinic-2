@@ -14,6 +14,9 @@
         *{
             font-family: "Poppins", sans-serif;
         }
+         body{
+          overflow-x: hidden;
+        }
     </style>
 </head>
 <body class=""> 
