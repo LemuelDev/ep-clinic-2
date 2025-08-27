@@ -150,7 +150,7 @@
             <div  class="flex justify-center items-center w-1/2 max-sm:w-full bg-slate-900">
                 <div class="text-center py-6">
                     <h4 class="text-3xl font-bold text-white mb-4 tracking-widest">LOGIN</h4>
-                    <form action="{{route('user.auth')}}" method="POST"  class="grid gap-4 items-center text-left px-3">
+                    <form action="{{route('user.auth')}}" method="POST"  class="grid gap-4 items-center text-left px-3 ">
                         @csrf
                         <div class="grid">
                             <label for="username" class="text-lg text-white tracking-wider">Username:</label>
