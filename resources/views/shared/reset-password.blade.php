@@ -33,7 +33,7 @@
                 <div class="text-center py-6">
                     <h4 class="text-3xl font-bold text-white mb-4 tracking-wide">NEW PASSWORD</h4>
                     <p class="text-sm text-white py-2">Enter your new password.</p>
-                    <form method="POST" action="{{route('password.update')}}" class="grid gap-4 items-center text-left">
+                    <form method="POST" action="{{route('password.update')}}" class="grid gap-4 items-center text-left px-3">
                         @csrf
                         <input type="hidden" name="token_user" value="{{ $token }}">
                         <div class="grid">

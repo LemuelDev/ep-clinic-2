@@ -33,7 +33,7 @@
                 <div class="text-center py-6">
                     <h4 class="text-3xl font-bold text-white mb-4 tracking-wide">FORGOT PASSWORD</h4>
                     <p class="text-md text-white py-2">An email will be sent to your account.</p>
-                    <form method="POST" action="{{route('password.email')}}" class="grid gap-4 items-center text-left pt-3">
+                    <form method="POST" action="{{route('password.email')}}" class="grid gap-4 items-center text-left pt-3 px-3">
                         @csrf
                         @method('POST')
                         <div class="grid">
