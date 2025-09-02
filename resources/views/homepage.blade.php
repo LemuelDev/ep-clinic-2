@@ -65,7 +65,6 @@
         display: flex;
         flex-direction: column;
         gap: 16px;
-        border: 2px solid black;
         max-width: 100%;
        }
 
