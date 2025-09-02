@@ -44,7 +44,7 @@
                         </script>
                         <div class="grid gap-3">
                             <label for="calendar">Select a Date:</label>
-                            <input type="date" id="calendarr" class="px-10 py-2 rounded-md shadow-lg border bg-transparent border-gray-500 " name="reservation_date" onchange="this.form.submit()" 
+                            <input type="date" id="calendarr" class="px-10 py-2 rounded-md shadow-lg border bg-transparent border-gray-500 w-full " name="reservation_date" onchange="this.form.submit()" 
                                 value="{{ request('reservation_date') }}">
                         </div>
 
@@ -87,11 +87,11 @@
                         <label for="existing-patient" class="text-lg font-medium">Existing Patient</label>
                     </div>
                 </div>
-                <!-- Form for submitting the reservation -->
+                {{-- <!-- Form for submitting the reservation -->
                 <div class="flex justify-center max-sm:flex-col items-center gap-6 mb-6 py-6">
                       <label class="text-lg" id="p-number" for="">Patient Number: <span class="text-xl font-bold text-blue-600">{{$patient_number}}</span> </label>
                       <label  class="text-lg"for="">Appointment Number: <span class="text-xl font-bold text-blue-600">{{$appointment_number}}</span> </label>
-                </div>
+                </div> --}}
 
                 <form action="{{ route('admin.store') }}" id="new-patient-form" method="POST" class="grid justify-center items-start lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 max-w-[900px] mx-auto py-7">
                     @csrf
@@ -104,55 +104,55 @@
 
                     <div class="grid">
                         <label for="firstname" >Firstname:</label>
-                        <input type="text" name="firstname" id="firstname"   class="rounded-md px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500">
+                        <input type="text" name="firstname" id="firstname"   class="rounded-md w-full px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500">
                     </div>
                     <div class="grid">
                         <label for="middlename" >Middlename:</label>
-                        <input type="text" name="middlename" id="middlename"   class="rounded-md px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500">
+                        <input type="text" name="middlename" id="middlename"   class="rounded-md w-full px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500">
                         <span class="italic text-slate-500">Optional</span>
                     </div>
                     <div class="grid">
                         <label for="lastname" >Lastname:</label>
-                        <input type="text" name="lastname" id="lastname"  class="rounded-md px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500">
+                        <input type="text" name="lastname" id="lastname"  class="rounded-md w-full px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500">
                     </div>
                     <div class="grid">
                         <label for="extension_name" >ExtensionName:</label>
-                        <input type="text" name="extension_name" id="extension_name"  class="rounded-md px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500">
+                        <input type="text" name="extension_name" id="extension_name"  class="rounded-md w-full px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500">
                         <span class="italic text-slate-500">Optional</span>
                     </div>
                     <div class="grid">
                         <label for="phone_number" >Phone Number:</label>
-                        <input type="number" name="phone_number" id="phone_number"   class="rounded-md px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500">
+                        <input type="number" name="phone_number" id="phone_number"   class="rounded-md w-full px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500">
                     </div>
                     <div class="grid">
                         <label for="email" >Email:</label>
-                        <input type="email" name="email" id="email"  class="rounded-md px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500">
+                        <input type="email" name="email" id="email"  class="rounded-md w-full px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500">
                     </div>
                      <div class="grid">
                         <label for="age" >Age:</label>
-                        <input type="age" name="age" type="number" id="age"  class="rounded-md px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500">
+                        <input type="age" name="age" type="number" id="age"  class="rounded-md w-full px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500">
                     </div>
                     <div class="grid">
                         <label for="address" >Address:</label>
-                        <input type="address" name="address"  id="address"  class="rounded-md px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500">
+                        <input type="address" name="address"  id="address"  class="rounded-md w-full px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500">
                     </div>
                     <div class="grid">
                         <label for="emergency_name" >Emergency Name:</label>
-                        <input type="text" name="emergency_name" id="emergency_name"   class="rounded-md px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500">
+                        <input type="text" name="emergency_name" id="emergency_name"   class="rounded-md w-full px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500">
                     </div>
                    
                     <div class="grid">
                         <label for="emergency_relationship" >Emergency Relationship:</label>
-                        <input type="text" name="emergency_relationship" id="emergency_relationship"   class="rounded-md px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500">
+                        <input type="text" name="emergency_relationship" id="emergency_relationship"   class="rounded-md w-full px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500">
                     </div>
                     <div class="grid">
                         <label for="emergency_contact" >Emergency Contact Number:</label>
-                        <input type="text" name="emergency_contact" id="emergency_contact"   class="rounded-md px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500">
+                        <input type="text" name="emergency_contact" id="emergency_contact"   class="rounded-md w-full px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500">
                     </div>
                    
                     <div class="grid">
                         <label for="treatment">Select Treatment:</label>
-                        <select name="treatment_choice" class="px-6 py-3 rounded-md shadow-md bg-transparent border border-gray-500">
+                        <select name="treatment_choice" class="px-6 py-3 rounded-md w-full shadow-md bg-transparent border border-gray-500">
                            @if (count($treatments) > 0)
                                @foreach ($treatments as $treatment)
                                    <option value="{{$treatment->treatment_offer}}">{{$treatment->treatment_offer}}</option>
@@ -165,7 +165,7 @@
 
                     <div class="grid">
                         <label for="medical_history">Do you have medical history?</label>
-                        <select name="medical_history" class="px-6 py-3 rounded-md shadow-md bg-transparent border border-gray-500">
+                        <select name="medical_history" class="px-6 py-3 rounded-md w-full shadow-md bg-transparent border border-gray-500">
                             <option value="Yes" >Yes</option>
                             <option value="No" >No</option>
                         </select>
@@ -173,68 +173,116 @@
 
                     <div class="grid lg:col-span-2 ">
                         <label for="medical_description">If Yes, please fill this up:</label>
-                        <input type="text" name="medical_description" placeholder="Medical History"  class="px-6 py-3 bg-transparent rounded-md shadow-md border border-gray-500">
+                        <input type="text" name="medical_description" placeholder="Medical History"  class="px-6 py-3 w-full bg-transparent rounded-md shadow-md border border-gray-500">
                     </div>
 
-                    <button type="submit" class="btn btn-primary max-w-[500px] mx-auto mt-4 lg:col-span-3 text-md text-white">Submit Appointment</button>
+                    <button type="submit" class="btn btn-primary max-w-[500px] mx-auto mt-4 lg:col-span-3 text-md text-white w-full">Submit Appointment</button>
                 </form>
 
                   <!-- Existing Patient Form -->
-                <form id="existing-patient-form" action="{{ route('admin.existing') }}" method="POST" class="grid justify-center items-start grid-cols-2 gap-4 max-w-[600px] mx-auto py-7" style="display: none;">
-                    @csrf
-                    @method('POST')
-                    <!-- Hidden inputs to carry over selected date and time slot -->
-                    <input type="hidden" name="reservation_date" value="{{ request('reservation_date') }}">
-                    <input type="hidden" id="hidden-time-slot-existing" name="time_slot" value="{{ request('time_slot') }}">
-                    <input type="hidden" name="appointment_number" value="{{ $appointment_number }}">
+                 <!-- Existing Patient Form -->
+               <form id="existing-patient-form" action="{{ route('admin.existing') }}" method="POST"
+                  class="
+                      flex flex-col
+                      lg:grid lg:grid-cols-2 lg:gap-4
+                      max-w-[700px]
+                      mx-auto py-7 px-4 lg:px-8
+                      shadow-xl rounded-lg
+                      items-start
+                  "
+                  style="display: none;"
+              >
+                  @csrf
+                  @method('POST')
+                  <input type="hidden" name="reservation_date" value="{{ request('reservation_date') }}">
+                  <input type="hidden" id="hidden-time-slot-existing" name="time_slot" value="{{ request('time_slot') }}">
+                  <input type="hidden" name="appointment_number" value="{{ $appointment_number }}">
 
-                    <div class="grid">
-                        <label for="patient_number">Patient Number:</label>
-                        <input type="text" name="patient_number" id="patient_number" class="rounded-md px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500" placeholder="Enter your Patient ID">
-                    </div>
+                  <div class="w-full mb-4">
+                      <label for="patient_number" class="block text-sm font-medium text-gray-700">Patient Number:</label>
+                      <input type="text" name="patient_number" id="patient_number"
+                          class="
+                              mt-1 block w-full
+                              px-4 py-3
+                              bg-white border border-gray-500 rounded-md
+                              hover:bg-gray-200
+                              placeholder-gray-400
+                          "
+                          placeholder="Enter your Patient ID">
+                  </div>
 
-                    <div class="grid">
-                        <label for="medical_history">Do you have medical history?</label>
-                        <select name="medical_history" class="px-6 py-3 rounded-md shadow-md bg-transparent border border-gray-500">
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                        </select>
-                    </div>
+                  <div class="w-full mb-4">
+                      <label for="medical_history" class="block text-sm font-medium text-gray-700">Do you have medical history?</label>
+                      <select name="medical_history"
+                          class="
+                              mt-1 block w-full
+                              px-4 py-3
+                              bg-transparent border border-gray-500 rounded-md
+                              shadow-md
+                          ">
+                          <option value="Yes">Yes</option>
+                          <option value="No">No</option>
+                      </select>
+                  </div>
 
-                    <div class="grid ">
-                        <label for="medical_description">If Yes, please fill this up:</label>
-                        <input type="text" name="medical_description" placeholder="Medical History" class="px-6 py-3 bg-transparent rounded-md shadow-md border border-gray-500">
-                    </div>
+                  <div class="w-full mb-4">
+                      <label for="medical_description" class="block text-sm font-medium text-gray-700">If Yes, please fill this up:</label>
+                      <input type="text" name="medical_description" placeholder="Medical History"
+                          class="
+                              mt-1 block w-full
+                              px-4 py-3
+                              bg-transparent border border-gray-500 rounded-md
+                              shadow-md
+                          ">
+                  </div>
 
-                    <div class="grid">
-                        <label for="existing_treatment">Select Treatment:</label>
-                        <select name="treatment_choice" class="px-6 py-3 w-full rounded-md shadow-md bg-transparent border border-gray-500">
+                  <div class="w-full mb-4">
+                      <label for="existing_treatment" class="block text-sm font-medium text-gray-700">Select Treatment:</label>
+                      <select name="treatment_choice"
+                          class="
+                              mt-1 block w-full
+                              px-4 py-3
+                              bg-transparent border border-gray-500 rounded-md
+                              shadow-md
+                          ">
                           @if (count($treatments) > 0)
                               @foreach ($treatments as $treatment)
                                   <option value="{{$treatment->treatment_offer}}">{{$treatment->treatment_offer}}</option>
                               @endforeach
                           @else
-                          <option value="" disabled selected>No Treatment at the moment.</option>
+                              <option value="" disabled selected>No Treatment at the moment.</option>
                           @endif
-                        </select>
-                    </div>
+                      </select>
+                  </div>
 
-                    <button type="submit" class="btn btn-primary max-w-[400px] mx-auto mt-4 col-span-2 text-md text-white">Submit Appointment</button>
-                </form>
-                <p class="text-center italic pb-3 text-md text-slate-700">NOTE: After appointment, there will be an email confirmation to make sure you are making an appointment to our dental clinic.</p>
+                  <button type="submit"
+                      class="
+                          lg:col-span-2
+                          w-full
+                          max-w-[400px]
+                          mx-auto mt-4
+                          text-md text-white
+                          bg-blue-600 hover:bg-blue-700
+                          px-4 py-3 rounded-md
+                          focus:outline-none focus:ring-2 focus:ring-blue-500
+                      ">
+                      Submit Appointment
+                  </button>
+              </form>
+                <p class="text-center italic pb-3 text-md text-slate-700 pt-3">NOTE: After appointment, there will be an email confirmation to make sure you are making an appointment to our dental clinic.</p>
                    <script>
                   function togglePatientForm() {
                       const newPatientRadio = document.getElementById('new-patient');
                       const existingPatientRadio = document.getElementById('existing-patient');
                       const newPatientForm = document.getElementById('new-patient-form');
                       const existingPatientForm = document.getElementById('existing-patient-form');
-                      const pNumber = document.getElementById('p-number');
+                    
                       if (newPatientRadio.checked) {
                           newPatientForm.style.display = 'grid';
                           existingPatientForm.style.display = 'none';
-                          pNumber.style.display = 'flex';
+                          
                       } else if (existingPatientRadio.checked) {
-                          pNumber.style.display = 'none';
+                        
                           newPatientForm.style.display = 'none';
                           existingPatientForm.style.display = 'grid';
                       }

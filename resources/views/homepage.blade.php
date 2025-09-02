@@ -63,15 +63,18 @@
 
       .image-wrapper{
         display: flex;
+        flex-direction: column;
         gap: 16px;
-      }
+        border: 2px solid black;
+        max-width: 100%;
+       }
 
       .image-wrapper img {
-        width: 28% !important;
-        height: 190px !important;
+        width: 50% !important;
+        height: 250px !important;
         clip-path: none !important;
         margin: 0 0 1rem 0 !important;
-        border-radius: 10px;
+        border-radius: 6px;
     }
 
           .image-wrapper .img1,
@@ -83,9 +86,9 @@
 
         
           .containerr{
-              max-width: 100%;
+              width: 100%;
               margin: 0;
-              padding: 0; /* Adjust container padding as needed */
+              padding: 1rem; /* Adjust container padding as needed */
           }
 
     }
@@ -172,17 +175,17 @@
                 <div class="image-wrapper">
                   <img
                     class="img1"
-                    src="/images/hero4.jpg"
+                    src="/images/pic1.jpg"
                     alt=""
                   />
                   <img
                     class="img2"
-                    src="/images/hero2.jpg"
+                    src="/images/pic6.jpg"
                     alt=""
                   />
                   <img
                     class="img3"
-                      src="/images/hero5.jpg"
+                      src="/images/pic4.jpg"
                     alt=""
                   />
                 </div>
@@ -207,28 +210,30 @@
         </div>      
     </section>
 
-    <section class="w-full md:min-h-[80vh] min-h-screen max-sm:pt-10 bg-gray-100" id="about"  data-theme="light">
-        <h4 class="py-8 text-center font-bold text-5xl text-[#0118D8]"
-        data-aos="fade-up"
+   <section class="w-full min-h-screen py-16 bg-gray-50" id="about" data-theme="light">
+    <div class="max-w-[1000px] mx-auto px-4">
+        <h4 class="text-center font-bold text-4xl text-[#0118D8] mb-12"
+            data-aos="fade-up"
             data-aos-duration="1500">About</h4>
-        <div class="flex max-md:flex-col items-center justify-center gap-6 pt-8 lg:py-12 max-w-[1000px] mx-auto">
-            <div class="md:text-start text-center px-3 md:max-w-[60%]"
-            data-aos="fade-right"
-            data-aos-duration="2000">
-                <h4 class="lg:text-4xl  text-2xl font-bold py-4 text-[#0118D8]">Dr. Espineli-Paradeza 👋</h4>
-                <p class="text-lg max-md:px-4 italic text-black text-justify">"Welcome to EP-Clinic, led by Dr. Espineli-Paradeza, a dedicated dentist committed to
-                 providing exceptional dental care with a gentle touch. With a passion for helping patients 
-                 achieve a healthy, beautiful smile, Dr. Espineli-Paradeza combines expertise and a patient-centered 
-                 approach in a comfortable, modern setting. Whether it’s routine check-ups, preventive care, or specialized treatments, 
-                 our clinic is here to support your oral health journey with professionalism and compassion."</p>
+        <div class="flex max-md:flex-col items-center justify-center gap-12 lg:gap-20">
+            <div class="md:text-start text-center md:max-w-[60%] order-2 md:order-1"
+                data-aos="fade-right"
+                data-aos-duration="2000">
+                <h4 class="lg:text-3xl text-2xl font-bold py-4 text-[#0118D8]">Dr. Ma. Elena Espineli-Paradeza 👋</h4>
+                <p class="text-lg text-black text-justify leading-relaxed">"Welcome to EP-Clinic, led by Dr. Espineli-Paradeza, a dedicated dentist committed to
+                    providing exceptional dental care with a gentle touch. With a passion for helping patients 
+                    achieve a healthy, beautiful smile, Dr. Espineli-Paradeza combines expertise and a patient-centered 
+                    approach in a comfortable, modern setting. Whether it’s routine check-ups, preventive care, or specialized treatments, 
+                    our clinic is here to support your oral health journey with professionalism and compassion."</p>
             </div>
-            <div
-            data-aos="fade-left"
-            data-aos-duration="2000">
-                <img src="{{ asset('images/dentist.jpg') }}" alt="logo" class="h-[50%] lg:max-w-[70%] max-w-[40%] mx-auto py-4 rounded-full">
+            <div class="order-1 md:order-2"
+                data-aos="fade-left"
+                data-aos-duration="2000">
+                <img src="{{ asset('images/pic7.jpg') }}" alt="Dr. Ma. Elena Espineli-Paradeza" class="w-64 h-64 md:w-80 md:h-80 mx-auto rounded-full object-cover shadow-xl">
             </div>
-        </div>  
-    </section>
+        </div>
+    </div>
+</section>
 
     <section class="w-full min-h-[60vh] py-16" id="services"  data-theme="light">
         <h4 class="py-8 text-center font-bold text-5xl text-[#0118D8] " >Services</h4>
