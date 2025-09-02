@@ -17,6 +17,12 @@
      <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <meta property="og:title" content="Espineli-Paradeza Dental Clinic">
+    <meta property="og:description" content="Your Smile, Our Expertise bringing confidence, comfort and care to every visit.">
+    <meta property="og:image" content="/images/pic1.jpg">
+    <meta property="og:url" content="https://epclinic.cloud/appointment/create">
+
     <style>
         .glasscss{
             /* From https://css.glass */

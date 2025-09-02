@@ -7,6 +7,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{ asset('images/logo-tooth.png') }}" type="image/x-icon">
     <title>EP CLINIC</title>
+
+    <meta property="og:title" content="Espineli-Paradeza Dental Clinic">
+    <meta property="og:description" content="Your Smile, Our Expertise bringing confidence, comfort and care to every visit.">
+    <meta property="og:image" content="/images/pic1.jpg">
+    <meta property="og:url" content="https://epclinic.cloud">
+
     @vite('resources/css/app.css')
     {{-- @vite('resources/js/lightDark.js') --}}
     <style>
