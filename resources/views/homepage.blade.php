@@ -69,8 +69,8 @@
        }
 
       .image-wrapper img {
-        width: 65% !important;
-        height: 250px !important;
+        width: 70% !important;
+        height: 300px !important;
         clip-path: none !important;
         margin: 0 0 1rem 0 !important;
         border-radius: 6px;
