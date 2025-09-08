@@ -297,7 +297,7 @@
                         <label for="email" >Email:</label>
                         <input type="email" name="email" id="email" value="{{old("email")}}" class="rounded-md w-full px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500">
                     </div>
-                    <div class="grid"> w-full
+                    <div class="grid">
                         <label for="age" >Age:</label>
                         <input type="age" name="age" type="number" id="age" value="{{old("age")}}" class="rounded-md w-full px-10 py-3 bg-white hover:bg-gray-200 text-black border border-gray-500">
                     </div>
