@@ -69,7 +69,7 @@ class SendAppointmentReminders extends Command
     $timeSlotsFor24hr = TimeSlot::with('reservation') // Eager load ONLY the reservation
                                   ->whereDate('date', $dateFor24hrReminder)
                                   ->where('reminder_sent_24hr', false)
-                                  ->where('reservation_status', '=', 'cancelled')
+                                  ->where('reservation_status', '=', 'ongoing')
                                   ->get();
 
     $this->info("Found " . $timeSlotsFor24hr->count() . " appointments for 24-hour reminders (for {$dateFor24hrReminder->format('Y-m-d')}).");
