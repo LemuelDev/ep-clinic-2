@@ -57,7 +57,7 @@ class AppointmentReminder extends Notification implements ShouldQueue // Impleme
                     ->line("Treatment: **{$this->timeslot->treatment_choice}")
                     ->line("Clinic Location: Rubi Street Poblacion, Candelaria, Zambales (besides Trillana Cycle Parts Store).") 
                     ->line('If you need to cancel and reschedule your appointment, please click the link under this text.')
-                    ->action('Cancel / Reschedule Appointment', route('reservations.cancelAppointment', ['id' => $this->timeslot->appointment_number]))
+                    ->action('Cancel Appointment', route('reservations.cancelAppointment', ['id' => $this->timeslot->appointment_number]))
                     ->salutation('Thank you,')
                     ->salutation('Espineli-Paradeza Dental Clinic'); 
     }
