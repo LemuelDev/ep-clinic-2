@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
     {
         // // --- FOR PRODUCTION, IT SHOULD BE LIKE THIS: ---
         $schedule->command('appointments:send-reminders')
-                 ->dailyAt('00:00')
+                 ->dailyAt('08:00')
                  ->timezone('Asia/Manila');
     }
 
