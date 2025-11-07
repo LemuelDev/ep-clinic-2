@@ -17,8 +17,10 @@ class DentalAIController extends Controller
 
         $patientInput = $validatedData['dental_condition'];
 
-        // Get Gemini API Key from .env
-        $geminiApiKey = "AIzaSyDHA0EPut8slrsdf_sSqZNtaXqdwllPmTs";
+        // Get Gemini API Key from .envs
+        // $geminiApiKey = env('GEMINI_API_KEY');
+
+        $geminiApiKey = "AIzaSyD_k3tNOJbTXDmXEvCEVreWmXW1J0dyWro";
 
         if (empty($geminiApiKey)) {
             Log::error('GEMINI_API_KEY is not set in the .env file.');
