@@ -63,7 +63,7 @@ return [
 
     'whitelist' => [],
 
-    'blacklist_file' => storage_path('app/custom_blacklist_domains.txt'),
+    'blacklist' => storage_path('app/custom_blacklist_domains.txt'),
 
     /*
     |--------------------------------------------------------------------------
