@@ -59,7 +59,10 @@ Route::post('/assess_dental_symptoms', [DentalAIController::class, 'assessSympto
 
 Route::get('/appointment/create/', [PatientController::class, 'createReservations'])->name('patient.create');
 
-Route::post('/appointment/post', [ReservationController::class, 'store'])->name('patient.store');
+Route::post('/appointment/post', [ReservationController::class, 'store'])
+    // Add the throttle middleware here
+    ->middleware('throttle:3,60') 
+    ->name('patient.store');
 
 Route::post('/appointment/post/existing', [ReservationController::class, 'existingPatient'])->name('patient.existing');
 

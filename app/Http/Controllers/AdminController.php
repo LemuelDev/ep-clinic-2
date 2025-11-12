@@ -630,6 +630,8 @@ class AdminController extends Controller
         $query->where('firstname', 'like', "%{$search}%");
     }
 
+    $query->orderBy('firstname', 'asc');
+
     $appointmentHistory = $query->paginate(5);
 
     return view("admin.patientHistory", compact("appointmentHistory"));

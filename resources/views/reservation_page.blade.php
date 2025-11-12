@@ -503,6 +503,29 @@
                       </script>
                       @endif
 
+                      @if (session()->has('throttle_error'))
+                      <dialog id="my_modal_24" class="modal">
+                        <div class="modal-box">
+                          <h3 class="text-xl font-bold">Failed!</h3>
+                          <p class="py-4 pt-8 text-center text-red-600">{{session('throttle_error')}}</p>
+                          <div class="modal-action">
+                            <form method="dialog">
+                              <!-- if there is a button in form, it will close the modal -->
+                              <button class="btn">Close</button>
+                            </form>
+                          </div>
+                        </div>
+                        </dialog>
+              
+                         <!-- JavaScript to automatically open modal -->
+                      <script>
+                          // Automatically open modal on page load
+                          window.addEventListener('DOMContentLoaded', (event) => {
+                          document.getElementById('my_modal_24').showModal();
+                          });
+                      </script>
+                      @endif
+
                       
                       @if (session()->has('success'))
                       <dialog id="my_modal_24" class="modal">

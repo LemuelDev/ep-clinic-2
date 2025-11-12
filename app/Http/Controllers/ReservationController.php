@@ -51,55 +51,24 @@ class ReservationController extends Controller
             
 
 
-            $app_number = TimeSlot::where('appointment_number', $validation["appointment_number"])->first();
-            $p_number = Reservation::where("patient_number", $validation["patient_number"])->first();
+            // $app_number = TimeSlot::where('appointment_number', $validation["appointment_number"])->first();
+            // $p_number = Reservation::where("patient_number", $validation["patient_number"])->first();
 
-            if ($app_number){
-                return redirect()->back()->with("failed", "The Appointment Number is already been taken");
-            }
+            // if ($app_number){
+            //     return redirect()->back()->with("failed", "The Appointment Number is already been taken");
+            // }
 
-            if ($p_number){
-                return redirect()->back()->with("failed", "The Patient Number is already been taken");
-            }
+            // if ($p_number){
+            //     return redirect()->back()->with("failed", "The Patient Number is already been taken");
+            // }
 
-           // Check for existing patient by name, email, or phone number
-            $existing_patient = null;
-            $conflict_type = '';
-
-            // Check by name first
-            $p_name = Reservation::where("firstname", $validation["firstname"])
-                ->where("lastname", $validation["lastname"])
-                ->first();
-
-            if ($p_name) {
-                $existing_patient = $p_name;
-                $conflict_type = 'name';
-            }
-
-            // Check by email if no name conflict found
-            if (!$existing_patient) {
-                $email = Reservation::where("email", $validation["email"])->first();
-                if ($email) {
-                    $existing_patient = $email;
-                    $conflict_type = 'email';
-                }
-            }
-
-            // Check by phone number if no previous conflicts found
-            if (!$existing_patient) {
-                $phone_number = Reservation::where("phone_number", $validation["phone_number"])->first();
-                if ($phone_number) {
-                    $existing_patient = $phone_number;
-                    $conflict_type = 'phone number';
-                }
-            }
+             $existing_patient = Reservation::where("email", $validation["email"])->first();
 
             // If any existing patient found, return appropriate error message
             if ($existing_patient) {
-                $patient_number = $existing_patient->patient_number;
 
                 Notification::route('mail', $existing_patient->email)->notify(new PatientNumberNotif($existing_patient));
-                $message = "We identified that you already have a record in our appointment system based on your {$conflict_type}. Please check your registered email for your Patient Number and use the 'Existing Patient' option to make your appointment.";
+                $message = "We identified that you already have a record in our appointment system based on your email address. Please check your registered email for your Patient Number and use the 'Existing Patient' option to make your appointment.";
                 
                 return redirect()->back()->with("failed", $message);
             }
